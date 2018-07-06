@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TotalStaffingSolutions.Models.Employee>
+
+<div class="row small-spacing">
+    <div class="col-xs-12">
+        <div class="box-content">
+
+
+            <!-- /.box-title -->
+            <!-- /.dropdown js__dropdown -->
+            <div class="table-responsive">
+                @*<a href="/Manage/AddTimeSheet" class="btn btn-success btn-sm pull-right">Add New Time Sheet</a><br />*@
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @*<th><input type="checkbox" id="rememberme"></th>*@
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Employee Type</th>
+                            <th>Tags</th>
+                            <th>Last Seen</th>
+                            <th>Edit</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.First_name @item.Middle_name @item.Last_name</td>
+                                <td>@item.Employee_id</td>
+                                <td>@item.EmployeeType</td>
+                                <td></td>
+                                <td></td>
+                                <td><a class="btn btn-success btn-sm" href="/TSSManage/UpdateEmployee/@item.Id"><span class="fa fa-edit"></span></a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- /.box-content -->
+    </div>
+    <!-- /.col-xs-12 -->
+</div>
+<!-- /.row small-spacing -->

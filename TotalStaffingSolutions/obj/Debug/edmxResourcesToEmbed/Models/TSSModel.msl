@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TotalStaffingSolutionsModelStoreContainer" CdmEntityContainer="TSS_Sql_Entities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="DisplayPicture" ColumnName="DisplayPicture" />
+          <ScalarProperty Name="ProfileCreatedAt" ColumnName="ProfileCreatedAt" />
+          <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Branches">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Branch">
+        <MappingFragment StoreEntitySet="Branches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Organization_id" ColumnName="Organization_id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Branch_Manager" ColumnName="Branch_Manager" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Company">
+        <MappingFragment StoreEntitySet="Companies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Organization_id" ColumnName="Organization_id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip_code" ColumnName="Zip_code" />
+          <ScalarProperty Name="Po_number" ColumnName="Po_number" />
+          <ScalarProperty Name="Client_number" ColumnName="Client_number" />
+          <ScalarProperty Name="Hour_type" ColumnName="Hour_type" />
+          <ScalarProperty Name="Extra_note" ColumnName="Extra_note" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Company_Emails">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Company_Emails">
+        <MappingFragment StoreEntitySet="Company_Emails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Company_id" ColumnName="Company_id" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContactConfirmations">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.ContactConfirmation">
+        <MappingFragment StoreEntitySet="ContactConfirmation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+          <ScalarProperty Name="ConfirmationStatusId" ColumnName="ConfirmationStatusId" />
+          <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+          <ScalarProperty Name="TokenCreationTime" ColumnName="TokenCreationTime" />
+          <ScalarProperty Name="TokenExpiryTime" ColumnName="TokenExpiryTime" />
+          <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContactConfirmationStatus">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.ContactConfirmationStatu">
+        <MappingFragment StoreEntitySet="ContactConfirmationStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerContacts">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.CustomerContact">
+        <MappingFragment StoreEntitySet="CustomerContacts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Contact_name" ColumnName="Contact_name" />
+          <ScalarProperty Name="Contact_code" ColumnName="Contact_code" />
+          <ScalarProperty Name="Contact_description" ColumnName="Contact_description" />
+          <ScalarProperty Name="Contact_key" ColumnName="Contact_key" />
+          <ScalarProperty Name="Customer_key" ColumnName="Customer_key" />
+          <ScalarProperty Name="Email_id" ColumnName="Email_id" />
+          <ScalarProperty Name="Phone_1" ColumnName="Phone_1" />
+          <ScalarProperty Name="Phone_2" ColumnName="Phone_2" />
+          <ScalarProperty Name="Phone_3" ColumnName="Phone_3" />
+          <ScalarProperty Name="Contact_notes" ColumnName="Contact_notes" />
+          <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+          <ScalarProperty Name="ENTITY_ADDED_AT" ColumnName="ENTITY_ADDED_AT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="CustomerAdded" ColumnName="CustomerAdded" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="ENTITY_ADDED_AT" ColumnName="ENTITY_ADDED_AT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Employee">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+          <ScalarProperty Name="First_name" ColumnName="First_name" />
+          <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+          <ScalarProperty Name="Middle_name" ColumnName="Middle_name" />
+          <ScalarProperty Name="Organization_id" ColumnName="Organization_id" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Internal_employee" ColumnName="Internal_employee" />
+          <ScalarProperty Name="Anniversary_date" ColumnName="Anniversary_date" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Marital_status" ColumnName="Marital_status" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+          <ScalarProperty Name="Hire" ColumnName="Hire" />
+          <ScalarProperty Name="ReHire" ColumnName="ReHire" />
+          <ScalarProperty Name="ENTITY_ADDED_AT" ColumnName="ENTITY_ADDED_AT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organizations">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Organization">
+        <MappingFragment StoreEntitySet="Organizations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Btate" ColumnName="Btate" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="Currency" ColumnName="Currency" />
+          <ScalarProperty Name="Payroll_email" ColumnName="Payroll_email" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+          <ScalarProperty Name="Domain" ColumnName="Domain" />
+          <ScalarProperty Name="Timezone" ColumnName="Timezone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timesheet_details">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Timesheet_details">
+        <MappingFragment StoreEntitySet="Timesheet_details">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Timesheet_id" ColumnName="Timesheet_id" />
+          <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timesheet_summaries">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Timesheet_summaries">
+        <MappingFragment StoreEntitySet="Timesheet_summaries">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Timesheet_id" ColumnName="Timesheet_id" />
+          <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="Enitial" ColumnName="Enitial" />
+          <ScalarProperty Name="Total_hours" ColumnName="Total_hours" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+          <ScalarProperty Name="Rating_by_client" ColumnName="Rating_by_client" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timesheets">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Timesheet">
+        <MappingFragment StoreEntitySet="Timesheets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+          <ScalarProperty Name="Organization_id" ColumnName="Organization_id" />
+          <ScalarProperty Name="Start_date" ColumnName="Start_date" />
+          <ScalarProperty Name="End_date" ColumnName="End_date" />
+          <ScalarProperty Name="Total_employees" ColumnName="Total_employees" />
+          <ScalarProperty Name="Total_hours" ColumnName="Total_hours" />
+          <ScalarProperty Name="Submit_by_client" ColumnName="Submit_by_client" />
+          <ScalarProperty Name="Uuid" ColumnName="Uuid" />
+          <ScalarProperty Name="Signature" ColumnName="Signature" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Po_number" ColumnName="Po_number" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
+          <ScalarProperty Name="For_internal_employee" ColumnName="For_internal_employee" />
+          <ScalarProperty Name="Status_id" ColumnName="Status_id" />
+          <ScalarProperty Name="Customer_Id_Generic" ColumnName="Customer_Id_Generic" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeSheetStatus">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.TimeSheetStatu">
+        <MappingFragment StoreEntitySet="TimeSheetStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Branches">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.User_Branches">
+        <MappingFragment StoreEntitySet="User_Branches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="First_name" ColumnName="First_name" />
+          <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+          <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Encrypted_password" ColumnName="Encrypted_password" />
+          <ScalarProperty Name="Reset_password_token" ColumnName="Reset_password_token" />
+          <ScalarProperty Name="Reset_password_sent_at" ColumnName="Reset_password_sent_at" />
+          <ScalarProperty Name="Remember_created_at" ColumnName="Remember_created_at" />
+          <ScalarProperty Name="Sign_in_count" ColumnName="Sign_in_count" />
+          <ScalarProperty Name="Current_sign_in_at" ColumnName="Current_sign_in_at" />
+          <ScalarProperty Name="Last_sign_in_at" ColumnName="Last_sign_in_at" />
+          <ScalarProperty Name="Current_sign_in_ip" ColumnName="Current_sign_in_ip" />
+          <ScalarProperty Name="Last_sign_in_ip" ColumnName="Last_sign_in_ip" />
+          <ScalarProperty Name="Invitation_token" ColumnName="Invitation_token" />
+          <ScalarProperty Name="Invitation_created_at" ColumnName="Invitation_created_at" />
+          <ScalarProperty Name="Invitation_sent_at" ColumnName="Invitation_sent_at" />
+          <ScalarProperty Name="Invitation_accepted_at" ColumnName="Invitation_accepted_at" />
+          <ScalarProperty Name="Invitation_limit" ColumnName="Invitation_limit" />
+          <ScalarProperty Name="Invited_by_id" ColumnName="Invited_by_id" />
+          <ScalarProperty Name="Invited_by_type" ColumnName="Invited_by_type" />
+          <ScalarProperty Name="Invitations_count" ColumnName="Invitations_count" />
+          <ScalarProperty Name="Internal_user" ColumnName="Internal_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AggregatedCounters">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.AggregatedCounter">
+        <MappingFragment StoreEntitySet="AggregatedCounter">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Counters">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Counter">
+        <MappingFragment StoreEntitySet="Counter">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hashes">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Hash">
+        <MappingFragment StoreEntitySet="Hash">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Field" ColumnName="Field" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Job">
+        <MappingFragment StoreEntitySet="Job">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="InvocationData" ColumnName="InvocationData" />
+          <ScalarProperty Name="Arguments" ColumnName="Arguments" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobParameters">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.JobParameter">
+        <MappingFragment StoreEntitySet="JobParameter">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobQueues">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.JobQueue">
+        <MappingFragment StoreEntitySet="JobQueue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="Queue" ColumnName="Queue" />
+          <ScalarProperty Name="FetchedAt" ColumnName="FetchedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lists">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.List">
+        <MappingFragment StoreEntitySet="List">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schemata">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Schema">
+        <MappingFragment StoreEntitySet="Schema">
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servers">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Server">
+        <MappingFragment StoreEntitySet="Server">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="LastHeartbeat" ColumnName="LastHeartbeat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sets">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Set">
+        <MappingFragment StoreEntitySet="Set">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="States">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.State">
+        <MappingFragment StoreEntitySet="State">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="TotalStaffingSolutionsModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

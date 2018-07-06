@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+@{
+    Layout = null;
+}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Total Staffing Solutions | Dashboard</title>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="/assets/styles/style.min.css">
+
+    <!-- mCustomScrollbar -->
+    <link rel="stylesheet" href="/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+
+    <!-- Waves Effect -->
+    <link rel="stylesheet" href="/assets/plugin/waves/waves.min.css">
+
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="/assets/plugin/sweet-alert/sweetalert.css">
+
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="/assets/plugin/datatables/media/css/jquery.dataTables.min.css">
+
+    <!-- Color Picker -->
+    <link rel="stylesheet" href="/assets/color-switcher/color-switcher.min.css">
+</head>
+
+<body>
+    <div class="main-menu">
+        <header class="header">
+            <a href="index.html" class="logo"><img src="/assets/logo-w.png"></a>
+
+            <!-- /.user -->
+        </header>
+        <!-- /.header -->
+        <div class="content">
+
+            <div class="navigation">
+
+                <!-- /.title -->
+                <ul class="menu js__accordion">
+                    <li class="current active">
+                        <a class="waves-effect" href="/TSSManage/Dashboard"><i class="menu-icon fa fa-home"></i><span>Dashboard</span></a>
+                    </li>
+                    <h5 class="title">Manage Timesheets</h5>
+                    <li>
+                        <a class="waves-effect" href="/TSSManage/AllClients"><i class="menu-icon fa fa-user"></i><span>All Clients</span></a>
+                        <!-- <ul class="sub-menu js__content"> -->
+                        <!-- <li><a href="icons-font-awesome-icons.html">Font Awesome</a></li> -->
+                        <!-- <li><a href="icons-fontello.html">Fontello</a></li> -->
+                        <!-- <li><a href="icons-material-icons.html">Material Design Icons</a></li> -->
+                        <!-- <li><a href="icons-material-design-iconic.html">Material Design Iconic Font</a></li> -->
+                        <!-- <li><a href="icons-themify-icons.html">Themify Icons</a></li> -->
+                        <!-- </ul> -->
+                        <!-- /.sub-menu js__content -->
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="/TSSManage/Branches"><i class="menu-icon fa fa-adjust"></i><span>All Branches</span></a>
+                        <!-- <ul class="sub-menu js__content"> -->
+                        <!-- <li><a href="ui-buttons.html">Buttons</a></li> -->
+                        <!-- <li><a href="ui-cards.html">Cards</a></li> -->
+                        <!-- <li><a href="ui-checkbox-radio.html">Checkboxs-Radios</a></li> -->
+                        <!-- <li><a href="ui-components.html">Components</a></li> -->
+                        <!-- <li><a href="ui-draggable-cards.html">Draggable Cards</a></li> -->
+                        <!-- <li><a href="ui-modals.html">Modals</a></li> -->
+                        <!-- <li><a href="ui-notification.html">Notification</a></li> -->
+                        <!-- <li><a href="ui-range-slider.html">Range Slider</a></li> -->
+                        <!-- <li><a href="ui-sweetalert.html">Sweet Alert</a></li> -->
+                        <!-- <li><a href="ui-treeview.html">Tree view</a></li> -->
+                        <!-- <li><a href="ui-typography.html">Typography</a></li> -->
+                        <!-- </ul> -->
+                        <!-- /.sub-menu js__content -->
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="/TSSManage/AllEmployees"><i class="menu-icon fa fa-user-plus"></i><span>All Employees</span></a>
+                    </li>
+                </ul>
+                <!-- /.menu js__accordion -->
+                <!-- /.title -->
+                <ul class="menu js__accordion">
+                    <li>
+                        <a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-bar-chart"></i><span>Tracking</span><span class="menu-arrow fa fa-angle-down"></span></a>
+                        <!-- <ul class="sub-menu js__content"> -->
+                        <!-- <li><a href="chart-3d.html">3D Charts</a></li> -->
+                        <!-- <li><a href="chart-chartist.html">Chartist Charts</a></li> -->
+                        <!-- <li><a href="chart-chartjs.html">Chartjs Chart</a></li> -->
+                        <!-- <li><a href="chart-dynamic.html">Dynamic Chart</a></li> -->
+                        <!-- <li><a href="chart-flot.html">Flot Chart</a></li> -->
+                        <!-- <li><a href="chart-knob.html">Knob Chart</a></li> -->
+                        <!-- <li><a href="chart-morris.html">Morris Chart</a></li> -->
+                        <!-- <li><a href="chart-sparkline.html">Sparkline Chart</a></li> -->
+                        <!-- <li><a href="chart-other.html">Other Chart</a></li> -->
+                        <!-- </ul> -->
+                        <!-- /.sub-menu js__content -->
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="calendar.html"><i class="menu-icon fa fa-calendar"></i><span>Weekly Reports</span></a>
+                    </li>
+
+                </ul>
+                <!-- /.menu js__accordion -->
+                <!-- /.title -->
+                <!-- /.menu js__accordion -->
+            </div>
+            <!-- /.navigation -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.main-menu -->
+
+    <div class="fixed-navbar">
+        <div class="pull-left">
+            <button type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
+            <h1 class="page-title">Dashboard</h1>
+            <!-- /.page-title -->
+        </div>
+        <!-- /.pull-left -->
+        <div class="pull-right">
+            <div class="ico-item">
+                <a href="#" class="ico-item fa fa-search js__toggle_open" data-target="#searchform-header"></a>
+                <form action="#" id="searchform-header" class="searchform js__toggle"><input type="search" placeholder="Search..." class="input-search"><button class="fa fa-search button-search" type="submit"></button></form>
+                <!-- /.searchform -->
+            </div>
+            <!-- /.ico-item -->
+            <div class="ico-item fa fa-arrows-alt js__full_screen"></div>
+            <!-- /.ico-item fa fa-fa-arrows-alt -->
+            <!-- /.ico-item -->
+
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+            @Html.AntiForgeryToken()
+
+
+            <a href="javascript:document.getElementById('logoutForm').submit()" class="ico-item fa fa-power-off js__logout"></a>
+        }
+        </div>
+        <!-- /.pull-right -->
+    </div>
+    <!-- /.fixed-navbar -->
+
+    <div id="notification-popup" class="notice-popup js__toggle" data-space="75">
+        <h2 class="popup-title">Your Notifications</h2>
+        <!-- /.popup-title -->
+        <div class="content">
+            <ul class="notice-list">
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">John Doe</span>
+                        <span class="desc">Like your post: “Contact Form 7 Multi-Step”</span>
+                        <span class="time">10 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">Anna William</span>
+                        <span class="desc">Like your post: “Facebook Messenger”</span>
+                        <span class="time">15 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar bg-warning"><i class="fa fa-warning"></i></span>
+                        <span class="name">Update Status</span>
+                        <span class="desc">Failed to get available update data. To ensure the please contact us.</span>
+                        <span class="time">30 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/128x128" alt=""></span>
+                        <span class="name">Jennifer</span>
+                        <span class="desc">Like your post: “Contact Form 7 Multi-Step”</span>
+                        <span class="time">45 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">Michael Zenaty</span>
+                        <span class="desc">Like your post: “Contact Form 7 Multi-Step”</span>
+                        <span class="time">50 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">Simon</span>
+                        <span class="desc">Like your post: “Facebook Messenger”</span>
+                        <span class="time">1 hour</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar bg-violet"><i class="fa fa-flag"></i></span>
+                        <span class="name">Account Contact Change</span>
+                        <span class="desc">A contact detail associated with your account has been changed.</span>
+                        <span class="time">2 hours</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">Helen 987</span>
+                        <span class="desc">Like your post: “Facebook Messenger”</span>
+                        <span class="time">Yesterday</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/128x128" alt=""></span>
+                        <span class="name">Denise Jenny</span>
+                        <span class="desc">Like your post: “Contact Form 7 Multi-Step”</span>
+                        <span class="time">Oct, 28</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">Thomas William</span>
+                        <span class="desc">Like your post: “Facebook Messenger”</span>
+                        <span class="time">Oct, 27</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.notice-list -->
+            <a href="#" class="notice-read-more">See more messages <i class="fa fa-angle-down"></i></a>
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /#notification-popup -->
+
+    <div id="message-popup" class="notice-popup js__toggle" data-space="75">
+        <h2 class="popup-title">Recent Messages<a href="#" class="pull-right text-danger">New message</a></h2>
+        <!-- /.popup-title -->
+        <div class="content">
+            <ul class="notice-list">
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">John Doe</span>
+                        <span class="desc">Amet odio neque nobis consequuntur consequatur a quae, impedit facere repellat voluptates.</span>
+                        <span class="time">10 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">Harry Halen</span>
+                        <span class="desc">Amet odio neque nobis consequuntur consequatur a quae, impedit facere repellat voluptates.</span>
+                        <span class="time">15 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">Thomas Taylor</span>
+                        <span class="desc">Amet odio neque nobis consequuntur consequatur a quae, impedit facere repellat voluptates.</span>
+                        <span class="time">30 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/128x128" alt=""></span>
+                        <span class="name">Jennifer</span>
+                        <span class="desc">Amet odio neque nobis consequuntur consequatur a quae, impedit facere repellat voluptates.</span>
+                        <span class="time">45 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/80x80" alt=""></span>
+                        <span class="name">Helen Candy</span>
+                        <span class="desc">Amet odio neque nobis consequuntur consequatur a quae, impedit facere repellat voluptates.</span>
+                        <span class="time">45 min</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/128x128" alt=""></span>
+                        <span class="name">Anna Cavan</span>
+                        <span class="desc">Amet odio neque nobis consequuntur consequatur a quae, impedit facere repellat voluptates.</span>
+                        <span class="time">1 hour ago</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar bg-success"><i class="fa fa-user"></i></span>
+                        <span class="name">Jenny Betty</span>
+                        <span class="desc">Amet odio neque nobis consequuntur consequatur a quae, impedit facere repellat voluptates.</span>
+                        <span class="time">1 day ago</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img src="http://placehold.it/128x128" alt=""></span>
+                        <span class="name">Denise Peterson</span>
+                        <span class="desc">Amet odio neque nobis consequuntur consequatur a quae, impedit facere repellat voluptates.</span>
+                        <span class="time">1 year ago</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.notice-list -->
+            <a href="#" class="notice-read-more">See more messages <i class="fa fa-angle-down"></i></a>
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /#message-popup -->
+    <!-- #color-switcher -->
+
+    <div id="wrapper">
+        <div class="main-content">
+            @RenderBody()
+            <footer class="footer">
+                <ul class="list-inline">
+                    <li>Total Staffing Solutions © 2018.</li>
+
+                </ul>
+            </footer>
+        </div>
+        <!-- /.main-content -->
+    </div><!--/#wrapper -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="/assets/script/html5shiv.min.js"></script>
+        <script src="/assets/script/respond.min.js"></script>
+    <![Endif]-->
+    <!--
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    @*<script src="/assets/scripts/jquery.min.js"></script>*@
+    <script src="/assets/scripts/modernizr.min.js"></script>
+    <script src="/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/assets/plugin/nprogress/nprogress.js"></script>
+    <script src="/assets/plugin/sweet-alert/sweetalert.min.js"></script>
+    <script src="/assets/plugin/waves/waves.min.js"></script>
+    <!-- Full Screen Plugin -->
+    <script src="/assets/plugin/fullscreen/jquery.fullscreen-min.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
+    <script src="/assets/plugin/editable-table/mindmup-editabletable.js"></script>
+    <script src="/assets/scripts/datatables.demo.min.js"></script>
+
+    <script src="/assets/scripts/main.min.js"></script>
+    <script src="/assets/color-switcher/color-switcher.min.js"></script>
+</body>
+</html>

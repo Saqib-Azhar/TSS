@@ -1,0 +1,386 @@
+﻿@using TotalStaffingSolutions.Models
+@model TotalStaffingSolutions.Models.TimeSheetTuple
+@{
+    ViewBag.Title = "Time Sheet Details";
+    int counter = 0;
+    int HoursCounter = 0;
+}
+
+<script src="~/assets/scripts/jquery.min.js"></script>
+
+<div class="row small-spacing">
+    <div class="col-xs-12">
+        <div class="box-content">
+            <div class="row new-main-invoice">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 create-time-text">
+                    <img alt="logo" src="../assets/logo-w.png">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="new-invoice-top2">
+                        <div class="create-time-logo2">
+                            <div><b>@Model.TimeSheetGeneralDetails.Customer.Name</b><br>@Model.TimeSheetGeneralDetails.Customer.Address1, @Model.TimeSheetGeneralDetails.Customer.Address2<br>@Model.TimeSheetGeneralDetails.Customer.City @Model.TimeSheetGeneralDetails.Customer.State, @Model.TimeSheetGeneralDetails.Customer.ZipCode</div><br>
+                            <div><span class="invoice-top-new-tel">PH:</span> @Model.TimeSheetGeneralDetails.Customer.PhoneNumber<br>Week Ending:</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="new-invoice-top">
+                        <div class="create-time-logo">
+                            <div> @Convert.ToDateTime(Model.TimeSheetGeneralDetails.End_date).ToString("dd/MMM/yyyy")<br><button type="button" class="btn btn-success btn-xs waves-effect waves-light">Download</button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <br /><br />
+
+            </div>
+            <div class="table-responsive" data-pattern="priority-columns">
+                <table id="tech-companies-1" class="table table-small-font table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Emp #</th>
+                            <th data-priority="1">RT</th>
+                            @for (int i = 0; i < 7; i++)
+                            {
+                                DateTime input = Convert.ToDateTime(Model.TimeSheetGeneralDetails.End_date);
+                                input = input.AddDays(-7);
+                                int delta = DayOfWeek.Monday - input.DayOfWeek;
+                                DateTime monday = input.AddDays(delta + i);
+                                <th data-priority="@i" style="text-align:center!important">@monday.ToString("ddd") <br /><span id='date_@i'>@monday.ToString("MM/dd")</span></th>
+                            }
+                            <th data-priority="6">Total</th>
+                            <th data-priority="6">Rate Performance</th>
+                            <th data-priority="6">Initial Here</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int employeeCounter = 0;
+                            foreach (var item in Model.TimeSheetSummary)
+                            {
+                                employeeCounter++;
+                                counter++;
+                                <tr>
+                                    <td><input type="text" value="@item.Employee_id" hidden id="EmployeeId_@employeeCounter">@item.Employee.Last_name</td>
+                                    <td>@item.Employee.First_name</td>
+                                    <td>@item.Employee.User_id</td>
+                                    <td><input type="text" value="@item.Rate" hidden id="EmployeeRate_@employeeCounter">@item.Rate</td>
+                                    @{
+                                        var Detailslist = Model.TimeSheetDetails.Where(s => s.Employee_id == item.Employee_id).ToList();
+                                        int hourCounter = 0;
+                                        foreach (var itemDetail in Detailslist)
+                                        {
+                                            hourCounter++;
+                                            string thisId = "EmployeeId_" + employeeCounter + "_Day_" + hourCounter;
+                                            HoursCounter = HoursCounter + Convert.ToInt32(itemDetail.Hours);
+                                            <td><input type="text" class="form-control new-form-control" placeholder="@itemDetail.Hours" value="@itemDetail.Hours" id="@thisId" alt="@itemDetail.Id"></td>
+                                        }
+                                    }
+                                    <td><input type="text" class="form-control new-form-control" placeholder="@item.Total_hours" value="@item.Total_hours" disabled id="EmployeeTotalHours_@employeeCounter"></td>
+                                    <td>
+                                        <div class="form-group margin-bottom-20">
+
+
+                                            @{
+                                                List<SelectListItem> listItems = new List<SelectListItem>();
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "0",
+                                                    Value = "0",
+                                                    Selected = item.Rating_by_client == 0 ? true : false
+                                                });
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "1",
+                                                    Value = "1",
+                                                    Selected = item.Rating_by_client == 1 ? true : false
+                                                });
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "2",
+                                                    Value = "2",
+                                                    Selected = item.Rating_by_client == 2 ? true : false
+                                                });
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "3",
+                                                    Value = "3",
+                                                    Selected = item.Rating_by_client == 3 ? true : false
+                                                });
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "4",
+                                                    Value = "4",
+                                                    Selected = item.Rating_by_client == 4 ? true : false
+                                                });
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "5",
+                                                    Value = "5",
+                                                    Selected = item.Rating_by_client == 5 ? true : false
+                                                });
+                                            }
+
+                                            @Html.DropDownListFor(model => item.Rating_by_client, listItems, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "Rating_by_client_" + counter, @alt= item.Id })
+
+                                        </div>
+                                    </td>
+                                    <td><input type="text" class="form-control new-form-control" placeholder="@item.Enitial" value="@item.Enitial" id="EmployeeEnitial_@employeeCounter"></td>
+
+                                </tr>
+                                                }
+
+
+                        }
+
+                        <tr>
+                            <th colspan="4">Total Hours</th>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="MondayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="TuesdayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="WednesdayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="ThursdayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="FridayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="SaturdayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="SundayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" id="EmployeesTotalHours" value="0" placeholder="0" disabled></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th colspan="4">Numbers of People</th>
+                            @*<td></td>*@
+                            <td><input type="text" id="MondayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="TuesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="WednesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="ThursdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="FridayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="SaturdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="SundayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" id="TotalEmployees" placeholder="1" value="1" disabled></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="new-forms-buttons">
+                <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Save As draft</button>
+                <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="UpdateTimeSheet()">Submit</button>
+            </div>
+            <div class="bottom-text">
+                <input type="text" id="signatures" />
+                <h4>Authorized Signature<i></i></h4>
+                <p>Please email to payroll@4tssi.com on Monday's before 10:am</p>
+
+            </div>
+            <div class="new-comment-section">
+                <label for="male">Comment</label>
+                <input type="text" id="comment">
+            </div>
+        </div>
+
+        <!-- /.box-content -->
+    </div>
+    <!-- /.col-lg-6 col-xs-12 -->
+</div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $("#TotalEmployees").attr("placeholder",@counter);
+        $("#TotalEmployees").val(@counter);
+
+        $("#EmployeesTotalHours").attr("placeholder",@HoursCounter);
+        $("#EmployeesTotalHours").val(@HoursCounter);
+        // updateEntries();
+        updateEntries1();
+    });
+
+
+    function updateEntries1()
+    {debugger;
+        var totalemp = parseInt($("#TotalEmployees").val());
+        var mondays = 0;
+        var tuesdays = 0;
+        var wednesdays =  0;
+        var thursdays = 0;
+        var fridays =  0;
+        var saturdays = 0;
+        var sundays =  0;
+        for(i = 1; i<= totalemp; i++)
+        {
+            mondays = mondays+ parseInt($("#EmployeeId_"+i+"_Day_1").val());
+            tuesdays = tuesdays+ parseInt($("#EmployeeId_"+i+"_Day_2").val());
+            wednesdays = wednesdays+ parseInt($("#EmployeeId_"+i+"_Day_3").val());
+            thursdays  = thursdays+ parseInt($("#EmployeeId_"+i+"_Day_4").val());
+            fridays = fridays+ parseInt($("#EmployeeId_"+i+"_Day_5").val());
+            saturdays = saturdays+ parseInt($("#EmployeeId_"+i+"_Day_6").val());
+            sundays = sundays+ parseInt($("#EmployeeId_"+i+"_Day_7").val());
+        }
+        $("#MondayTotalHours").val(mondays);
+        $("#TuesdayTotalHours").val(tuesdays);
+        $("#WednesdayTotalHours").val(wednesdays);
+        $("#ThursdayTotalHours").val(thursdays);
+        $("#FridayTotalHours").val(fridays);
+        $("#SaturdayTotalHours").val(saturdays);
+        $("#SundayTotalHours").val(sundays);
+    }
+
+    function updateEntries()
+    {
+        var totalemp = $("#TotalEmployees").val();
+        var totalmondayHours = 0;
+        var totaltuesdayHours = 0;
+        var totalwednesdayHours = 0;
+        var totalthursdayHours = 0;
+        var totalfridayHours = 0;
+        var totalsaturdayHours = 0;
+        var totalsundayHours = 0;
+
+        var totalmondayEmployees = 0;
+        var totaltuesdayEmployees = 0;
+        var totalwednesdayEmployees = 0;
+        var totalthursdayEmployees = 0;
+        var totalfridayEmployees = 0;
+        var totalsaturdayEmployees = 0;
+        var totalsundayEmployees = 0;
+        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+            
+            
+            totalmondayHours = totalmondayHours + parseInt($("#monday_" + i).val());
+            $("#MondayTotalHours").val(totalmondayHours);
+            totaltuesdayHours = totaltuesdayHours + parseInt($("#tuesday_" + i).val());
+            $("#TuesdayTotalHours").val(totaltuesdayHours);
+            totalwednesdayHours = totalwednesdayHours + parseInt($("#wednesday_" + i).val());
+            $("#WednesdayTotalHours").val(totalwednesdayHours);
+            totalthursdayHours = totalthursdayHours + parseInt($("#thursday_" + i).val());
+            $("#ThursdayTotalHours").val(totalthursdayHours);
+            totalfridayHours = totalfridayHours + parseInt($("#friday_" + i).val());
+            $("#FridayTotalHours").val(totalfridayHours);
+            totalsaturdayHours = totalsaturdayHours + parseInt($("#saturday_" + i).val());
+            $("#SaturdayTotalHours").val(totalsaturdayHours);
+            totalsundayHours  = totalsundayHours + parseInt($("#sunday_" + i).val());
+            $("#SundayTotalHours").val(totalsundayHours);
+            
+            if(parseInt($("#monday_" + i).val()) > 0)
+            {
+                totalmondayEmployees = totalmondayEmployees + 1;
+            }
+            $("#MondayTotalEmployees").val(totalmondayEmployees);
+            if(parseInt($("#tuesday_" + i).val()) > 0)
+            {
+                totaltuesdayEmployees = totaltuesdayEmployees + 1;
+            }
+            $("#TuesdayTotalEmployees").val(totaltuesdayEmployees);
+            if(parseInt($("#wednesday_" + i).val()) > 0)
+            {
+                totalwednesdayEmployees = totalwednesdayEmployees + 1;
+            }
+            $("#WednesdayTotalEmployees").val(totalwednesdayEmployees);
+            if(parseInt($("#thursday_" + i).val()) > 0)
+            {
+                totalthursdayEmployees = totalthursdayEmployees + 1;
+                $("#ThursdayTotalEmployees").val(totalthursdayEmployees);
+            }
+            if(parseInt($("#friday_" + i).val()) > 0)
+            {
+                totalfridayEmployees = totalfridayEmployees + 1;
+            }
+            $("#FridayTotalEmployees").val(totalfridayEmployees);
+            if(parseInt($("#saturday_" + i).val()) > 0)
+            {
+                totalsaturdayEmployees = totalsaturdayEmployees + 1;
+            }
+            $("#SaturdayTotalEmployees").val(totalsaturdayEmployees);
+            if(parseInt($("#sunday_" + i).val()) > 0)
+            {
+                totalsundayEmployees = totalsundayEmployees + 1;
+            }
+            $("#SundayTotalEmployees").val(totalsundayEmployees);
+
+        }
+    }
+
+
+</script>
+
+
+
+
+<script>
+    function UpdateTimeSheet()
+    {
+        var timesheet = {
+            Id: '@Model.TimeSheetGeneralDetails.Id',
+            Customer_id:'@Model.TimeSheetGeneralDetails.Id',
+            Organization_id : '@Model.TimeSheetGeneralDetails.Organization_id',
+            Start_date : '@Model.TimeSheetGeneralDetails.Created_at',
+            End_date : '@Model.TimeSheetGeneralDetails.End_date',
+            Total_employees:@Model.TimeSheetGeneralDetails.Total_employees,
+            Total_hours:@Model.TimeSheetGeneralDetails.Total_hours,
+            Submit_by_client:true,
+            Uuid:null,
+            Signature:$("signatures"),
+            Created_at:'@Model.TimeSheetGeneralDetails.Created_at',
+            Updated_at:'',
+            Note: $("#comment").val(),
+            Po_number: '@Model.TimeSheetGeneralDetails.Po_number',
+            Sent:true,
+            For_internal_employee:false
+        }
+
+        var totalemp = @Model.TimeSheetGeneralDetails.Total_employees;
+        var timeSheet_summary = [];
+        var timeSheet_DetailsList = [];
+
+
+        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+            var timeSheet_summaryDetails = {
+                Id:$("#Rating_by_client_"+i).attr("alt"),
+                Timesheet_id: @Model.TimeSheetGeneralDetails.Id,
+                Employee_id: $("#EmployeeId_"+i).val(),
+                Rate: $("#EmployeeRate_"+i).val(),
+                Enitial: $("#EmployeeEnitial_"+i).val(),
+                Total_hours : $("#EmployeeTotalHours_"+i).val(),
+                Created_at: '@Model.TimeSheetGeneralDetails.Created_at',
+                Updated_at:null,
+                Rating_by_client:$("#Rating_by_client_"+i).val()
+            }
+            timeSheet_summary.push(timeSheet_summaryDetails);
+        }
+
+
+        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+
+            for (var j = 1; j <= 7 ; j++) {
+
+                var timeSheet_details = {
+                    Id:$("#EmployeeId_"+i+"_Day_"+j).attr("alt"),
+                    Timesheet_id: @Model.TimeSheetGeneralDetails.Id,
+                    Employee_id:$("#EmployeeId_"+i).val(),
+                    Day:j,
+                    Hours:$("#EmployeeId_"+i+"_Day_"+j).val(),
+                    Created_at:'@Model.TimeSheetGeneralDetails.Created_at',
+                    Updated_at:null
+
+                }
+                timeSheet_DetailsList.push(timeSheet_details);
+            }
+        }
+         $.ajax({
+            type: 'POST',
+            data: JSON.stringify({timesheet: timesheet, timeSheet_summary:timeSheet_summary,timeSheet_DetailsList:timeSheet_DetailsList}),
+            url: '@Url.Action("SubmitTimeSheetDetails", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                alert(data);
+            },
+            error: function(req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+</script>

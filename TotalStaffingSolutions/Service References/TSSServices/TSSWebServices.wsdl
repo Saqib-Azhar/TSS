@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.totalstaffingsolutions.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.totalstaffingsolutions.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.totalstaffingsolutions.com/">
+      <s:element name="GetCustomersData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCustomersDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomersDataResult" type="tns:ArrayOfCusmast" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCusmast">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cusmast" nillable="true" type="tns:Cusmast" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cusmast">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Cuccusmast" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuccustid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucrecmast" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucsitecde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucaddr1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucaddr2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuccity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucstate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuczipcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuccountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucstatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucoffcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucsm1cde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucsm2cde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucloccde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucbuscde" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cutadded" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucblable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucstaxcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucschgcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucsttxcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuccttxcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucdeunion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucwglnk1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucpono" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucrelno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucprojno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucgenexp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucschrecd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucdstadj" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucoldkey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cutlastexp" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cutlastimp" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucimpexp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucmergeid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cucbrnchid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cusconts" type="tns:ArrayOfCuscont" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCuscont">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cuscont" nillable="true" type="tns:Cuscont" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cuscont">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccuscont" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccusmast" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccontcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccatcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccontact" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccontmsc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccphone1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccphone2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccphone3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccemail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccsalcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccfname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccmname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccclname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccemlbody" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccmnotes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cusmast" type="tns:Cusmast" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCustomerContacts">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCustomerContactsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerContactsResult" type="tns:ArrayOfCustomer_contact" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCustomer_contact">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Customer_contact" nillable="true" type="tns:Customer_contact" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Customer_contact">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccuscont" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccusmast" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccontcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccatcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccontact" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccccontmsc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccphone1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccphone2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccphone3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccemail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccsalcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccfname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccmname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccclname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cccemlbody" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ccmnotes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Customer_id" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEmployeesData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetEmployeesDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeesDataResult" type="tns:ArrayOfEmpmast" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEmpmast">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Empmast" nillable="true" type="tns:Empmast" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Empmast">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Emcempmast" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcempid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcstatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcfname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcmname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emclname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcaddr1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcaddr2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emccity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcstate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emczipcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emccountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcssno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcdeptcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcoffcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcloccde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcworkcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcsm1cde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcsm2cde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcrankcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcprecall" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcschrecd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emccarcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcmarital" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcrace" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcsex" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtbirth" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emthire" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtrehire" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtterm" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emctermcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcnhmdben" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emccorpcde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcqmoccu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcqmarea" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcssfname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcssmname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcsslname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emctino" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emctiname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcextrnid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcemptype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcpyfreq" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcpytype" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emnsalamt" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emnsblamt" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emnsalhrs" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcsalcust" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcsalcomp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcspyrule" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcsblrule" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtsalppe" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcholpy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emmholexcl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcovtrule" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcchkcde" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emt1stchk" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtlstchk" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emnacumhr1" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emnacumhr2" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcddtype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcddrout" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcddacct" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcddpren" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emnddamt" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcddcalc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcdd2type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcdd2rout" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcdd2acct" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcdd2pren" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtddnext" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcdeunion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcwglnk1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcgenms1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcivrstat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcemppin" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emclucid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcgenexp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcoldkey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtlastexp" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtlastimp" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcimpexp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcmergeid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcbrnchid" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Emtadded" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcftstat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emcpolmast" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emc1095err" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emc1095cor" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCustomersDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomersData" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomersDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomersDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerContactsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerContacts" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerContactsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerContactsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeesDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeesData" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeesDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeesDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TSSWebServicesSoap">
+    <wsdl:operation name="GetCustomersData">
+      <wsdl:input message="tns:GetCustomersDataSoapIn" />
+      <wsdl:output message="tns:GetCustomersDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerContacts">
+      <wsdl:input message="tns:GetCustomerContactsSoapIn" />
+      <wsdl:output message="tns:GetCustomerContactsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeesData">
+      <wsdl:input message="tns:GetEmployeesDataSoapIn" />
+      <wsdl:output message="tns:GetEmployeesDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TSSWebServicesSoap" type="tns:TSSWebServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCustomersData">
+      <soap:operation soapAction="http://www.totalstaffingsolutions.com/GetCustomersData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerContacts">
+      <soap:operation soapAction="http://www.totalstaffingsolutions.com/GetCustomerContacts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeesData">
+      <soap:operation soapAction="http://www.totalstaffingsolutions.com/GetEmployeesData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TSSWebServicesSoap12" type="tns:TSSWebServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCustomersData">
+      <soap12:operation soapAction="http://www.totalstaffingsolutions.com/GetCustomersData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerContacts">
+      <soap12:operation soapAction="http://www.totalstaffingsolutions.com/GetCustomerContacts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeesData">
+      <soap12:operation soapAction="http://www.totalstaffingsolutions.com/GetEmployeesData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TSSWebServices">
+    <wsdl:port name="TSSWebServicesSoap" binding="tns:TSSWebServicesSoap">
+      <soap:address location="http://localhost:8997/TSSWebServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TSSWebServicesSoap12" binding="tns:TSSWebServicesSoap12">
+      <soap12:address location="http://localhost:8997/TSSWebServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

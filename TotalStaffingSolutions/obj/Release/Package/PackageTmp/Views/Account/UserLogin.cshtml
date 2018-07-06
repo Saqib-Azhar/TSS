@@ -1,0 +1,159 @@
+﻿@*@using TotalStaffingSolutions.Models
+    @model LoginViewModel
+    @{
+        ViewBag.Title = "Log in";
+    }
+
+    <h2>@ViewBag.Title.</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>
+
+                }
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@using TotalStaffingSolutions.Models
+@model UserLoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Total Staffing Solutions | Login</title>
+    <link rel="stylesheet" href="/assets/styles/style.min.css">
+    <!-- Waves Effect -->
+    <link rel="stylesheet" href="/assets/plugin/waves/waves.min.css">
+</head>
+<body>
+
+
+    <div id="single-wrapper">
+
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "frm-single", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="inside">
+                <div class="title"><img src="/assets/logo.png"></div>
+                <!-- /.title -->
+                <div class="frm-title">Login</div>
+                <!-- /.frm-title -->
+                <div class="frm-input">@Html.TextBoxFor(m => m.Email, new { @class = "frm-inp" })<i class="fa fa-user frm-ico"></i></div>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                <!-- /.frm-input -->
+                <div class="frm-input">@Html.PasswordFor(m => m.Password, new { @class = "frm-inp" })<i class="fa fa-lock frm-ico"></i></div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                <!-- /.frm-input -->
+                <div class="clearfix margin-bottom-20">
+                    <div class="pull-left">
+                        <div class="checkbox primary">@Html.CheckBoxFor(m => m.RememberMe)@*<input type="checkbox" id="rememberme">*@<label for="rememberme">Remember me</label></div>
+
+                        <!-- /.checkbox -->
+                    </div>
+                    <!-- /.pull-left -->
+                    <div class="pull-right"><a href="#" class="a-link"><i class="fa fa-unlock-alt"></i>Forgot password?</a></div>
+                    <!-- /.pull-right -->
+                </div>
+                <!-- /.clearfix -->
+                <button type="submit" class="frm-submit">Login<i class="fa fa-arrow-circle-right"></i></button>
+
+                <!-- /.row -->
+
+                <div class="frm-footer">Total Staffing Solutions © 2018.</div>
+                <!-- /.footer -->
+            </div>
+            <!-- .inside -->
+        }
+        <!-- /.frm-single -->
+    </div><!--/#single-wrapper -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="/assets/script/html5shiv.min.js"></script>
+        <script src="/assets/script/respond.min.js"></script>
+    <![Endif]-->
+    <!--
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/scripts/jquery.min.js"></script>
+    <script src="/assets/scripts/modernizr.min.js"></script>
+    <script src="/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/plugin/nprogress/nprogress.js"></script>
+    <script src="/assets/plugin/waves/waves.min.js"></script>
+    <script src="/assets/scripts/main.min.js"></script>
+</body>
+</html>

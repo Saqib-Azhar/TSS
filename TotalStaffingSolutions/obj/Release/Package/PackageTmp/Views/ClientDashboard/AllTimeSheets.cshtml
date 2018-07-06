@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TotalStaffingSolutions.Models.Timesheet>
+@{ 
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="row small-spacing">
+    <div class="col-xs-12">
+        <div class="box-content">
+
+            @*<a href="/Manage/AddClient" class="btn btn-success btn-sm">Add Client</a><br />*@
+
+            <!-- /.box-title -->
+            <!-- /.dropdown js__dropdown -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="rememberme"></th>
+                            <th>Company Name</th>
+                            <th>Sheet#</th>
+                            <th>Week Ending Date</th>
+                            <th>Status</th>
+                            <th>Total Employees</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th><input type="checkbox" id="rememberme"></th>
+                                <td><a href="/TSSManage/ClientDetails/@item.Customer_id">@item.Customer.Name</a></td>
+                                <td><a href="/TSSManage/TimeSheetDetails/@item.Id">#@item.Id</a></td>
+                                <td>@item.End_date</td>
+                                <td><span class="notice notice-blue">@item.TimeSheetStatu.Status</span></td>
+                                <td>@item.Total_employees</td>
+                                <td>
+                                    <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                    <button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-duplicate"></span></button>
+                                    <a class="btn btn-xs btn-primary" href="#"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a class="btn btn-xs btn-danger" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <button class="btn btn-xs btn-success">Link</button>
+                                </td>
+                            </tr>
+
+
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- /.box-content -->
+    </div>
+    <!-- /.col-xs-12 -->
+</div>
+<!-- /.row small-spacing -->

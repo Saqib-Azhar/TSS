@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TotalStaffingSolutions.Models.Customer>
+
+
+<div class="row small-spacing">
+    <div class="col-xs-12">
+        <div class="box-content">
+
+
+            <!-- /.box-title -->
+            <!-- /.dropdown js__dropdown -->
+            <div class="table-responsive">
+                @*<a href="/Manage/AddTimeSheet" class="btn btn-success btn-sm pull-right">Add New Time Sheet</a><br />*@
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @*<th><input type="checkbox" id="rememberme"></th>*@
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Time Sheets</th>
+                            <th>Branch</th>
+                            <th>Last Sent</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @*<th><input type="checkbox" id="rememberme"></th>*@
+                                <td><a href="/TSSManage/ClientDetails/@item.Id">@item.Name</a></td>
+                                
+                                @if (item.Email == null)
+                                {
+                                    <td>N/A</td>
+                                }
+                                else
+                                {
+                                    <td>@item.Email</td>
+                                }
+                                <td>@item.Timesheets.Count</td>
+                                @if (item.Branch_id != null)
+                                {
+                                    <td><span class="notice notice-danger">@item.Branch.Name</span></td>
+                                }
+                                else
+                                {
+                                    <td>N/A</td>
+                                }
+                                @if (item.Timesheets.Count != 0)
+                                {
+                                    <td>@item.Timesheets.Select(s => s.Start_date).FirstOrDefault()</td>
+                                }
+                                else
+                                {
+                                    <td>N/A</td>
+                                }
+                                
+                                @*@if (item.Email == null || item.Branch_id == null || item.PhoneNumber == null)
+                                {*@
+                                    <td><a class="btn btn-success btn-xs" href="/TSSManage/UpdateCustomerInfo/@item.Id"><span class="fa fa-edit" data-toggle="tooltip" title="Update Info"></span></a></td>
+                                @*}
+                                else
+                                {
+                                    <td></td>
+                                }*@
+                            </tr>
+
+
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- /.box-content -->
+    </div>
+    <!-- /.col-xs-12 -->
+</div>
+<!-- /.row small-spacing -->

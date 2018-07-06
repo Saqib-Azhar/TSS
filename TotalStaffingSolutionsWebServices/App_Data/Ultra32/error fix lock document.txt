@@ -1,0 +1,24 @@
+Applies To
+All versions. Note, Ultra32 PDFWriter in vers prior to xxx otherwise Ultra PDFWriter v3
+
+Symptoms
+The user is getting a Unable to Lock Document error message when performing ProPack? functions that include printing to Ultra32 PDFWriter printer (eg. Invoice Email).
+
+Cause
+This problem can be caused for a variety of reasons. One situation I experienced was when an error occured during the Invoice Email Generate process (which creates the pdfs), not all cleanup functions were performed.
+
+Resolution
+
+Manually reset Ultra32 PDFWriter v3 Print Driver by performing the following:
+If Ultra32 PDFWriter v3 set as Default Printer- be sure to set default on another printer (part of cleanup if program didn't error would of been to change default printer setting back to real default, so you need to do this manually)
+Remove/Delete the Ultra32 PDFWriter v3 from the Printers.
+Regedit, find HKEY_CURRENT_USER\Software\Ultra32 PDFWriter v3 and delete this key.
+Reboot the PC.
+Start Ultra32, select Yes to install the Ultra32 PDFWriter.
+
+Note: If both Ultra32 PDFWriter and Ultra32 PDFWriter v3 exist, you only need to worry about the Ultra32 PDFWriter v3 one (other is old and unused afaik).
+
+Appended 28 Jan 2010: In Terminal Services, on the server, the registry should be searched for all instances of Ultra32 PDFWriter v3. Delete all occurrences.
+
+Status
+N/A

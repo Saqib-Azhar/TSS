@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f38e111eb4ab4b31ba3cdf9a86bb7451" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.C__MigrationHistory" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.AspNetRole" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.AspNetUser" Width="1.5" PointX="10" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Branch" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Company" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Company_Emails" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.ContactConfirmation" Width="1.5" PointX="15" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.ContactConfirmationStatu" Width="1.5" PointX="12.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.CustomerContact" Width="1.5" PointX="12.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Customer" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Employee" Width="1.5" PointX="10.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Organization" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Timesheet_details" Width="1.5" PointX="12.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Timesheet_summaries" Width="1.5" PointX="15.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Timesheet" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.TimeSheetStatu" Width="1.5" PointX="5.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.User_Branches" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.AggregatedCounter" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Counter" Width="1.5" PointX="16.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Hash" Width="1.5" PointX="7.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Job" Width="1.5" PointX="14.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.JobParameter" Width="1.5" PointX="17" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.JobQueue" Width="1.5" PointX="9.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.List" Width="1.5" PointX="17.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Schema" Width="1.5" PointX="17.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Server" Width="1.5" PointX="17.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Set" Width="1.5" PointX="18.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.State" Width="1.5" PointX="17" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_Branches_to_Organization" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_Customers_to_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_Employees_to_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_UserBranches_to_Branches" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_Companies_to_Organizations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_CompanyEmails_to_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.ContactCofirmation_ConfirmationStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.ContactCofirmation_Contact" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_Timesheets_to_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_Employees_to_Organization" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_TimesheetDetails_to_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_TimesheetSummeries_to_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_Timesheets_to_Organizations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_TimesheetDetails_to_Timesheets" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_TimesheetSummeries_to_Timesheets" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_Timesheets_to_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_UserBranches_to_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_HangFire_JobParameter_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.FK_HangFire_State_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalStaffingSolutionsModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

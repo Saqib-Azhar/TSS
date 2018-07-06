@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TotalStaffingSolutions.Models.Branch>
+<div class="row small-spacing">
+    <div class="col-xs-12">
+        <div class="box-content">
+
+            <a href="/TSSManage/AddBranch" class="btn btn-success btn-sm">Add Branch</a><br />
+            <!-- /.box-title -->
+            <!-- /.dropdown js__dropdown -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Time Sheets</th>
+                            <th>Email</th>
+                            @*<th>Last Sent</th>*@
+                            <th>Branch Manager</th>
+                            <th>Edit</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th>@*<span><input type="checkbox" id="rememberme"> </span>*@@item.Name</th>
+                                <td></td>
+                                <td>@item.Email</td>
+                                <td>@item.Branch_Manager</td>
+                                <td><a class="btn btn-success btn-xs" href="/TSSManage/EditBranch/@item.Id"><span class="waves-effect waves-light fa fa-edit"></span></a></td>
+
+                            </tr>
+                        }
+                        
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- /.box-content -->
+    </div>
+    <!-- /.col-xs-12 -->
+</div>

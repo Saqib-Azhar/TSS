@@ -1,0 +1,107 @@
+﻿@*@{ 
+
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<form action="/ClientDashboard/ConfirmEmail" method="post">
+    <div class="row">
+        <input type="email" required class="form-control col-md-6" id="Email" name="Email" placeholder="Enter Your email here.." />
+        <input type="text" hidden value="@ViewBag.Token" id="Token" name="Token" class="col-md-2" />
+        <button type="submit" class="form-control col-md-4">Submit</button>
+    </div>
+</form>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+@using TotalStaffingSolutions.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Total Staffing Solutions | Confirm Email</title>
+    <link rel="stylesheet" href="/assets/styles/style.min.css">
+    <!-- Waves Effect -->
+    <link rel="stylesheet" href="/assets/plugin/waves/waves.min.css">
+</head>
+<body>
+
+
+    <div id="single-wrapper">
+
+        @using (Html.BeginForm("ConfirmEmail", "ClientDashboard", FormMethod.Post, new { @class = "frm-single", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="inside">
+                <div class="title"><img src="/assets/logo.png"></div>
+                <!-- /.title -->
+                <div class="frm-title">Confirm Email</div>
+                <!-- /.frm-title -->
+                <div class="frm-input"><input type="email" required class="frm-inp" id="Email" name="Email" placeholder="Enter Your email here.." /><i class="fa fa-user frm-ico"></i></div>
+                <!-- /.frm-input -->
+                <div class="frm-input"><input type="text" hidden value="@ViewBag.Token" id="Token" name="Token" class="frm-inp" /><i class="fa fa-lock frm-ico"></i></div>
+
+                <!-- /.frm-input -->
+                @*<div class="clearfix margin-bottom-20">
+                    <div class="pull-left">
+                        <div class="checkbox primary">@Html.CheckBoxFor(m => m.RememberMe)<label for="rememberme">Remember me</label></div>
+
+                        <!-- /.checkbox -->
+                    </div>
+                    <!-- /.pull-left -->
+                    <div class="pull-right"><a href="#" class="a-link"><i class="fa fa-unlock-alt"></i>Forgot password?</a></div>
+                    <!-- /.pull-right -->
+                </div>*@
+                <!-- /.clearfix -->
+                <button type="submit" class="frm-submit">Submit<i class="fa fa-arrow-circle-right"></i></button>
+
+                <!-- /.row -->
+
+                <div class="frm-footer">Total Staffing Solutions © 2018.</div>
+                <!-- /.footer -->
+            </div>
+            <!-- .inside -->
+        }
+        <!-- /.frm-single -->
+    </div><!--/#single-wrapper -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="/assets/script/html5shiv.min.js"></script>
+        <script src="/assets/script/respond.min.js"></script>
+    <![Endif]-->
+    <!--
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/scripts/jquery.min.js"></script>
+    <script src="/assets/scripts/modernizr.min.js"></script>
+    <script src="/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/plugin/nprogress/nprogress.js"></script>
+    <script src="/assets/plugin/waves/waves.min.js"></script>
+    <script src="/assets/scripts/main.min.js"></script>
+</body>
+</html>

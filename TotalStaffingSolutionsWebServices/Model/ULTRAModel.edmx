@@ -1,0 +1,560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ULTRAModel.Store" Provider="VfpEntityFrameworkProvider2" ProviderManifestToken="VFP9" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cuscont">
+          <Key>
+            <PropertyRef Name="Ccccuscont" />
+          </Key>
+          <Property Name="Ccccuscont" Type="character" MaxLength="16" Nullable="false" />
+          <Property Name="Ccccusmast" Type="character" MaxLength="16" Nullable="false" />
+          <Property Name="Ccccontcde" Type="character" MaxLength="3" />
+          <Property Name="Ccccatcde" Type="character" MaxLength="10" Nullable="false" />
+          <Property Name="Ccccontact" Type="character" MaxLength="35" />
+          <Property Name="Ccccontmsc" Type="character" MaxLength="30" />
+          <Property Name="Cccphone1" Type="character" MaxLength="24" />
+          <Property Name="Cccphone2" Type="character" MaxLength="24" />
+          <Property Name="Cccphone3" Type="character" MaxLength="24" />
+          <Property Name="Cccemail" Type="character" MaxLength="80" />
+          <Property Name="Cccsalcde" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Cccfname" Type="character" MaxLength="15" Nullable="false" />
+          <Property Name="Cccmname" Type="character" MaxLength="15" Nullable="false" />
+          <Property Name="Ccclname" Type="character" MaxLength="20" Nullable="false" />
+          <Property Name="Cccemlbody" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Ccmnotes" Type="memo" />
+        </EntityType>
+        <EntityType Name="Cusmast">
+          <Key>
+            <PropertyRef Name="Cuccusmast" />
+          </Key>
+          <Property Name="Cuccusmast" Type="character" MaxLength="16" Nullable="false" />
+          <Property Name="Cuccustid" Type="character" MaxLength="10" />
+          <Property Name="Cucrecmast" Type="character" MaxLength="16" Nullable="false" />
+          <Property Name="Cucsitecde" Type="character" MaxLength="6" Nullable="false" />
+          <Property Name="Cucname" Type="character" MaxLength="35" />
+          <Property Name="Cucaddr1" Type="character" MaxLength="35" />
+          <Property Name="Cucaddr2" Type="character" MaxLength="35" />
+          <Property Name="Cuccity" Type="character" MaxLength="20" />
+          <Property Name="Cucstate" Type="character" MaxLength="2" />
+          <Property Name="Cuczipcode" Type="character" MaxLength="10" />
+          <Property Name="Cuccountry" Type="character" MaxLength="15" />
+          <Property Name="Cucstatus" Type="character" MaxLength="1" />
+          <Property Name="Cucoffcde" Type="character" MaxLength="3" />
+          <Property Name="Cucsm1cde" Type="character" MaxLength="3" />
+          <Property Name="Cucsm2cde" Type="character" MaxLength="3" />
+          <Property Name="Cucloccde" Type="character" MaxLength="3" />
+          <Property Name="Cucbuscde" Type="character" MaxLength="3" />
+          <Property Name="Cutadded" Type="datetime" />
+          <Property Name="Cucblable" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Cucstaxcde" Type="character" MaxLength="6" Nullable="false" />
+          <Property Name="Cucschgcde" Type="character" MaxLength="6" Nullable="false" />
+          <Property Name="Cucsttxcde" Type="character" MaxLength="2" Nullable="false" />
+          <Property Name="Cuccttxcde" Type="character" MaxLength="6" Nullable="false" />
+          <Property Name="Cucdeunion" Type="character" MaxLength="2" Nullable="false" />
+          <Property Name="Cucwglnk1" Type="character" MaxLength="2" Nullable="false" />
+          <Property Name="Cucpono" Type="character" MaxLength="15" Nullable="false" />
+          <Property Name="Cucrelno" Type="character" MaxLength="15" Nullable="false" />
+          <Property Name="Cucprojno" Type="character" MaxLength="15" Nullable="false" />
+          <Property Name="Cucgenexp" Type="character" MaxLength="5" Nullable="false" />
+          <Property Name="Cucschrecd" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Cucdstadj" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Cucoldkey" Type="character" MaxLength="12" Nullable="false" />
+          <Property Name="Cutlastexp" Type="datetime" Nullable="false" />
+          <Property Name="Cutlastimp" Type="datetime" Nullable="false" />
+          <Property Name="Cucimpexp" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Cucmergeid" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Cucbrnchid" Type="character" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empmast">
+          <Key>
+            <PropertyRef Name="Emcempmast" />
+          </Key>
+          <Property Name="Emcempmast" Type="character" MaxLength="16" Nullable="false" />
+          <Property Name="Emcempid" Type="character" MaxLength="10" />
+          <Property Name="Emcstatus" Type="character" MaxLength="1" />
+          <Property Name="Emcfname" Type="character" MaxLength="15" />
+          <Property Name="Emcmname" Type="character" MaxLength="15" />
+          <Property Name="Emclname" Type="character" MaxLength="20" />
+          <Property Name="Emcaddr1" Type="character" MaxLength="35" />
+          <Property Name="Emcaddr2" Type="character" MaxLength="35" />
+          <Property Name="Emccity" Type="character" MaxLength="20" />
+          <Property Name="Emcstate" Type="character" MaxLength="2" />
+          <Property Name="Emczipcode" Type="character" MaxLength="10" />
+          <Property Name="Emccountry" Type="character" MaxLength="15" />
+          <Property Name="Emcssno" Type="character" MaxLength="11" />
+          <Property Name="Emcdeptcde" Type="character" MaxLength="3" />
+          <Property Name="Emcoffcde" Type="character" MaxLength="3" />
+          <Property Name="Emcloccde" Type="character" MaxLength="3" />
+          <Property Name="Emcworkcde" Type="character" MaxLength="3" />
+          <Property Name="Emcsm1cde" Type="character" MaxLength="3" />
+          <Property Name="Emcsm2cde" Type="character" MaxLength="3" />
+          <Property Name="Emcrankcde" Type="character" MaxLength="3" />
+          <Property Name="Emcprecall" Type="character" MaxLength="1" />
+          <Property Name="Emcschrecd" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emccarcde" Type="character" MaxLength="3" />
+          <Property Name="Emcmarital" Type="character" MaxLength="1" />
+          <Property Name="Emcrace" Type="character" MaxLength="1" />
+          <Property Name="Emcsex" Type="character" MaxLength="1" />
+          <Property Name="Emtbirth" Type="datetime" />
+          <Property Name="Emthire" Type="datetime" />
+          <Property Name="Emtrehire" Type="datetime" />
+          <Property Name="Emtterm" Type="datetime" />
+          <Property Name="Emctermcde" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Emcnhmdben" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emccorpcde" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Emcqmoccu" Type="character" MaxLength="22" Nullable="false" />
+          <Property Name="Emcqmarea" Type="character" MaxLength="2" Nullable="false" />
+          <Property Name="Emcssfname" Type="character" MaxLength="15" Nullable="false" />
+          <Property Name="Emcssmname" Type="character" MaxLength="15" Nullable="false" />
+          <Property Name="Emcsslname" Type="character" MaxLength="20" Nullable="false" />
+          <Property Name="Emctino" Type="character" MaxLength="11" Nullable="false" />
+          <Property Name="Emctiname" Type="character" MaxLength="35" Nullable="false" />
+          <Property Name="Emcextrnid" Type="character" MaxLength="20" Nullable="false" />
+          <Property Name="Emcemptype" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcpyfreq" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcpytype" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emnsalamt" Type="numeric" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Emnsblamt" Type="numeric" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Emnsalhrs" Type="numeric" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Emcsalcust" Type="character" MaxLength="16" Nullable="false" />
+          <Property Name="Emcsalcomp" Type="character" MaxLength="6" Nullable="false" />
+          <Property Name="Emcspyrule" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Emcsblrule" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Emtsalppe" Type="datetime" Nullable="false" />
+          <Property Name="Emcholpy" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emmholexcl" Type="memo" Nullable="false" />
+          <Property Name="Emcovtrule" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Emcchkcde" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Emt1stchk" Type="datetime" Nullable="false" />
+          <Property Name="Emtlstchk" Type="datetime" Nullable="false" />
+          <Property Name="Emnacumhr1" Type="numeric" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Emnacumhr2" Type="numeric" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Emcddtype" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcddrout" Type="character" MaxLength="20" Nullable="false" />
+          <Property Name="Emcddacct" Type="character" MaxLength="20" Nullable="false" />
+          <Property Name="Emcddpren" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emnddamt" Type="numeric" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Emcddcalc" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcdd2type" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcdd2rout" Type="character" MaxLength="20" Nullable="false" />
+          <Property Name="Emcdd2acct" Type="character" MaxLength="20" Nullable="false" />
+          <Property Name="Emcdd2pren" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emtddnext" Type="datetime" Nullable="false" />
+          <Property Name="Emcdeunion" Type="character" MaxLength="2" Nullable="false" />
+          <Property Name="Emcwglnk1" Type="character" MaxLength="2" Nullable="false" />
+          <Property Name="Emcgenms1" Type="character" MaxLength="20" Nullable="false" />
+          <Property Name="Emcivrstat" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcemppin" Type="character" MaxLength="7" Nullable="false" />
+          <Property Name="Emclucid" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcgenexp" Type="character" MaxLength="5" Nullable="false" />
+          <Property Name="Emcoldkey" Type="character" MaxLength="12" Nullable="false" />
+          <Property Name="Emtlastexp" Type="datetime" Nullable="false" />
+          <Property Name="Emtlastimp" Type="datetime" Nullable="false" />
+          <Property Name="Emcimpexp" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcmergeid" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Emcbrnchid" Type="character" MaxLength="3" Nullable="false" />
+          <Property Name="Emtadded" Type="datetime" Nullable="false" />
+          <Property Name="Emcftstat" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emcpolmast" Type="character" MaxLength="16" Nullable="false" />
+          <Property Name="Emc1095err" Type="character" MaxLength="1" Nullable="false" />
+          <Property Name="Emc1095cor" Type="character" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <Association Name="FK___cuscont_ccccusmast___cusmast_cuccusmast">
+          <End Role="Cusmast" Type="Self.Cusmast" Multiplicity="1" />
+          <End Role="Cuscont" Type="Self.Cuscont" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cusmast">
+              <PropertyRef Name="Cuccusmast" />
+            </Principal>
+            <Dependent Role="Cuscont">
+              <PropertyRef Name="Ccccusmast" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ULTRAModelStoreContainer">
+          <EntitySet Name="Cuscont" EntityType="Self.Cuscont" store:Type="Tables" />
+          <EntitySet Name="Cusmast" EntityType="Self.Cusmast" store:Type="Tables" />
+          <EntitySet Name="Empmast" EntityType="Self.Empmast" store:Type="Tables" />
+          <AssociationSet Name="FK___cuscont_ccccusmast___cusmast_cuccusmast" Association="Self.FK___cuscont_ccccusmast___cusmast_cuccusmast">
+            <End Role="Cusmast" EntitySet="Cusmast" />
+            <End Role="Cuscont" EntitySet="Cuscont" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ULTRAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cuscont">
+          <Key>
+            <PropertyRef Name="Ccccuscont" />
+          </Key>
+          <Property Name="Ccccuscont" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Ccccusmast" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Ccccontcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Ccccatcde" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Ccccontact" Type="String" MaxLength="35" FixedLength="true" Unicode="false" />
+          <Property Name="Ccccontmsc" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Cccphone1" Type="String" MaxLength="24" FixedLength="true" Unicode="false" />
+          <Property Name="Cccphone2" Type="String" MaxLength="24" FixedLength="true" Unicode="false" />
+          <Property Name="Cccphone3" Type="String" MaxLength="24" FixedLength="true" Unicode="false" />
+          <Property Name="Cccemail" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+          <Property Name="Cccsalcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cccfname" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cccmname" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Ccclname" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cccemlbody" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Ccmnotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cusmast" Relationship="Self.FK___cuscont_ccccusmast___cusmast_cuccusmast" FromRole="Cuscont" ToRole="Cusmast" />
+        </EntityType>
+        <EntityType Name="Cusmast">
+          <Key>
+            <PropertyRef Name="Cuccusmast" />
+          </Key>
+          <Property Name="Cuccusmast" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cuccustid" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Cucrecmast" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucsitecde" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucname" Type="String" MaxLength="35" FixedLength="true" Unicode="false" />
+          <Property Name="Cucaddr1" Type="String" MaxLength="35" FixedLength="true" Unicode="false" />
+          <Property Name="Cucaddr2" Type="String" MaxLength="35" FixedLength="true" Unicode="false" />
+          <Property Name="Cuccity" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Cucstate" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Cuczipcode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Cuccountry" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Cucstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Cucoffcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Cucsm1cde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Cucsm2cde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Cucloccde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Cucbuscde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Cutadded" Type="DateTime" />
+          <Property Name="Cucblable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucstaxcde" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucschgcde" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucsttxcde" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cuccttxcde" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucdeunion" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucwglnk1" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucpono" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucrelno" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucprojno" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucgenexp" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucschrecd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucdstadj" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucoldkey" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cutlastexp" Type="DateTime" Nullable="false" />
+          <Property Name="Cutlastimp" Type="DateTime" Nullable="false" />
+          <Property Name="Cucimpexp" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucmergeid" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cucbrnchid" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cusconts" Relationship="Self.FK___cuscont_ccccusmast___cusmast_cuccusmast" FromRole="Cusmast" ToRole="Cuscont" />
+        </EntityType>
+        <EntityType Name="Empmast">
+          <Key>
+            <PropertyRef Name="Emcempmast" />
+          </Key>
+          <Property Name="Emcempmast" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcempid" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Emcstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Emcfname" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Emcmname" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Emclname" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Emcaddr1" Type="String" MaxLength="35" FixedLength="true" Unicode="false" />
+          <Property Name="Emcaddr2" Type="String" MaxLength="35" FixedLength="true" Unicode="false" />
+          <Property Name="Emccity" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Emcstate" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Emczipcode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Emccountry" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Emcssno" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="Emcdeptcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Emcoffcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Emcloccde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Emcworkcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Emcsm1cde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Emcsm2cde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Emcrankcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Emcprecall" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Emcschrecd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emccarcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Emcmarital" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Emcrace" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Emcsex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Emtbirth" Type="DateTime" />
+          <Property Name="Emthire" Type="DateTime" />
+          <Property Name="Emtrehire" Type="DateTime" />
+          <Property Name="Emtterm" Type="DateTime" />
+          <Property Name="Emctermcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcnhmdben" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emccorpcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcqmoccu" Type="String" MaxLength="22" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcqmarea" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcssfname" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcssmname" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcsslname" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emctino" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emctiname" Type="String" MaxLength="35" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcextrnid" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcemptype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcpyfreq" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcpytype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emnsalamt" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Emnsblamt" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Emnsalhrs" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Emcsalcust" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcsalcomp" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcspyrule" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcsblrule" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emtsalppe" Type="DateTime" Nullable="false" />
+          <Property Name="Emcholpy" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emmholexcl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Emcovtrule" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcchkcde" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emt1stchk" Type="DateTime" Nullable="false" />
+          <Property Name="Emtlstchk" Type="DateTime" Nullable="false" />
+          <Property Name="Emnacumhr1" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Emnacumhr2" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Emcddtype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcddrout" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcddacct" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcddpren" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emnddamt" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Emcddcalc" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcdd2type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcdd2rout" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcdd2acct" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcdd2pren" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emtddnext" Type="DateTime" Nullable="false" />
+          <Property Name="Emcdeunion" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcwglnk1" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcgenms1" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcivrstat" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcemppin" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emclucid" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcgenexp" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcoldkey" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emtlastexp" Type="DateTime" Nullable="false" />
+          <Property Name="Emtlastimp" Type="DateTime" Nullable="false" />
+          <Property Name="Emcimpexp" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcmergeid" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcbrnchid" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emtadded" Type="DateTime" Nullable="false" />
+          <Property Name="Emcftstat" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emcpolmast" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emc1095err" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Emc1095cor" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK___cuscont_ccccusmast___cusmast_cuccusmast">
+          <End Role="Cusmast" Type="Self.Cusmast" Multiplicity="1" />
+          <End Role="Cuscont" Type="Self.Cuscont" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cusmast">
+              <PropertyRef Name="Cuccusmast" />
+            </Principal>
+            <Dependent Role="Cuscont">
+              <PropertyRef Name="Ccccusmast" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ULTRAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cusconts" EntityType="Self.Cuscont" />
+          <EntitySet Name="Cusmasts" EntityType="Self.Cusmast" />
+          <EntitySet Name="Empmasts" EntityType="Self.Empmast" />
+          <AssociationSet Name="FK___cuscont_ccccusmast___cusmast_cuccusmast" Association="Self.FK___cuscont_ccccusmast___cusmast_cuccusmast">
+            <End Role="Cusmast" EntitySet="Cusmasts" />
+            <End Role="Cuscont" EntitySet="Cusconts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ULTRAModelStoreContainer" CdmEntityContainer="ULTRAEntities">
+          <EntitySetMapping Name="Cusconts">
+            <EntityTypeMapping TypeName="ULTRAModel.Cuscont">
+              <MappingFragment StoreEntitySet="Cuscont">
+                <ScalarProperty Name="Ccccuscont" ColumnName="Ccccuscont" />
+                <ScalarProperty Name="Ccccusmast" ColumnName="Ccccusmast" />
+                <ScalarProperty Name="Ccccontcde" ColumnName="Ccccontcde" />
+                <ScalarProperty Name="Ccccatcde" ColumnName="Ccccatcde" />
+                <ScalarProperty Name="Ccccontact" ColumnName="Ccccontact" />
+                <ScalarProperty Name="Ccccontmsc" ColumnName="Ccccontmsc" />
+                <ScalarProperty Name="Cccphone1" ColumnName="Cccphone1" />
+                <ScalarProperty Name="Cccphone2" ColumnName="Cccphone2" />
+                <ScalarProperty Name="Cccphone3" ColumnName="Cccphone3" />
+                <ScalarProperty Name="Cccemail" ColumnName="Cccemail" />
+                <ScalarProperty Name="Cccsalcde" ColumnName="Cccsalcde" />
+                <ScalarProperty Name="Cccfname" ColumnName="Cccfname" />
+                <ScalarProperty Name="Cccmname" ColumnName="Cccmname" />
+                <ScalarProperty Name="Ccclname" ColumnName="Ccclname" />
+                <ScalarProperty Name="Cccemlbody" ColumnName="Cccemlbody" />
+                <ScalarProperty Name="Ccmnotes" ColumnName="Ccmnotes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cusmasts">
+            <EntityTypeMapping TypeName="ULTRAModel.Cusmast">
+              <MappingFragment StoreEntitySet="Cusmast">
+                <ScalarProperty Name="Cuccusmast" ColumnName="Cuccusmast" />
+                <ScalarProperty Name="Cuccustid" ColumnName="Cuccustid" />
+                <ScalarProperty Name="Cucrecmast" ColumnName="Cucrecmast" />
+                <ScalarProperty Name="Cucsitecde" ColumnName="Cucsitecde" />
+                <ScalarProperty Name="Cucname" ColumnName="Cucname" />
+                <ScalarProperty Name="Cucaddr1" ColumnName="Cucaddr1" />
+                <ScalarProperty Name="Cucaddr2" ColumnName="Cucaddr2" />
+                <ScalarProperty Name="Cuccity" ColumnName="Cuccity" />
+                <ScalarProperty Name="Cucstate" ColumnName="Cucstate" />
+                <ScalarProperty Name="Cuczipcode" ColumnName="Cuczipcode" />
+                <ScalarProperty Name="Cuccountry" ColumnName="Cuccountry" />
+                <ScalarProperty Name="Cucstatus" ColumnName="Cucstatus" />
+                <ScalarProperty Name="Cucoffcde" ColumnName="Cucoffcde" />
+                <ScalarProperty Name="Cucsm1cde" ColumnName="Cucsm1cde" />
+                <ScalarProperty Name="Cucsm2cde" ColumnName="Cucsm2cde" />
+                <ScalarProperty Name="Cucloccde" ColumnName="Cucloccde" />
+                <ScalarProperty Name="Cucbuscde" ColumnName="Cucbuscde" />
+                <ScalarProperty Name="Cutadded" ColumnName="Cutadded" />
+                <ScalarProperty Name="Cucblable" ColumnName="Cucblable" />
+                <ScalarProperty Name="Cucstaxcde" ColumnName="Cucstaxcde" />
+                <ScalarProperty Name="Cucschgcde" ColumnName="Cucschgcde" />
+                <ScalarProperty Name="Cucsttxcde" ColumnName="Cucsttxcde" />
+                <ScalarProperty Name="Cuccttxcde" ColumnName="Cuccttxcde" />
+                <ScalarProperty Name="Cucdeunion" ColumnName="Cucdeunion" />
+                <ScalarProperty Name="Cucwglnk1" ColumnName="Cucwglnk1" />
+                <ScalarProperty Name="Cucpono" ColumnName="Cucpono" />
+                <ScalarProperty Name="Cucrelno" ColumnName="Cucrelno" />
+                <ScalarProperty Name="Cucprojno" ColumnName="Cucprojno" />
+                <ScalarProperty Name="Cucgenexp" ColumnName="Cucgenexp" />
+                <ScalarProperty Name="Cucschrecd" ColumnName="Cucschrecd" />
+                <ScalarProperty Name="Cucdstadj" ColumnName="Cucdstadj" />
+                <ScalarProperty Name="Cucoldkey" ColumnName="Cucoldkey" />
+                <ScalarProperty Name="Cutlastexp" ColumnName="Cutlastexp" />
+                <ScalarProperty Name="Cutlastimp" ColumnName="Cutlastimp" />
+                <ScalarProperty Name="Cucimpexp" ColumnName="Cucimpexp" />
+                <ScalarProperty Name="Cucmergeid" ColumnName="Cucmergeid" />
+                <ScalarProperty Name="Cucbrnchid" ColumnName="Cucbrnchid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empmasts">
+            <EntityTypeMapping TypeName="ULTRAModel.Empmast">
+              <MappingFragment StoreEntitySet="Empmast">
+                <ScalarProperty Name="Emcempmast" ColumnName="Emcempmast" />
+                <ScalarProperty Name="Emcempid" ColumnName="Emcempid" />
+                <ScalarProperty Name="Emcstatus" ColumnName="Emcstatus" />
+                <ScalarProperty Name="Emcfname" ColumnName="Emcfname" />
+                <ScalarProperty Name="Emcmname" ColumnName="Emcmname" />
+                <ScalarProperty Name="Emclname" ColumnName="Emclname" />
+                <ScalarProperty Name="Emcaddr1" ColumnName="Emcaddr1" />
+                <ScalarProperty Name="Emcaddr2" ColumnName="Emcaddr2" />
+                <ScalarProperty Name="Emccity" ColumnName="Emccity" />
+                <ScalarProperty Name="Emcstate" ColumnName="Emcstate" />
+                <ScalarProperty Name="Emczipcode" ColumnName="Emczipcode" />
+                <ScalarProperty Name="Emccountry" ColumnName="Emccountry" />
+                <ScalarProperty Name="Emcssno" ColumnName="Emcssno" />
+                <ScalarProperty Name="Emcdeptcde" ColumnName="Emcdeptcde" />
+                <ScalarProperty Name="Emcoffcde" ColumnName="Emcoffcde" />
+                <ScalarProperty Name="Emcloccde" ColumnName="Emcloccde" />
+                <ScalarProperty Name="Emcworkcde" ColumnName="Emcworkcde" />
+                <ScalarProperty Name="Emcsm1cde" ColumnName="Emcsm1cde" />
+                <ScalarProperty Name="Emcsm2cde" ColumnName="Emcsm2cde" />
+                <ScalarProperty Name="Emcrankcde" ColumnName="Emcrankcde" />
+                <ScalarProperty Name="Emcprecall" ColumnName="Emcprecall" />
+                <ScalarProperty Name="Emcschrecd" ColumnName="Emcschrecd" />
+                <ScalarProperty Name="Emccarcde" ColumnName="Emccarcde" />
+                <ScalarProperty Name="Emcmarital" ColumnName="Emcmarital" />
+                <ScalarProperty Name="Emcrace" ColumnName="Emcrace" />
+                <ScalarProperty Name="Emcsex" ColumnName="Emcsex" />
+                <ScalarProperty Name="Emtbirth" ColumnName="Emtbirth" />
+                <ScalarProperty Name="Emthire" ColumnName="Emthire" />
+                <ScalarProperty Name="Emtrehire" ColumnName="Emtrehire" />
+                <ScalarProperty Name="Emtterm" ColumnName="Emtterm" />
+                <ScalarProperty Name="Emctermcde" ColumnName="Emctermcde" />
+                <ScalarProperty Name="Emcnhmdben" ColumnName="Emcnhmdben" />
+                <ScalarProperty Name="Emccorpcde" ColumnName="Emccorpcde" />
+                <ScalarProperty Name="Emcqmoccu" ColumnName="Emcqmoccu" />
+                <ScalarProperty Name="Emcqmarea" ColumnName="Emcqmarea" />
+                <ScalarProperty Name="Emcssfname" ColumnName="Emcssfname" />
+                <ScalarProperty Name="Emcssmname" ColumnName="Emcssmname" />
+                <ScalarProperty Name="Emcsslname" ColumnName="Emcsslname" />
+                <ScalarProperty Name="Emctino" ColumnName="Emctino" />
+                <ScalarProperty Name="Emctiname" ColumnName="Emctiname" />
+                <ScalarProperty Name="Emcextrnid" ColumnName="Emcextrnid" />
+                <ScalarProperty Name="Emcemptype" ColumnName="Emcemptype" />
+                <ScalarProperty Name="Emcpyfreq" ColumnName="Emcpyfreq" />
+                <ScalarProperty Name="Emcpytype" ColumnName="Emcpytype" />
+                <ScalarProperty Name="Emnsalamt" ColumnName="Emnsalamt" />
+                <ScalarProperty Name="Emnsblamt" ColumnName="Emnsblamt" />
+                <ScalarProperty Name="Emnsalhrs" ColumnName="Emnsalhrs" />
+                <ScalarProperty Name="Emcsalcust" ColumnName="Emcsalcust" />
+                <ScalarProperty Name="Emcsalcomp" ColumnName="Emcsalcomp" />
+                <ScalarProperty Name="Emcspyrule" ColumnName="Emcspyrule" />
+                <ScalarProperty Name="Emcsblrule" ColumnName="Emcsblrule" />
+                <ScalarProperty Name="Emtsalppe" ColumnName="Emtsalppe" />
+                <ScalarProperty Name="Emcholpy" ColumnName="Emcholpy" />
+                <ScalarProperty Name="Emmholexcl" ColumnName="Emmholexcl" />
+                <ScalarProperty Name="Emcovtrule" ColumnName="Emcovtrule" />
+                <ScalarProperty Name="Emcchkcde" ColumnName="Emcchkcde" />
+                <ScalarProperty Name="Emt1stchk" ColumnName="Emt1stchk" />
+                <ScalarProperty Name="Emtlstchk" ColumnName="Emtlstchk" />
+                <ScalarProperty Name="Emnacumhr1" ColumnName="Emnacumhr1" />
+                <ScalarProperty Name="Emnacumhr2" ColumnName="Emnacumhr2" />
+                <ScalarProperty Name="Emcddtype" ColumnName="Emcddtype" />
+                <ScalarProperty Name="Emcddrout" ColumnName="Emcddrout" />
+                <ScalarProperty Name="Emcddacct" ColumnName="Emcddacct" />
+                <ScalarProperty Name="Emcddpren" ColumnName="Emcddpren" />
+                <ScalarProperty Name="Emnddamt" ColumnName="Emnddamt" />
+                <ScalarProperty Name="Emcddcalc" ColumnName="Emcddcalc" />
+                <ScalarProperty Name="Emcdd2type" ColumnName="Emcdd2type" />
+                <ScalarProperty Name="Emcdd2rout" ColumnName="Emcdd2rout" />
+                <ScalarProperty Name="Emcdd2acct" ColumnName="Emcdd2acct" />
+                <ScalarProperty Name="Emcdd2pren" ColumnName="Emcdd2pren" />
+                <ScalarProperty Name="Emtddnext" ColumnName="Emtddnext" />
+                <ScalarProperty Name="Emcdeunion" ColumnName="Emcdeunion" />
+                <ScalarProperty Name="Emcwglnk1" ColumnName="Emcwglnk1" />
+                <ScalarProperty Name="Emcgenms1" ColumnName="Emcgenms1" />
+                <ScalarProperty Name="Emcivrstat" ColumnName="Emcivrstat" />
+                <ScalarProperty Name="Emcemppin" ColumnName="Emcemppin" />
+                <ScalarProperty Name="Emclucid" ColumnName="Emclucid" />
+                <ScalarProperty Name="Emcgenexp" ColumnName="Emcgenexp" />
+                <ScalarProperty Name="Emcoldkey" ColumnName="Emcoldkey" />
+                <ScalarProperty Name="Emtlastexp" ColumnName="Emtlastexp" />
+                <ScalarProperty Name="Emtlastimp" ColumnName="Emtlastimp" />
+                <ScalarProperty Name="Emcimpexp" ColumnName="Emcimpexp" />
+                <ScalarProperty Name="Emcmergeid" ColumnName="Emcmergeid" />
+                <ScalarProperty Name="Emcbrnchid" ColumnName="Emcbrnchid" />
+                <ScalarProperty Name="Emtadded" ColumnName="Emtadded" />
+                <ScalarProperty Name="Emcftstat" ColumnName="Emcftstat" />
+                <ScalarProperty Name="Emcpolmast" ColumnName="Emcpolmast" />
+                <ScalarProperty Name="Emc1095err" ColumnName="Emc1095err" />
+                <ScalarProperty Name="Emc1095cor" ColumnName="Emc1095cor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

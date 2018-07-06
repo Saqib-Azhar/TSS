@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ULTRAModelStoreContainer" CdmEntityContainer="ULTRAEntities">
+    <EntitySetMapping Name="Cusconts">
+      <EntityTypeMapping TypeName="ULTRAModel.Cuscont">
+        <MappingFragment StoreEntitySet="Cuscont">
+          <ScalarProperty Name="Ccccuscont" ColumnName="Ccccuscont" />
+          <ScalarProperty Name="Ccccusmast" ColumnName="Ccccusmast" />
+          <ScalarProperty Name="Ccccontcde" ColumnName="Ccccontcde" />
+          <ScalarProperty Name="Ccccatcde" ColumnName="Ccccatcde" />
+          <ScalarProperty Name="Ccccontact" ColumnName="Ccccontact" />
+          <ScalarProperty Name="Ccccontmsc" ColumnName="Ccccontmsc" />
+          <ScalarProperty Name="Cccphone1" ColumnName="Cccphone1" />
+          <ScalarProperty Name="Cccphone2" ColumnName="Cccphone2" />
+          <ScalarProperty Name="Cccphone3" ColumnName="Cccphone3" />
+          <ScalarProperty Name="Cccemail" ColumnName="Cccemail" />
+          <ScalarProperty Name="Cccsalcde" ColumnName="Cccsalcde" />
+          <ScalarProperty Name="Cccfname" ColumnName="Cccfname" />
+          <ScalarProperty Name="Cccmname" ColumnName="Cccmname" />
+          <ScalarProperty Name="Ccclname" ColumnName="Ccclname" />
+          <ScalarProperty Name="Cccemlbody" ColumnName="Cccemlbody" />
+          <ScalarProperty Name="Ccmnotes" ColumnName="Ccmnotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cusmasts">
+      <EntityTypeMapping TypeName="ULTRAModel.Cusmast">
+        <MappingFragment StoreEntitySet="Cusmast">
+          <ScalarProperty Name="Cuccusmast" ColumnName="Cuccusmast" />
+          <ScalarProperty Name="Cuccustid" ColumnName="Cuccustid" />
+          <ScalarProperty Name="Cucrecmast" ColumnName="Cucrecmast" />
+          <ScalarProperty Name="Cucsitecde" ColumnName="Cucsitecde" />
+          <ScalarProperty Name="Cucname" ColumnName="Cucname" />
+          <ScalarProperty Name="Cucaddr1" ColumnName="Cucaddr1" />
+          <ScalarProperty Name="Cucaddr2" ColumnName="Cucaddr2" />
+          <ScalarProperty Name="Cuccity" ColumnName="Cuccity" />
+          <ScalarProperty Name="Cucstate" ColumnName="Cucstate" />
+          <ScalarProperty Name="Cuczipcode" ColumnName="Cuczipcode" />
+          <ScalarProperty Name="Cuccountry" ColumnName="Cuccountry" />
+          <ScalarProperty Name="Cucstatus" ColumnName="Cucstatus" />
+          <ScalarProperty Name="Cucoffcde" ColumnName="Cucoffcde" />
+          <ScalarProperty Name="Cucsm1cde" ColumnName="Cucsm1cde" />
+          <ScalarProperty Name="Cucsm2cde" ColumnName="Cucsm2cde" />
+          <ScalarProperty Name="Cucloccde" ColumnName="Cucloccde" />
+          <ScalarProperty Name="Cucbuscde" ColumnName="Cucbuscde" />
+          <ScalarProperty Name="Cutadded" ColumnName="Cutadded" />
+          <ScalarProperty Name="Cucblable" ColumnName="Cucblable" />
+          <ScalarProperty Name="Cucstaxcde" ColumnName="Cucstaxcde" />
+          <ScalarProperty Name="Cucschgcde" ColumnName="Cucschgcde" />
+          <ScalarProperty Name="Cucsttxcde" ColumnName="Cucsttxcde" />
+          <ScalarProperty Name="Cuccttxcde" ColumnName="Cuccttxcde" />
+          <ScalarProperty Name="Cucdeunion" ColumnName="Cucdeunion" />
+          <ScalarProperty Name="Cucwglnk1" ColumnName="Cucwglnk1" />
+          <ScalarProperty Name="Cucpono" ColumnName="Cucpono" />
+          <ScalarProperty Name="Cucrelno" ColumnName="Cucrelno" />
+          <ScalarProperty Name="Cucprojno" ColumnName="Cucprojno" />
+          <ScalarProperty Name="Cucgenexp" ColumnName="Cucgenexp" />
+          <ScalarProperty Name="Cucschrecd" ColumnName="Cucschrecd" />
+          <ScalarProperty Name="Cucdstadj" ColumnName="Cucdstadj" />
+          <ScalarProperty Name="Cucoldkey" ColumnName="Cucoldkey" />
+          <ScalarProperty Name="Cutlastexp" ColumnName="Cutlastexp" />
+          <ScalarProperty Name="Cutlastimp" ColumnName="Cutlastimp" />
+          <ScalarProperty Name="Cucimpexp" ColumnName="Cucimpexp" />
+          <ScalarProperty Name="Cucmergeid" ColumnName="Cucmergeid" />
+          <ScalarProperty Name="Cucbrnchid" ColumnName="Cucbrnchid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empmasts">
+      <EntityTypeMapping TypeName="ULTRAModel.Empmast">
+        <MappingFragment StoreEntitySet="Empmast">
+          <ScalarProperty Name="Emcempmast" ColumnName="Emcempmast" />
+          <ScalarProperty Name="Emcempid" ColumnName="Emcempid" />
+          <ScalarProperty Name="Emcstatus" ColumnName="Emcstatus" />
+          <ScalarProperty Name="Emcfname" ColumnName="Emcfname" />
+          <ScalarProperty Name="Emcmname" ColumnName="Emcmname" />
+          <ScalarProperty Name="Emclname" ColumnName="Emclname" />
+          <ScalarProperty Name="Emcaddr1" ColumnName="Emcaddr1" />
+          <ScalarProperty Name="Emcaddr2" ColumnName="Emcaddr2" />
+          <ScalarProperty Name="Emccity" ColumnName="Emccity" />
+          <ScalarProperty Name="Emcstate" ColumnName="Emcstate" />
+          <ScalarProperty Name="Emczipcode" ColumnName="Emczipcode" />
+          <ScalarProperty Name="Emccountry" ColumnName="Emccountry" />
+          <ScalarProperty Name="Emcssno" ColumnName="Emcssno" />
+          <ScalarProperty Name="Emcdeptcde" ColumnName="Emcdeptcde" />
+          <ScalarProperty Name="Emcoffcde" ColumnName="Emcoffcde" />
+          <ScalarProperty Name="Emcloccde" ColumnName="Emcloccde" />
+          <ScalarProperty Name="Emcworkcde" ColumnName="Emcworkcde" />
+          <ScalarProperty Name="Emcsm1cde" ColumnName="Emcsm1cde" />
+          <ScalarProperty Name="Emcsm2cde" ColumnName="Emcsm2cde" />
+          <ScalarProperty Name="Emcrankcde" ColumnName="Emcrankcde" />
+          <ScalarProperty Name="Emcprecall" ColumnName="Emcprecall" />
+          <ScalarProperty Name="Emcschrecd" ColumnName="Emcschrecd" />
+          <ScalarProperty Name="Emccarcde" ColumnName="Emccarcde" />
+          <ScalarProperty Name="Emcmarital" ColumnName="Emcmarital" />
+          <ScalarProperty Name="Emcrace" ColumnName="Emcrace" />
+          <ScalarProperty Name="Emcsex" ColumnName="Emcsex" />
+          <ScalarProperty Name="Emtbirth" ColumnName="Emtbirth" />
+          <ScalarProperty Name="Emthire" ColumnName="Emthire" />
+          <ScalarProperty Name="Emtrehire" ColumnName="Emtrehire" />
+          <ScalarProperty Name="Emtterm" ColumnName="Emtterm" />
+          <ScalarProperty Name="Emctermcde" ColumnName="Emctermcde" />
+          <ScalarProperty Name="Emcnhmdben" ColumnName="Emcnhmdben" />
+          <ScalarProperty Name="Emccorpcde" ColumnName="Emccorpcde" />
+          <ScalarProperty Name="Emcqmoccu" ColumnName="Emcqmoccu" />
+          <ScalarProperty Name="Emcqmarea" ColumnName="Emcqmarea" />
+          <ScalarProperty Name="Emcssfname" ColumnName="Emcssfname" />
+          <ScalarProperty Name="Emcssmname" ColumnName="Emcssmname" />
+          <ScalarProperty Name="Emcsslname" ColumnName="Emcsslname" />
+          <ScalarProperty Name="Emctino" ColumnName="Emctino" />
+          <ScalarProperty Name="Emctiname" ColumnName="Emctiname" />
+          <ScalarProperty Name="Emcextrnid" ColumnName="Emcextrnid" />
+          <ScalarProperty Name="Emcemptype" ColumnName="Emcemptype" />
+          <ScalarProperty Name="Emcpyfreq" ColumnName="Emcpyfreq" />
+          <ScalarProperty Name="Emcpytype" ColumnName="Emcpytype" />
+          <ScalarProperty Name="Emnsalamt" ColumnName="Emnsalamt" />
+          <ScalarProperty Name="Emnsblamt" ColumnName="Emnsblamt" />
+          <ScalarProperty Name="Emnsalhrs" ColumnName="Emnsalhrs" />
+          <ScalarProperty Name="Emcsalcust" ColumnName="Emcsalcust" />
+          <ScalarProperty Name="Emcsalcomp" ColumnName="Emcsalcomp" />
+          <ScalarProperty Name="Emcspyrule" ColumnName="Emcspyrule" />
+          <ScalarProperty Name="Emcsblrule" ColumnName="Emcsblrule" />
+          <ScalarProperty Name="Emtsalppe" ColumnName="Emtsalppe" />
+          <ScalarProperty Name="Emcholpy" ColumnName="Emcholpy" />
+          <ScalarProperty Name="Emmholexcl" ColumnName="Emmholexcl" />
+          <ScalarProperty Name="Emcovtrule" ColumnName="Emcovtrule" />
+          <ScalarProperty Name="Emcchkcde" ColumnName="Emcchkcde" />
+          <ScalarProperty Name="Emt1stchk" ColumnName="Emt1stchk" />
+          <ScalarProperty Name="Emtlstchk" ColumnName="Emtlstchk" />
+          <ScalarProperty Name="Emnacumhr1" ColumnName="Emnacumhr1" />
+          <ScalarProperty Name="Emnacumhr2" ColumnName="Emnacumhr2" />
+          <ScalarProperty Name="Emcddtype" ColumnName="Emcddtype" />
+          <ScalarProperty Name="Emcddrout" ColumnName="Emcddrout" />
+          <ScalarProperty Name="Emcddacct" ColumnName="Emcddacct" />
+          <ScalarProperty Name="Emcddpren" ColumnName="Emcddpren" />
+          <ScalarProperty Name="Emnddamt" ColumnName="Emnddamt" />
+          <ScalarProperty Name="Emcddcalc" ColumnName="Emcddcalc" />
+          <ScalarProperty Name="Emcdd2type" ColumnName="Emcdd2type" />
+          <ScalarProperty Name="Emcdd2rout" ColumnName="Emcdd2rout" />
+          <ScalarProperty Name="Emcdd2acct" ColumnName="Emcdd2acct" />
+          <ScalarProperty Name="Emcdd2pren" ColumnName="Emcdd2pren" />
+          <ScalarProperty Name="Emtddnext" ColumnName="Emtddnext" />
+          <ScalarProperty Name="Emcdeunion" ColumnName="Emcdeunion" />
+          <ScalarProperty Name="Emcwglnk1" ColumnName="Emcwglnk1" />
+          <ScalarProperty Name="Emcgenms1" ColumnName="Emcgenms1" />
+          <ScalarProperty Name="Emcivrstat" ColumnName="Emcivrstat" />
+          <ScalarProperty Name="Emcemppin" ColumnName="Emcemppin" />
+          <ScalarProperty Name="Emclucid" ColumnName="Emclucid" />
+          <ScalarProperty Name="Emcgenexp" ColumnName="Emcgenexp" />
+          <ScalarProperty Name="Emcoldkey" ColumnName="Emcoldkey" />
+          <ScalarProperty Name="Emtlastexp" ColumnName="Emtlastexp" />
+          <ScalarProperty Name="Emtlastimp" ColumnName="Emtlastimp" />
+          <ScalarProperty Name="Emcimpexp" ColumnName="Emcimpexp" />
+          <ScalarProperty Name="Emcmergeid" ColumnName="Emcmergeid" />
+          <ScalarProperty Name="Emcbrnchid" ColumnName="Emcbrnchid" />
+          <ScalarProperty Name="Emtadded" ColumnName="Emtadded" />
+          <ScalarProperty Name="Emcftstat" ColumnName="Emcftstat" />
+          <ScalarProperty Name="Emcpolmast" ColumnName="Emcpolmast" />
+          <ScalarProperty Name="Emc1095err" ColumnName="Emc1095err" />
+          <ScalarProperty Name="Emc1095cor" ColumnName="Emc1095cor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

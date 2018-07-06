@@ -1,0 +1,182 @@
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\ApplicationInsights.config
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\csc.exe
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\vbc.exe
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\VBCSCompiler.exe
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\TotalStaffingSolutions.dll.config
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\TotalStaffingSolutions.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\TotalStaffingSolutions.pdb
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Antlr3.Runtime.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\EntityFramework.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\EntityFramework.SqlServer.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.Web.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.ApplicationInsights.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Newtonsoft.Json.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Owin.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.Helpers.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.Mvc.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.Optimization.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.Razor.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.WebPages.Deployment.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.WebPages.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.WebPages.Razor.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\WebGrease.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.Web.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.Helpers.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.Mvc.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.Optimization.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.Razor.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.WebPages.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.WebPages.Deployment.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Web.WebPages.Razor.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Antlr3.Runtime.pdb
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Newtonsoft.Json.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\EntityFramework.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\EntityFramework.SqlServer.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.pdb
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Hangfire.Core.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Hangfire.SqlServer.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Hangfire.Core.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Hangfire.SqlServer.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\es\Hangfire.Core.resources.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\zh\Hangfire.Core.resources.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\bin\zh-TW\Hangfire.Core.resources.dll
+C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.csprojResolveAssemblyReference.cache
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\ApplicationInsights.config
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\csc.exe
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\vbc.exe
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\VBCSCompiler.exe
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\TotalStaffingSolutions.dll.config
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\TotalStaffingSolutions.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\TotalStaffingSolutions.pdb
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Antlr3.Runtime.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\EntityFramework.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\EntityFramework.SqlServer.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Hangfire.Core.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Hangfire.SqlServer.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.Web.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.ApplicationInsights.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Newtonsoft.Json.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Owin.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.Helpers.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.Mvc.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.Optimization.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.Razor.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.WebPages.Deployment.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.WebPages.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.WebPages.Razor.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\WebGrease.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Antlr3.Runtime.pdb
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\EntityFramework.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\EntityFramework.SqlServer.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Hangfire.Core.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Hangfire.SqlServer.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.Web.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Newtonsoft.Json.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.Helpers.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.Mvc.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.Razor.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.WebPages.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.WebPages.Deployment.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.WebPages.Razor.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\System.Web.Optimization.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\es\Hangfire.Core.resources.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\zh\Hangfire.Core.resources.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\bin\zh-TW\Hangfire.Core.resources.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.dll
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.pdb
+C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.csprojResolveAssemblyReference.cache

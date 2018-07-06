@@ -1,0 +1,295 @@
+==============================================================================
+  02/18/16 10:31:30 AM
+==============================================================================
+PROGRAM: DartServiceEvents
+OBJECT: dartserviceevents._iserviceevents_error
+LINE NUMBER: 0
+ERROR NUMBER: 1063
+ERROR MESSAGE: The Service Controller failed to start the service.
+
+
+------------------------------------------------------------------------------
+  MEMORY
+------------------------------------------------------------------------------
+
+TCPERFORM   Local  C  ""  manager_main
+TCACCOUNT   Local  L  .F.  manager_main
+TCPASSWORD  Local  L  .F.  manager_main
+LLDEVELOPER
+            Local  L  .F.  manager_main
+LCSTARTDIRECTORY
+            Local  C  "C:\Ultra32\"  manager_main
+LOIVRMANAGER
+            Local  O  IMMANAGER  manager_main
+LCRESULTS   Local  C  ""  manager_main
+LOEXCEPTION
+            Local  L  .F.  manager_main
+NUMBER      Local  N  1063        (      1063.00000000)  _iserviceevents_error
+DESCRIPTION
+            Local  C  "The Service Controller failed to start the se
+                      rvice."  _iserviceevents_error
+LOEXCEPTION
+            Local  L  .F.  _iserviceevents_error
+TCERR_PROGRAM
+            Local  C  "DartServiceEvents"  systemerror
+TNERR_LINENO
+            Local  N  0           (         0.00000000)  systemerror
+TCERR_LOGFILE
+            Local  C  "ERR_IVRMGR.TXT"  systemerror
+TLERR_LOGONLY
+            Local  L  .F.  systemerror
+TNERR_NUMBER
+            Local  number
+TCERR_MESSAGE
+            Local  description
+LCERR_ONERROR
+            Local  C  "DO SystemError WITH ERROR(), PROGRAM(), LINEN
+                      O(), MESSAGE(), "ERR_IVRMGR.TXT", llDeveloper"  systemerror
+LCERR_CALLSTACK
+            Local  C  ""  systemerror
+LCERR_DIRECTORY
+            Local  C  "C:\Ultra32\"  systemerror
+LNERR_STACKCOUNT
+            Local  N  2           (         2.00000000)  systemerror
+LAERR_STACK
+            Local  A  systemerror
+   (   1,   1)     N  1           (         1.00000000)
+   (   1,   2)     C  "c:\ultra32\ivrmanager.exe"
+   (   1,   3)     C  "manager_main"
+   (   1,   4)     C  "C:\Ultra32\progs\manager_main.prg"
+   (   1,   5)     N  90          (        90.00000000)
+   (   1,   6)     C  ""
+   (   2,   1)     N  2           (         2.00000000)
+   (   2,   2)     C  "manager_definitions.fxp"
+   (   2,   3)     C  "dartserviceevents._iserviceevents_error"
+   (   2,   4)     C  "C:\Ultra32\libs\manager_definitions.prg"
+   (   2,   5)     N  69          (        69.00000000)
+   (   2,   6)     C  ""
+   (   3,   1)     N  3           (         3.00000000)
+   (   3,   2)     C  "systemerror.fxp"
+   (   3,   3)     C  "systemerror"
+   (   3,   4)     C  "C:\Ultra32\progs\systemerror.prg"
+   (   3,   5)     N  50          (        50.00000000)
+   (   3,   6)     C  ""
+LCERR_OBJECT
+            Local  C  "dartserviceevents._iserviceevents_error"  systemerror
+LLERR_RETURN
+            Local  L  .F.  systemerror
+LOERR_EXCEPTION
+            Local  L  .F.  systemerror
+LCERR_BKUPFILE
+            Local  L  .F.  systemerror
+   26 variables defined,    616 bytes used
+ 4070 variables available
+
+Print System Memory Variables
+
+_ALIGNMENT  Pub    C  "LEFT"
+_ASCIICOLS  Pub    N  80          (        80.00000000)
+_ASCIIROWS  Pub    N  63          (        63.00000000)
+_ASSIST     Pub    C  ""
+_BEAUTIFY   Pub    C  ""
+_BOX        Pub    L  .T.
+_BROWSER    Pub    C  ""
+_BUILDER    Pub    C  ""
+_CALCMEM    Pub    N  0.00        (         0.00000000)
+_CALCVALUE  Pub    N  -21.00      (       -21.00000000)
+_CODESENSE  Pub    C  ""
+_CONVERTER  Pub    C  ""
+_COVERAGE   Pub    C  ""
+_CUROBJ     Pub    N  -1          (        -1.00000000)
+_DBLCLICK   Pub    N  0.50        (         0.50000000)
+_DIARYDATE  Pub    D  02/18/16
+_DOS        Pub    L  .F.
+_FOXCODE    Pub    C  ""
+_FOXDOC     Pub    C  ""
+_FOXGRAPH   Pub    C  ""
+_FOXREF     Pub    C  ""
+_FOXTASK    Pub    C  ""
+_GALLERY    Pub    C  ""
+_GENGRAPH   Pub    C  ""
+_GENHTML    Pub    C  ""
+_GENMENU    Pub    C  ""
+_GENPD      Pub    C  ""
+_GENSCRN    Pub    C  ""
+_GENXTAB    Pub    C  ""
+_GETEXPR    Pub    C  ""
+_INCLUDE    Pub    C  ""
+_INCSEEK    Pub    N  0.50        (         0.50000000)
+_INDENT     Pub    N  0           (         0.00000000)
+_LMARGIN    Pub    N  0           (         0.00000000)
+_MAC        Pub    L  .F.
+_MLINE      Pub    N  0           (         0.00000000)
+_OBJECTBROWSERPub    C  ""
+_PADVANCE   Pub    C  "FORMFEED"
+_PAGENO     Pub    N  2           (         2.00000000)
+_PAGETOTAL  Pub    N  0           (         0.00000000)
+_PBPAGE     Pub    N  1           (         1.00000000)
+_PCOLNO     Pub    N  22          (        22.00000000)
+_PCOPIES    Pub    N  1           (         1.00000000)
+_PDRIVER    Pub    C  ""
+_PDSETUP    Pub    C  ""
+_PECODE     Pub    C  ""
+_PEJECT     Pub    C  "NONE"
+_PEPAGE     Pub    N  32767       (     32767.00000000)
+_PLENGTH    Pub    N  66          (        66.00000000)
+_PLINENO    Pub    N  55          (        55.00000000)
+_PLOFFSET   Pub    N  0           (         0.00000000)
+_PPITCH     Pub    C  "DEFAULT"
+_PQUALITY   Pub    L  .F.
+_PRETEXT    Pub    C  ""
+_PSCODE     Pub    C  ""
+_PSPACING   Pub    N  1           (         1.00000000)
+_PWAIT      Pub    L  .F.
+_RMARGIN    Pub    N  80          (        80.00000000)
+_RUNACTIVEDOCPub    C  ""
+_SAMPLES    Pub    C  "C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT
+                       SHARED\VFP\SAMPLES\"
+_SCCTEXT    Pub    C  ""
+_SCREEN     Pub    O  FORM
+_SHELL      Pub    C  ""
+_SPELLCHK   Pub    C  ""
+_STARTUP    Pub    C  ""
+_TABS       Pub    C  ""
+_TALLY      Pub    N  0           (         0.00000000)
+_TASKLIST   Pub    C  ""
+_TASKPANE   Pub    C  ""
+_TEXT       Pub    N  -1          (        -1.00000000)
+_THROTTLE   Pub    N  0.00        (         0.00000000)
+_TOOLBOX    Pub    C  ""
+_TRANSPORT  Pub    C  ""
+_TRIGGERLEVELPub    N  0           (         0.00000000)
+_UNIX       Pub    L  .F.
+_VFP        Pub    O  UNKNOWN TYPE
+_WINDOWS    Pub    L  .T.
+_WIZARD     Pub    C  ""
+_WRAP       Pub    L  .F.
+
+   85 System Variables Defined
+
+Menu and Pad Definitions
+
+    0 Menus Defined
+
+Popup Definitions
+
+    0 Popups Defined
+
+Window Definitions
+
+    0 Windows Defined
+
+------------------------------------------------------------------------------
+  OBJECT
+------------------------------------------------------------------------------
+
+
+Object: LOIVRMANAGER     Local    O  IMMANAGER
+
+Class Tree:
+     IMMANAGER                c:\ultra32\libs\manager_visualclasslibrary.vcx
+     CUSTOM
+
+Properties:
+     BASECLASS                C  "Custom"
+     CLASS                    C  "Immanager"
+     CLASSLIBRARY             C  "c:\ultra32\libs\manager_visualclas
+                                 slibrary.vcx"
+     COMMENT                  C  ""
+     CONTROLCOUNT             N  7          (         7.00000000)
+     CONTROLS                 (None)
+     HEIGHT                   N  17         (        17.00000000)
+     HELPCONTEXTID            N  0          (         0.00000000)
+     LACTIVE                  L  .F.
+     LEFT                     N  0          (         0.00000000)
+     NAME                     C  "immanager"
+     OBJECTS                  (None)
+     ODARTEVENTS              O  DARTSERVICEEVENTS
+     ODARTSERVICE             O  DART SERVICE CONTROL
+     PARENT                   (None)
+     PARENTCLASS              C  "Custom"
+     PICTURE                  C  ""
+     TAG                      C  ""
+     TOP                      N  0          (         0.00000000)
+     WHATSTHISHELPID          N  -1         (        -1.00000000)
+     WIDTH                    N  100        (       100.00000000)
+
+Member Objects:
+     ODATAF...TITEMS  IMDATAFILESETITEMCOLLECTION
+     OINTERNET        XINTERNET
+     OSERVICEITEMS    IMSERVICEITEMCOLLECTION
+     OSERVICELOCK     IMSERVICELOCK
+     OSERVICENAMES    IMSERVICENAMECOLLECTION
+     OSTATUS          IMSTATUS
+     OTIMER           IMTIMER
+
+Methods and Events:
+     ADDOBJECT                ADDPROPERTY              DESTROY                  ERROR                    INIT
+     NEWOBJECT                READEXPRESSION           READMETHOD               RELEASE                  REMOVEOBJECT
+     RESETTODEFAULT           SAVEASCLASS              SCMINSTALL               SCMUNINSTALL             SERVICEEXECUTE
+     SERVICEPAUSE             SERVICERESUME            SERVICESTART             SERVICESTOP              SHOWWHATSTHIS
+     STARTUP                  STATE                    WRITEEXPRESSION          WRITEMETHOD              
+
+------------------------------------------------------------------------------
+  STATUS
+------------------------------------------------------------------------------
+
+Processor is Pentium
+Procedure file: IVRCOMMON_LIBRARY.FXP, SYSTEMERROR.FXP, MANAGER_DEFINITIONS.FXP, WWHTTP.FXP, WWUTILS.FXP
+Class libraries: C:\ULTRA32\LIBS\IVRCOMMON_VISUALCLASSLIBRARY.VCX ALIAS IVRCOMMON_VISUALCLASSLIBRARY, C:\ULTRA32\LIBS\MANAGER_VISUALCLASSLIBRARY.VCX ALIAS MANAGER_VISUALCLASSLIBRARY
+File search path: C:\ULTRA32\
+Default directory: C:\ULTRA32
+Print file/device:  
+Work area   =    1
+Margin      =    0
+Decimals    =    2
+Memowidth   =   50
+Typeahead   =    0
+Blocksize   =   64
+Reprocess   =       0
+Refresh     = 0,5 SECONDS
+DDE Timeout =    2000
+DDE Safety  = on
+
+Code page: 1252
+Collating sequence: Machine
+Compiler code page: 1252
+Date format: American
+Macro Hot Key = 
+UDF parameters are passed by: VALUE
+Textmerge Options
+          Delimiters:  Left = <<  Right = >>
+          Show
+
+Alternate  - off    Century    - off    Deleted    - off    Fixed      - off    Mouse      - on     Safety     - off    Unique     - off 
+ANSI       - off    Clear      - on     Device     - scrn   Fullpath   - on     Multilocks - off    Space      - on  
+Asserts    - on     Color      - on     Echo       - off    Heading    - on     Near       - off    Status Bar - off 
+Bell       - on     Compatible - off    Escape     - on     Help       - on     Null       - off    Sysmenus   - on  
+Blink      - on     Confirm    - off    Exact      - off    Intensity  - on     Optimize   - on     Talk       - off 
+Brstatus   - off    Console    - off    Exclusive  - off    Lock       - off    Print      - off    Textmerge  - off 
+Carry      - off    Cursor     - on     Fields     - off    Logerrors  - on     Readborder - off    Title      - off 
+
+
+
+
+Declared DLLs:
+GetFileAttributes                                   C:\Windows\syswow64\kernel32.dll
+GetLastError                                        C:\Windows\syswow64\kernel32.dll
+GetPrivateProfileSection                            c:\windows\system32\kernel32.dll
+GetPrivateProfileSectionNames                           c:\windows\system32\kernel32.dll
+GetPrivateProfileString                             c:\windows\system32\kernel32.dll
+WritePrivateProfileSection                           c:\windows\system32\kernel32.dll
+
+
+------------------------------------------------------------------------------
+  CALL STACK
+------------------------------------------------------------------------------
+
+c:\ultra32\ivrmanager.exe  manager_main
+manager_definitions.fxp  dartserviceevents._iserviceevents_error
+systemerror.fxp  systemerror
+
+
+
+
+

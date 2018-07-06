@@ -1,0 +1,83 @@
+﻿@model TotalStaffingSolutions.Models.UserRegisterViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Total Staffing Solutions | Set Password</title>
+    <link rel="stylesheet" href="/assets/styles/style.min.css">
+    <!-- Waves Effect -->
+    <link rel="stylesheet" href="/assets/plugin/waves/waves.min.css">
+</head>
+<body>
+
+
+    <div id="single-wrapper">
+
+        @using (Html.BeginForm("RegisterUser", "Account", FormMethod.Post, new { @class = "frm-single", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            <div class="inside">
+                <div class="title"><img src="/assets/logo.png"></div>
+                <!-- /.title -->
+                <div class="frm-title">Set Password</div>
+                <!-- /.frm-title -->
+                <div class="frm-input">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control hidden", @placeholder = Model.Email, @value = Model.Email })
+                    </div>
+               @* @Html.TextBoxFor(m => m.Email, new { @class = "form-control hidden", @placeholder = Model.Email, @value = Model.Email })*@
+                <div class="frm-input">
+                    @Html.TextBoxFor(m => m.Customer_id, new { @class = "form-control hidden", @placeholder = Model.Customer_id, @value = Model.Customer_id })
+                </div>
+               @* @Html.TextBoxFor(m => m.Customer_id, new { @class = "form-control hidden", @placeholder = Model.Customer_id, @value = Model.Customer_id })*@
+
+
+                <!-- /.frm-input -->
+                <div class="frm-input">@Html.PasswordFor(m => m.Password, new { @class = "frm-inp" })<i class="fa fa-lock frm-ico"></i></div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                <div class="frm-input">@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "frm-inp" })<i class="fa fa-lock frm-ico"></i></div>
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                <!-- /.frm-input -->
+                <!-- /.clearfix -->
+                <button type="submit" class="frm-submit">Set Password<i class="fa fa-arrow-circle-right"></i></button>
+
+                <!-- /.row -->
+
+                <div class="frm-footer">Total Staffing Solutions © 2018.</div>
+                <!-- /.footer -->
+            </div>
+    <!-- .inside -->
+        }
+        </div>
+        <!-- /.frm-single -->
+        <!--/#single-wrapper -->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="/assets/script/html5shiv.min.js"></script>
+            <script src="/assets/script/respond.min.js"></script>
+        <![Endif]-->
+        <!--
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="/assets/scripts/jquery.min.js"></script>
+        <script src="/assets/scripts/modernizr.min.js"></script>
+        <script src="/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/plugin/nprogress/nprogress.js"></script>
+        <script src="/assets/plugin/waves/waves.min.js"></script>
+        <script src="/assets/scripts/main.min.js"></script>
+</body>
+</html>

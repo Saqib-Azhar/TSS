@@ -1,0 +1,527 @@
+﻿@using System.Web.Script.Serialization;
+@model TotalStaffingSolutions.Models.Customer
+
+<script src="~/assets/scripts/jquery.min.js"></script>
+<script src="~/assets/plugin/jquery-ui/jquery-ui.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="~/Content/bootstrap-datepicker.js"></script>
+<script src="~/Content/bootstrap-datepicker.min.js"></script>
+@*<script src="~/Content/jquery.autocomplete.min.js"></script>*@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .ui-widget{
+        z-index:200 !important;
+        background-color:white !important;
+        border:1px solid grey;
+        width:500px !important;
+        height: 200px;
+        overflow: auto;
+        list-style: none;
+        line-height: 20px;
+        cursor: pointer;
+    }
+</style>
+
+
+
+<div class="row small-spacing">
+    <div class="col-xs-12">
+        <div class="box-content">
+            <div class="row new-main-invoice">
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 create-time-text">
+                    <img alt="logo" src="../assets/logo-w.png">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="new-invoice-top">
+
+                        <div class="create-time-logo">
+                            <div><b>@Model.Name </b><br>@Model.Address1, @Model.Address2<br>@Model.City, @Model.State || 60504</div>
+                            <div>
+                                <span class="invoice-top-new-tel">PH:</span> @Model.PhoneNumber<br>Week Ending:<br>
+                                <div class="form-group ">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker" style="z-index:1000" onchange="UpdateDates()">
+                                        <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
+
+                                        <!-- /.input-group -->
+                                    </div>
+                                </div>
+                                PO Number:<br><input type="text" id="Po_number" class="form-control ponumber" disabled value="@Model.PhoneNumber" placeholder="@Model.PhoneNumber">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="table-responsive" data-pattern="priority-columns">
+                <table id="tech-companies-1" class="table table-small-font table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="1">Name</th>
+                            <th data-priority="2" style="text-align:center!important">RT</th>
+                            @for (int i = 0; i < 7; i++)
+                            {
+                                DateTime input = DateTime.Now;
+                                int delta = DayOfWeek.Monday - input.DayOfWeek;
+                                DateTime monday = input.AddDays(delta + i);
+                                <th data-priority="@i" style="text-align:center!important">@monday.ToString("ddd") <br /><span id='date_@i'>@monday.ToString("MM/dd")</span></th>
+                            }
+                            <th data-priority="8" style="text-align:center!important">Total</th>
+                            <th data-priority="9" style="text-align:center!important">Initial Here</th>
+                        </tr>
+                    </thead>
+                    <tbody id="EmpTr">
+                        <tr>
+                            @*<th colspan="1" style="width: 230px">@Html.DropDownList("Employees", null, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "selected_employee_1" })</th>*@
+                            <th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_1" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_1"/></th>
+                            <td><input type="number" class="form-control new-form-control" placeholder="" id="rate_1"></td>
+                            <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="monday_1"></td>
+                            <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="tuesday_1"></td>
+                            <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="wednesday_1"></td>
+                            <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="thursday_1"></td>
+                            <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="friday_1"></td>
+                            <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="saturday_1"></td>
+                            <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="sunday_1"></td>
+                            <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="totalHours_1" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_1"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Total Hours</th>
+                            @*<td></td>*@
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="MondayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="TuesdayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="WednesdayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="ThursdayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="FridayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="SaturdayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="SundayTotalHours" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" id="EmployeesTotalHours" value="0" placeholder="0" disabled></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Numbers of People</th>
+                            @*<td></td>*@
+                            <td><input type="text" id="MondayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="TuesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="WednesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="ThursdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="FridayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="SaturdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" id="SundayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" class="form-control new-form-control" id="TotalEmployees" placeholder="1" value="1" disabled></td>
+                            <td></td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="new-forms-buttons">
+                <button type="button" class="btn btn-success btn-xs waves-effect waves-light" onclick="AddRow()">Add Row</button>
+                <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="SubmitTimeSheet()">Submit</button>
+            </div>
+            <div class="bottom-text">
+                <h4>Authorized Signature<i></i></h4>
+                <p>Please email to payroll@4tssi.com on Monday's before 10:am</p>
+
+            </div>
+            <div class="new-comment-section">
+                <label for="male">Comment</label>
+                <input type="text" id="comment">
+            </div>
+        </div>
+        <!-- /.box-content -->
+    </div>
+    <!-- /.col-lg-6 col-xs-12 -->
+</div>
+
+
+
+@*@foreach (var item in ViewBag.Employees)
+    {
+        <p>@item.First_name</p>
+    }*@
+
+<script type="text/javascript">
+    function AddRow()
+    {debugger;
+        var totalemp = $("#TotalEmployees").val();
+        var incemp = parseInt(totalemp) + 1;
+        var dropdownid = "selected_employee_"+incemp;
+        $("#TotalEmployees").val(incemp);
+        var dropdownhtml = "@Html.Raw(ViewBag.DropDownHtml)";
+        //$("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px">'+dropdownhtml+'</th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="monday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="tuesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="wednesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="thursday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="friday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="saturday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="sunday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
+        $("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_'+incemp+'" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_'+incemp+'"/></th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="monday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="tuesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="wednesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="thursday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="friday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="saturday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="sunday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
+        $("#selected_employee_"+incemp).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/TSSManage/SearchEmployees",
+                    type: "GET",
+                    dataType: "json",
+                    data: { query: $("#selected_employee_"+incemp).val() },
+                    success: function (data) {
+                        response($.map(data,
+                            function (item) {
+                                return { label: item.Name, value: item.Id };
+                            }));
+
+                    }
+                });
+
+
+            },
+            select: function (event, ui) {
+                AutoCompleteSelectHandler(event, ui, 'selected_employee_'+incemp)
+            },
+            messages: {
+                noResults: "",
+                results: function(count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+        $("#TotalEmployees").attr("placeholder",incemp);
+        $("#dropdownid").attr("id", "selected_employee_"+incemp);
+    }
+
+    function UpdateHours(trNo)
+    {
+        var val1 = $("#monday_" + trNo).val();
+        var val2 = $("#tuesday_" + trNo).val();
+        var val3 = $("#wednesday_" + trNo).val();
+        var val4 = $("#thursday_" + trNo).val();
+        var val5 = $("#friday_" + trNo).val();
+        var val6 = $("#saturday_" + trNo).val();
+        var val7 = $("#sunday_" + trNo).val();
+
+        debugger;
+        //console.log(val1 + " " + val2 + " " + val3 + " " + val4 + " " + val5 + " " + val6 + " " + val7);
+        var total = parseInt(val1) + parseInt(val2) + parseInt(val3) + parseInt(val4) + parseInt(val5) + parseInt(val6) + parseInt(val7);
+        $("#totalHours_" + trNo).val(total);
+        $("#totalHours_" + trNo).attr("placeholder", total);
+        var totalHoursAllEmp = 0;
+        var totalemp = $("#TotalEmployees").val();
+        var totalmondayHours = 0;
+        var totaltuesdayHours = 0;
+        var totalwednesdayHours = 0;
+        var totalthursdayHours = 0;
+        var totalfridayHours = 0;
+        var totalsaturdayHours = 0;
+        var totalsundayHours = 0;
+
+        var totalmondayEmployees = 0;
+        var totaltuesdayEmployees = 0;
+        var totalwednesdayEmployees = 0;
+        var totalthursdayEmployees = 0;
+        var totalfridayEmployees = 0;
+        var totalsaturdayEmployees = 0;
+        var totalsundayEmployees = 0;
+        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+            var hoursPerEmp = $("#totalHours_" + i).val();
+            totalHoursAllEmp = totalHoursAllEmp + parseInt(hoursPerEmp);
+
+
+            totalmondayHours = totalmondayHours + parseInt($("#monday_" + i).val());
+            $("#MondayTotalHours").val(totalmondayHours);
+            totaltuesdayHours = totaltuesdayHours + parseInt($("#tuesday_" + i).val());
+            $("#TuesdayTotalHours").val(totaltuesdayHours);
+            totalwednesdayHours = totalwednesdayHours + parseInt($("#wednesday_" + i).val());
+            $("#WednesdayTotalHours").val(totalwednesdayHours);
+            totalthursdayHours = totalthursdayHours + parseInt($("#thursday_" + i).val());
+            $("#ThursdayTotalHours").val(totalthursdayHours);
+            totalfridayHours = totalfridayHours + parseInt($("#friday_" + i).val());
+            $("#FridayTotalHours").val(totalfridayHours);
+            totalsaturdayHours = totalsaturdayHours + parseInt($("#saturday_" + i).val());
+            $("#SaturdayTotalHours").val(totalsaturdayHours);
+            totalsundayHours  = totalsundayHours + parseInt($("#sunday_" + i).val());
+            $("#SundayTotalHours").val(totalsundayHours);
+
+            if(parseInt($("#monday_" + i).val()) > 0)
+            {
+                totalmondayEmployees = totalmondayEmployees + 1;
+            }
+            $("#MondayTotalEmployees").val(totalmondayEmployees);
+            if(parseInt($("#tuesday_" + i).val()) > 0)
+            {
+                totaltuesdayEmployees = totaltuesdayEmployees + 1;
+            }
+            $("#TuesdayTotalEmployees").val(totaltuesdayEmployees);
+            if(parseInt($("#wednesday_" + i).val()) > 0)
+            {
+                totalwednesdayEmployees = totalwednesdayEmployees + 1;
+            }
+            $("#WednesdayTotalEmployees").val(totalwednesdayEmployees);
+            if(parseInt($("#thursday_" + i).val()) > 0)
+            {
+                totalthursdayEmployees = totalthursdayEmployees + 1;
+                $("#ThursdayTotalEmployees").val(totalthursdayEmployees);
+            }
+            if(parseInt($("#friday_" + i).val()) > 0)
+            {
+                totalfridayEmployees = totalfridayEmployees + 1;
+            }
+            $("#FridayTotalEmployees").val(totalfridayEmployees);
+            if(parseInt($("#saturday_" + i).val()) > 0)
+            {
+                totalsaturdayEmployees = totalsaturdayEmployees + 1;
+            }
+            $("#SaturdayTotalEmployees").val(totalsaturdayEmployees);
+            if(parseInt($("#sunday_" + i).val()) > 0)
+            {
+                totalsundayEmployees = totalsundayEmployees + 1;
+            }
+            $("#SundayTotalEmployees").val(totalsundayEmployees);
+
+        }
+        $("#EmployeesTotalHours").val(totalHoursAllEmp);
+
+        $("#EmployeesTotalHours").attr("placeholder",totalHoursAllEmp);
+
+    }
+
+    function SubmitTimeSheet()
+    {
+
+        var timesheet = {
+            Customer_id:@Model.Id,
+            Organization_id : null,
+            Start_date : getMonday(),
+            End_date : getSunday(),
+            Total_employees:$("#TotalEmployees").val(),
+            Total_hours:$("#EmployeesTotalHours").val(),
+            Submit_by_client:false,
+            Uuid:null,
+            Signature:null,
+            Created_at:Date(),
+            Updated_at:null,
+            Note: $("#comment").val(),
+            Po_number: $("#Po_number").val(),
+            Sent:false,
+            For_internal_employee:false
+        }
+
+        var totalemp = $("#TotalEmployees").val();
+        var timeSheet_summary = [];
+
+
+        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+            var timeSheet_summaryDetails = {
+                Timesheet_id: null,
+                Employee_id: $("#id_selected_employee_"+i).val(),
+                Rate: $("#rate_"+i).val(),
+                Enitial: $("#enitials_"+i).val(),
+                Total_hours : $("#totalHours_"+i).val(),
+                Created_at: Date(),
+                Updated_at:null,
+                Rating_by_client:null
+            }
+            timeSheet_summary.push(timeSheet_summaryDetails);
+        }
+        var timeSheet_DetailsList = [];
+
+
+        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+
+            for (var j = 1; j <= 7 ; j++) {
+                var hoursPerDay = 0;
+                if(j == 1)
+                {
+                    hoursPerDay = $("#monday_" + i).val();
+                }
+                else if(j == 2)
+                {
+                    hoursPerDay = $("#tuesday_" + i).val();
+                }
+                else if(j == 3)
+                {
+                    hoursPerDay = $("#wednesday_" + i).val();
+                }
+                else if(j == 4)
+                {
+                    hoursPerDay = $("#thursday_" + i).val();
+                }
+                else if(j == 5)
+                {
+                    hoursPerDay = $("#friday_" + i).val();
+                }
+                else if(j == 6)
+                {
+                    hoursPerDay = $("#saturday_" + i).val();
+                }
+                else if(j == 7)
+                {
+                    hoursPerDay = $("#sunday_" + i).val();
+                }
+
+                var timeSheet_details = {
+                    Timesheet_id: null,
+                    Employee_id:$("#id_selected_employee_"+i).val(),
+                    Day:j,
+                    Hours:parseInt(hoursPerDay),
+                    Created_at:Date(),
+                    Updated_at:Date()
+
+                }
+                timeSheet_DetailsList.push(timeSheet_details);
+            }
+        }
+
+
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({timesheet: timesheet, timeSheet_summary:timeSheet_summary,timeSheet_DetailsList:timeSheet_DetailsList}),
+            url: '@Url.Action("AddTimeSheetDetails", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                window.location = "http://tss.viretechnologies.com/TSSManage/Dashboard";
+            },
+            error: function(req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+
+
+    function getMonday() {
+        var monday = $("#datepicker").val();
+
+        d = new Date(monday);
+        var day = d.getDay(),
+            diff = d.getDate() - day + (day == 0 ? -6 : 1);
+        return new Date(d.setDate(diff));
+
+    }
+
+    function getSunday() {
+
+        var sunday = $("#datepicker").val();
+        d = new Date(sunday);
+        var day = d.getDay(),
+            diff = d.getDate() - day + (day == 0 ? 0 : +7);
+        return new Date(d.setDate(diff));
+    }
+    function UpdateDates()
+    {debugger;
+    var dateselected = $("#datepicker").val();
+    var diff = Date();
+    d = new Date(dateselected);
+    var day = d.getDay();
+        diff = d.getDate() -6;
+        var a = d.getDate() - day + diff;
+        var dateNew = new Date(d.setDate(diff));
+        d = new Date(dateselected);
+        $("#date_0").text(dateNew.getMonth() + '-' + dateNew.getDate());
+
+        day = d.getDay();
+        diff = d.getDate() -5;
+        var a = d.getDate() - day + diff;
+          dateNew = new Date(d.setDate(diff));
+        $("#date_1").text(dateNew.getMonth() + '-' + dateNew.getDate());
+
+        d = new Date(dateselected);
+        day = d.getDay();
+        diff = d.getDate() -4;
+        var a = d.getDate() - day + diff;
+           dateNew = new Date(d.setDate(diff));
+        $("#date_2").text(dateNew.getMonth() + '-' + dateNew.getDate());
+
+        d = new Date(dateselected);
+        day = d.getDay();
+        diff = d.getDate() -3;
+        var a = d.getDate() - day + diff;
+          dateNew = new Date(d.setDate(diff));
+        $("#date_3").text(dateNew.getMonth() + '-' + dateNew.getDate());
+        day = d.getDay();
+
+        d = new Date(dateselected);
+        diff = d.getDate() -2;
+        var a = d.getDate() - day + diff;
+          dateNew = new Date(d.setDate(diff));
+        $("#date_4").text(dateNew.getMonth() + '-' + dateNew.getDate());
+
+        d = new Date(dateselected);
+        day = d.getDay();
+        diff = d.getDate() -1;
+        var a = d.getDate() - day + diff;
+          dateNew = new Date(d.setDate(diff));
+        $("#date_5").text(dateNew.getMonth() + '-' + dateNew.getDate());
+
+        d = new Date(dateselected);
+        day = d.getDay();
+
+        diff = d.getDate() -0;
+        var a = d.getDate() - day + diff;
+         dateNew = new Date(d.setDate(diff));
+        $("#date_6").text(dateNew.getMonth() + '-' + dateNew.getDate());
+    }
+</script>
+
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+    $('.js-example-basic-single').select2();
+
+    $('#datepicker').datepicker({ beforeShowDay:
+      function(dt)
+      {
+          return [dt.getDay() == 0 , ""];
+      }
+    });
+
+    $("#datepicker").val(new Date());
+    var sunday = getSunday();
+    $("#datepicker").val(sunday.getMonth()+1+"/"+sunday.getDate()+"/"+sunday.getUTCFullYear());
+
+
+    $('[data-toggle=\'tooltip\']').tooltip({ container: 'body' });
+    $(function () {
+        $("#selected_employee_1").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/TSSManage/SearchEmployees",
+                    type: "GET",
+                    dataType: "json",
+                    data: { query: $("#selected_employee_1").val() },
+                    success: function (data) {
+                                debugger;
+                        response($.map(data,
+                            function (item) {
+                                return { label: item.Name, value: item.Id };
+                            }));
+
+                    }
+                });
+
+
+            },
+            select: function (event, ui) {
+                AutoCompleteSelectHandler(event, ui, 'selected_employee_1')
+            },
+            messages: {
+                noResults: "",
+                results: function(count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+    } );
+
+});
+    function AutoCompleteSelectHandler(event, ui, id) {
+        var selectedObjVal = ui.item.value;
+        var selectedObjLabel = ui.item.label;
+        $("#id_"+id).val(selectedObjVal);
+        $("#"+id).val(selectedObjLabel);
+
+    }
+
+</script>

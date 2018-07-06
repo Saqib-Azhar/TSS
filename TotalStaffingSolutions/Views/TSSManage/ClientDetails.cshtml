@@ -1,0 +1,373 @@
+﻿@model IEnumerable<TotalStaffingSolutions.Models.Timesheet>
+@using TotalStaffingSolutions.Models
+@{ 
+    var ContactsList = ViewBag.ClientContacts as List<TotalStaffingSolutions.Models.CustomerContact>;
+    var db = new TSS_Sql_Entities();
+}
+<style>
+
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 130px;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+
+<div class="container-fluid">
+
+    
+    <div class="row small-spacing">
+        <div class="col-xs-12">
+            <div class="box-content">
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <table class="table-responsive-lg table-hover table-responsive table-striped">
+                            <thead>
+                                <tr style="height:50px!important">
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text"><b>Name</b></td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text"><b>Email</b></td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text"><b>Phone</b></td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text"><b>Confirmation Status</b></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ContactsList)
+                                {
+                                    <tr style="height:50px!important">
+                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                            <div class="new-email">
+                                                @if (item.Contact_name != null)
+                                                {
+                                                    <p>@item.Contact_name</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>N/A</p>
+                                                }
+                                            </div>
+                                        </td>
+
+                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                            <div class="new-home">
+                                                @if (item.Email_id != null && item.Email_id != "")
+                                                {
+                                                    <p>@item.Email_id</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>N/A</p>
+                                                }
+                                            </div>
+                                        </td>
+                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                            <div class="new-home">
+                                                @if (item.Phone_1 != null)
+                                                {
+                                                    <p>@item.Phone_1</p>
+                                                }
+                                                else if (item.Phone_2 != null)
+                                                {
+                                                    <p>@item.Phone_2</p>
+                                                }
+                                                else if (item.Phone_3 == null)
+                                                {
+                                                    <p>@item.Phone_3</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>N/A</p>
+                                                }
+                                            </div>
+                                        </td>
+                                        @{
+                                            try
+                                            {
+                                                var contact = db.ContactConfirmations.OrderByDescending(s=>s.LastUpdate).FirstOrDefault(s => s.ContactId == item.Id);
+                                                var status = db.ContactConfirmationStatus.FirstOrDefault(s => s.Id == contact.ConfirmationStatusId);
+                                                if (status.Id == 1)
+                                                {
+                                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                                            <div class="new-home">
+                                                                <button type="button" class="btn btn-warning btn-xs waves-effect waves-light">@status.Status</button>
+
+                                                            </div>
+                                                        </td>
+                                                }
+                                                else if (status.Id == 2)
+                                                {
+                                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                                            <div class="new-home">
+                                                                <button type="button" class="btn btn-primary btn-xs waves-effect waves-light">@status.Status</button>
+
+                                                            </div>
+                                                        </td>
+                                                }
+                                                else if (status.Id == 3)
+                                                {
+                                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                                            <div class="new-home">
+                                                                <button type="button" class="btn btn-success btn-xs waves-effect waves-light">@status.Status</button>
+
+                                                            </div>
+                                                        </td>
+                                                }
+                                                else if (status.Id == 4)
+                                                {
+                                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                                            <div class="new-home">
+                                                                <button type="button" class="btn btn-danger btn-xs waves-effect waves-light">@status.Status</button>
+
+                                                            </div>
+                                                        </td>
+                                                }
+
+                                                if (item.Email_id != null && item.Email_id != "" && status.Id != 3)
+                                                {
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                                        <div class="new-home">
+                                                            
+                                                                <a href="/TSSManage/SendAccountEmail/@item.Id" class="btn-sm btn-primary">Send Confirmation</a>
+                                                            
+                                                        </div>
+                                                    </td>
+                                                            }
+                                                        }
+                                                        catch (Exception)
+                                                        {
+                                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                                        <div class="new-home">
+                                                            <button type="button" class="btn btn-danger btn-xs waves-effect waves-light">N/A</button>
+                                                        </div>
+                                                        </td>
+                                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                                                            <div class="new-home">
+                                                                <a href="/TSSManage/SendAccountEmail/@item.Id" class="btn-sm btn-primary" hidden>Send Confirmation</a>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                            }
+                                    </tr>
+                                                    }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="row new-main-invoice new-customer-details">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                        <div class="new-profile-avatar">
+                            @if (ViewBag.DisplayPicture != null)
+                            {
+                                <img alt="User Pic" src="~/ProfileImages/@ViewBag.DisplayPicture" class="img-circle img-responsive">
+                            }
+                            else
+                            {
+                                @*<img alt="No Image to display" src="~/ProfileImages/ImageNotAvailabble.jpg" class="img-circle img-responsive">*@
+                                <i class="fa fa-user new-user-icon"></i>
+                                    <div class="new-avatar-text">
+                                        <p>@Model.FirstOrDefault().Customer.Name</p>
+                                        @*<a href="/TSSManage/SendAccountEmail/@Model.FirstOrDefault().Customer.Id" class="btn btn-success btn-xs waves-effect waves-light">Send an email</a>*@
+                                    </div>
+                            }
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                        <div class="new-email">
+                            <span>EMAIL</span>
+                            @if (Model.FirstOrDefault().Customer.Email != null)
+                            {
+                                <p>@Model.FirstOrDefault().Customer.Email</p>
+                            }
+                            else
+                            {
+                                <p>N/A</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                        <div class="new-home">
+                            <span>PHONE</span>
+                            <p>@Model.FirstOrDefault().Customer.PhoneNumber</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                        <div class="new-home">
+                            <span>ADDRESS</span>
+                            <p>
+                                @{
+                                    string address;
+                                    if (Model.FirstOrDefault().Customer.Address2 != null && Model.FirstOrDefault().Customer.Address2 != " " && Model.FirstOrDefault().Customer.Address2 != "")
+                                    {
+                                        address = Model.FirstOrDefault().Customer.Address1 + ", " + Model.FirstOrDefault().Customer.Address2 + ", " + Model.FirstOrDefault().Customer.City + ", " + Model.FirstOrDefault().Customer.State + " | " + Model.FirstOrDefault().Customer.ZipCode;
+                                    }
+                                    else
+                                    {
+                                        address = Model.FirstOrDefault().Customer.Address1 + ", " + Model.FirstOrDefault().Customer.City + ", " + Model.FirstOrDefault().Customer.State + " | " + Model.FirstOrDefault().Customer.ZipCode;
+                                    }
+
+                                }
+                                @address
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                        <div class="new-home">
+                            <span>SIGNED UP</span>
+                            @{
+                                var months = Model.FirstOrDefault().Customer.CustomerAdded.Value.Month;
+                                var currentmonth = DateTime.Now.Month;
+                                var monthdiff = currentmonth - months;
+                                string monthDiffString;
+                                if (monthdiff > 0)
+                                { monthDiffString = "(about " + monthdiff + " month ago)"; }
+                                else
+                                {
+                                    monthDiffString = "";
+                                }
+
+                            }
+                            <p>@Model.FirstOrDefault().Customer.CustomerAdded.Value.ToString("MMMM") @Model.FirstOrDefault().Customer.CustomerAdded.Value.Day, @Model.FirstOrDefault().Customer.CustomerAdded.Value.Year @monthDiffString</p>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                        <div class="new-home">
+                            <span>BRANCH TAGS</span>
+                            @if (Model.FirstOrDefault().Customer.Branch != null)
+                            {
+                                <p class="new-button"><button type="button" class="btn btn-success btn-xs waves-effect waves-light">@Model.FirstOrDefault().Customer.Branch.Name</button></p>
+                            }
+                            else
+                            {
+                                <p class="new-button"><button type="button" class="btn btn-danger btn-xs waves-effect waves-light">N/A</button></p>
+                            }
+                        </div>
+                        <br />
+                        <a href="/TSSManage/AddTimeSheet?CustomerId=@Model.FirstOrDefault().Customer.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-calendar-plus-o"> Add New Time Sheet</a>
+                        <br /><br />
+                        <button id="myBtn"  class="btn btn-primary btn-xs waves-effect waves-light fa fa-calendar-plus-o">Addresses</button>
+                    </div>
+                </div>
+                <!-- /.box-title -->
+                <!-- /.dropdown js__dropdown -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sheet #</th>
+                                <th>Week Ending Date</th>
+                                <th>Status</th>
+                                <th>Total Employees</th>
+                                <th><button type="button" class="btn btn-primary waves-effect waves-light">All Sheets<i class="ico ico-right fa fa-angle-down"></i></button></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.FirstOrDefault().Id != 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><a href="/TSSManage/TimeSheetDetails/@item.Id">#@item.Id</a></td>
+                                        <td>@item.End_date</td>
+                                        <td><button type="button" class="btn btn-primary btn-xs waves-effect waves-light">@item.TimeSheetStatu.Status</button></td>
+                                        <td>@item.Total_employees</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-edit"></button>
+                                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-eye"></button>
+                                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-download"></button>
+                                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-clone"></button>
+                                            <button type="button" class="btn btn-danger btn-xs waves-effect waves-light fa fa-trash"></button>
+                                            <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Send Email</button>
+                                            <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Link</button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        @*<a href="/TSSManage/AddTimeSheet?CustomerId=@Model.FirstOrDefault().Customer.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-calendar-plus-o"> Add New Time Sheet</a>*@
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <!-- /.box-content -->
+        </div>
+        <!-- /.col-xs-12 -->
+    </div>
+
+</div>
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
