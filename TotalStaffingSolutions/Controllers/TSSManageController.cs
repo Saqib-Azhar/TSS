@@ -370,6 +370,8 @@ namespace TotalStaffingSolutions.Controllers
             timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s=>s.Timesheet_id == id).ToList();
             var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
             timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
+            var userObject = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
+            ViewBag.DisplayPicture = userObject.DisplayPicture;
             return View(timeSheetDetailsTuple);
         }
 
@@ -378,11 +380,14 @@ namespace TotalStaffingSolutions.Controllers
 
         [System.Web.Mvc.HttpGet]
         public JsonResult SearchEmployees(String query)
-
         {
             var db = new TSS_Sql_Entities();
 
-
+            if (EmployeesStaticList == null)
+            {
+                EmployeesStaticList = db.Employees.ToList();
+                
+            }
             var splitStr = Regex.Split(query, " ");
             if (splitStr.Count() > 1)
             {
@@ -452,7 +457,7 @@ namespace TotalStaffingSolutions.Controllers
                     NewTimeSheetSummary.Enitial = item.Enitial;
                     //NewTimeSheetSummary.Timesheet_id = timesheetObj.Id;
                     NewTimeSheetSummary.Rate = item.Rate;
-                    //NewTimeSheetSummary.Total_hours = item.Total_hours;
+                    NewTimeSheetSummary.Total_hours = item.Total_hours;
                     //NewTimeSheetSummary.Created_at = item.Created_at;
                     NewTimeSheetSummary.Updated_at = DateTime.Now;
                     NewTimeSheetSummary.Rating_by_client = item.Rating_by_client;
@@ -589,7 +594,7 @@ namespace TotalStaffingSolutions.Controllers
         }
 
 
-         public ActionResult TimeSheetSuccessSubmit()
+        public ActionResult TimeSheetSuccessSubmit()
         {
             if(User.IsInRole("Admin"))
             {
@@ -600,5 +605,19 @@ namespace TotalStaffingSolutions.Controllers
                 return RedirectToAction("AllTimeSheets", "ClientDashboard");
             }
         }
+
+        public ActionResult EditTimeSheet(int id)
+        {
+            var db = new TSS_Sql_Entities();
+            TimeSheetTuple timeSheetDetailsTuple = new TimeSheetTuple();
+            timeSheetDetailsTuple.TimeSheetGeneralDetails = db.Timesheets.Find(id);
+            timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
+            var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
+            timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
+            var userObject = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
+            ViewBag.DisplayPicture = userObject.DisplayPicture;
+            return View(timeSheetDetailsTuple);
+        }
+
     }
 }

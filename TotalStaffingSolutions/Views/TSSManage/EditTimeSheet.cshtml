@@ -1,15 +1,38 @@
 ﻿@using TotalStaffingSolutions.Models
 @model TotalStaffingSolutions.Models.TimeSheetTuple
 @{
-    ViewBag.Title = "Time Sheet Details";
+    ViewBag.Title = "Edit Time Sheet";
     int counter = 0;
     int HoursCounter = 0;
 }
+<script src="~/assets/scripts/jquery.min.js"></script>
+<script src="~/assets/plugin/jquery-ui/jquery-ui.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+@*<script src="~/Content/bootstrap-datepicker.js"></script>
+<script src="~/Content/bootstrap-datepicker.min.js"></script>*@
 <style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
+    .ui-widget {
+        z-index: 200 !important;
+        background-color: white !important;
+        border: 1px solid grey;
+        width: 500px !important;
+        height: 200px;
+        overflow: auto;
+        list-style: none;
+        line-height: 20px;
+        cursor: pointer;
+    }
 </style>
 
-<script src="~/assets/scripts/jquery.min.js"></script>
+
+@*<script src="~/assets/scripts/jquery.min.js"></script>*@
 
 <div class="row small-spacing">
     <div class="col-xs-12">
@@ -29,8 +52,10 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="new-invoice-top">
                         <div class="create-time-logo">
-                            <div>END DATE: @Convert.ToDateTime(Model.TimeSheetGeneralDetails.End_date).ToString("dd/MMM/yyyy")<br>
-                            <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Download</button></div>
+                            <div>
+                                END DATE: @Convert.ToDateTime(Model.TimeSheetGeneralDetails.End_date).ToString("dd/MMM/yyyy")<br>
+                                <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Download</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,9 +67,9 @@
                 <table id="tech-companies-1" class="table table-small-font table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Emp #</th>
+                            <th>Name</th>
+                            @*<th>First Name</th>
+                            <th>Emp #</th>*@
                             <th data-priority="1">RT</th>
                             @for (int i = 0; i < 7; i++)
                             {
@@ -55,11 +80,11 @@
                                 <th data-priority="@i" style="text-align:center!important">@monday.ToString("ddd") <br /><span id='date_@i'>@monday.ToString("MM/dd")</span></th>
                             }
                             <th data-priority="6">Total</th>
-                            <th data-priority="6">Rate Performance</th>
+                            @*<th data-priority="6">Rate Performance</th>*@
                             <th data-priority="6">Initial Here</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="EmpTr">
                         @{
                             int employeeCounter = 0;
                             foreach (var item in Model.TimeSheetSummary)
@@ -67,10 +92,10 @@
                                 employeeCounter++;
                                 counter++;
                                 <tr>
-                                    <td><input type="text" value="@item.Employee_id" hidden id="EmployeeId_@employeeCounter">@item.Employee.Last_name</td>
-                                    <td>@item.Employee.First_name</td>
-                                    <td>@item.Employee.User_id</td>
-                                    <td><input type="text" value="@item.Rate" hidden id="EmployeeRate_@employeeCounter">@item.Rate</td>
+                                    <td><input type="text" alt="@item.Employee_id" class="form-control ui-autocomplete ui-autocomplete-input"  value="@item.Employee.First_name @item.Employee.Middle_name @item.Employee.Last_name" id="EmployeeId_@employeeCounter"><input type="text" hidden id="id_EmployeeId_@employeeCounter" /></td>
+                                    @*<td>@item.Employee.First_name</td>
+                                    <td>@item.Employee.User_id</td>*@
+                                    <td><input type="text" value="@item.Rate" id="EmployeeRate_@employeeCounter" style="width:45px!important; height:39px!important" class="form-control"></td>
                                     @{
                                         var Detailslist = Model.TimeSheetDetails.Where(s => s.Employee_id == item.Employee_id).ToList();
                                         int hourCounter = 0;
@@ -79,11 +104,11 @@
                                             hourCounter++;
                                             string thisId = "EmployeeId_" + employeeCounter + "_Day_" + hourCounter;
                                             HoursCounter = HoursCounter + Convert.ToInt32(itemDetail.Hours);
-                                            <td><input type="text" class="form-control new-form-control"style="width:50px !important" placeholder="@itemDetail.Hours" value="@itemDetail.Hours" id="@thisId" alt="@itemDetail.Id" onchange="UpdateHours(@thisId,@employeeCounter)"></td>
+                                            <td><input type="text" class="form-control new-form-control" style="width:50px !important" placeholder="@itemDetail.Hours" value="@itemDetail.Hours" id="@thisId" alt="@itemDetail.Id" onchange="UpdateHours(@thisId,@employeeCounter)"></td>
                                         }
                                     }
-                                    <td><input type="text" style="width:50px !important"class="form-control new-form-control" placeholder="@item.Total_hours" value="@item.Total_hours" disabled id="EmployeeTotalHours_@employeeCounter"></td>
-                                    <td>
+                                    <td><input type="text" style="width:50px !important" class="form-control new-form-control" placeholder="@item.Total_hours" value="@item.Total_hours" disabled id="EmployeeTotalHours_@employeeCounter"></td>
+                                    @*<td>
                                         <div class="form-group margin-bottom-20">
 
 
@@ -127,10 +152,10 @@
                                                 });
                                             }
 
-                                            @Html.DropDownListFor(model => item.Rating_by_client, listItems, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "Rating_by_client_" + counter, @alt= item.Id })
+                                            @Html.DropDownListFor(model => item.Rating_by_client, listItems, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "Rating_by_client_" + counter, @alt = item.Id })
 
                                         </div>
-                                    </td>
+                                    </td>*@
                                     <td><input type="text" class="form-control new-form-control" placeholder="@item.Enitial" value="@item.Enitial" id="EmployeeEnitial_@employeeCounter"></td>
 
                                 </tr>
@@ -140,7 +165,7 @@
                         }
 
                         <tr>
-                            <th colspan="4">Total Hours</th>
+                            <th colspan="2">Total Hours</th>
                             <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="MondayTotalHours" disabled></td>
                             <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="TuesdayTotalHours" disabled></td>
                             <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="WednesdayTotalHours" disabled></td>
@@ -152,7 +177,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <th colspan="4">Numbers of People</th>
+                            <th colspan="2">Numbers of People</th>
                             @*<td></td>*@
                             <td><input type="text" id="MondayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
                             <td><input type="text" id="TuesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
@@ -168,7 +193,8 @@
                 </table>
             </div>
             <div class="new-forms-buttons">
-                <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Save As draft</button>
+                @*<button type="button" class="btn btn-success btn-xs waves-effect waves-light">Save As draft</button>*@
+                <button type="button" class="btn btn-success btn-xs waves-effect waves-light" onclick="AddRow()">Add Row</button>
                 <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="UpdateTimeSheet()">Submit</button>
             </div>
             <div class="bottom-text">
@@ -200,6 +226,52 @@
         $("#EmployeesTotalHours").val(@HoursCounter);
         // updateEntries();
         updateEntries1();
+        $('.js-example-basic-multiple').select2();
+        $('.js-example-basic-single').select2();
+
+        //$('#datepicker').datepicker({ beforeShowDay:
+        //  function(dt)
+        //  {
+        //      return [dt.getDay() == 0 , ""];
+        //  }
+        //});
+
+        //$("#datepicker").val(new Date());
+        //var sunday = getSunday();
+        //$("#datepicker").val(sunday.getMonth()+1+"/"+sunday.getDate()+"/"+sunday.getUTCFullYear());
+        debugger;
+
+        $('[data-toggle=\'tooltip\']').tooltip({ container: 'body' });
+        $(function () {
+            $("#EmployeeId_1").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/TSSManage/SearchEmployees",
+                        type: "GET",
+                        dataType: "json",
+                        data: { query: $("#EmployeeId_1").val() },
+                        success: function (data) {
+                            response($.map(data,
+                                function (item) {
+                                    return { label: item.Name, value: item.Id };
+                                }));
+
+                        }
+                    });
+
+
+                },
+                select: function (event, ui) {
+                    AutoCompleteSelectHandler(event, ui, 'EmployeeId_1')
+                },
+                messages: {
+                    noResults: "",
+                    results: function(count) {
+                        return count + (count > 1 ? ' results' : ' result ') + ' found';
+                    }
+                }
+            });
+        } );
 
 
     });
@@ -249,7 +321,7 @@
 
         }
 
-        var EmployeesTotHours = mondays + tuesdays+ wednesdays+ thursdays+ fridays+ saturdays+ sundays; 
+        var EmployeesTotHours = mondays + tuesdays+ wednesdays+ thursdays+ fridays+ saturdays+ sundays;
         $("#EmployeesTotalHours").val(EmployeesTotHours);
 
 
@@ -261,7 +333,7 @@
         $("#SaturdayTotalHours").val(saturdays);
         $("#SundayTotalHours").val(sundays);
 
-        
+
         $("#MondayTotalEmployees").val(mondaysEmpCount);
         $("#TuesdayTotalEmployees").val(tuesdaysEmpCount);
         $("#WednesdayTotalEmployees").val(wednesdaysEmpCount);
@@ -366,6 +438,62 @@
         $("#EmployeeTotalHours_"+employeeCounter).val(totalhours);
         updateEntries1();
     }
+
+
+</script>
+
+<script>
+    function AutoCompleteSelectHandler(event, ui, id) {debugger;
+        var selectedObjVal = ui.item.value;
+        var selectedObjLabel = ui.item.label;
+        var thisid = "#id_"+id;
+        $(thisid).val(selectedObjVal);
+        $("#"+id).val(selectedObjLabel);
+
+    }
+
+    function AddRow()
+    {debugger;
+        var totalemp = $("#TotalEmployees").val();
+        var incemp = parseInt(totalemp) + 1;
+        var dropdownid = "selected_employee_"+incemp;
+        $("#TotalEmployees").val(incemp);
+        var dropdownhtml = "@Html.Raw(ViewBag.DropDownHtml)";
+        //$("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px">'+dropdownhtml+'</th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="monday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="tuesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="wednesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="thursday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="friday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="saturday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="sunday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
+        $("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_'+incemp+'" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_'+incemp+'"/></th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="monday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="tuesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="wednesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="thursday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="friday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="saturday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="sunday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
+        $("#selected_employee_"+incemp).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/TSSManage/SearchEmployees",
+                    type: "GET",
+                    dataType: "json",
+                    data: { query: $("#selected_employee_"+incemp).val() },
+                    success: function (data) {
+                        response($.map(data,
+                            function (item) {
+                                return { label: item.Name, value: item.Id };
+                            }));
+
+                    }
+                });
+
+
+            },
+            select: function (event, ui) {
+                AutoCompleteSelectHandler(event, ui, 'selected_employee_'+incemp)
+            },
+            messages: {
+                noResults: "",
+                results: function(count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+        $("#TotalEmployees").attr("placeholder",incemp);
+        $("#dropdownid").attr("id", "selected_employee_"+incemp);
+    }
+
+
 
 
 </script>

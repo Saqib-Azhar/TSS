@@ -1921,6 +1921,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <None Include="Service References\TSSServices\TSSWebServices.wsdl" />
     <Content Include="Views\ClientDashboard\EditProfile.cshtml" />
+    <Content Include="Views\TSSManage\EditTimeSheet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

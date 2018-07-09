@@ -1,2 +1,3 @@
 C:\Users\sazhar\Desktop\Total Staffing Solutions Project\TotalStaffingSolutions\TotalStaffingSolutionsWebServices\obj\Debug\TotalStaffingSolutionsWebServices.csprojResolveAssemblyReference.cache
 C:\Users\sazhar\Source\Repos\TSS\TotalStaffingSolutionsWebServices\obj\Debug\TotalStaffingSolutionsWebServices.csprojResolveAssemblyReference.cache
+C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutionsWebServices\obj\Debug\TotalStaffingSolutionsWebServices.csprojResolveAssemblyReference.cache

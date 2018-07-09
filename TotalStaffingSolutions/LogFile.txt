@@ -1,0 +1,8 @@
+09-Jul-18 5:34:29 PM An error occurred while executing the command definition. See the inner exception for details.
+09-Jul-18 5:34:29 PM EntityFramework An error occurred while executing the command definition. See the inner exception for details.
+09-Jul-18 5:34:57 PM The underlying provider failed on Open.
+09-Jul-18 5:34:57 PM EntityFramework The underlying provider failed on Open.
+09-Jul-18 5:35:31 PM The underlying provider failed on Open.
+09-Jul-18 5:35:31 PM EntityFramework The underlying provider failed on Open.
+09-Jul-18 5:36:48 PM The underlying provider failed on Open.
+09-Jul-18 5:36:48 PM EntityFramework The underlying provider failed on Open.
