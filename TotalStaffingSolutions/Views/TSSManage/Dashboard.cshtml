@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<TotalStaffingSolutions.Models.Timesheet>
 
 
+<script src="~/assets/scripts/jquery.min.js"></script>
 <div class="row small-spacing">
     <div class="col-xs-12">
         <div class="box-content">
@@ -46,13 +47,14 @@
                                     <td>@item.Total_employees</td>
                                     <td>
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                        <button class="btn btn-xs btn-primary" href="/TSSManage/CopyTimeSheet/@item.Id"><span class="glyphicon glyphicon-duplicate"></span></button>
+                                        <a class="btn btn-xs btn-primary" href="/TSSManage/CopyTimeSheet/@item.Id"><span class="glyphicon glyphicon-duplicate"></span></a>
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/EditTimeSheet/@item.Id"><span class="glyphicon glyphicon-edit"></span></a>
-                                        <a class="btn btn-xs btn-danger" href="/TSSManage/DeleteTimeSheet/@item.Id"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <a class="btn btn-xs btn-success" href="/TSSManage/SendTimeSheetLink/@item.Id">Link</a>
+                                        @*<a class="btn btn-xs btn-primary" href="/TSSManage/ExportTimesheetInExcel/@item.Id"><span class="glyphicon glyphicon-download"></span></a>*@
+                                        <button class="btn btn-xs btn-danger" onclick="DeleteTimesheetLink(@item.Id)"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button class="btn btn-xs btn-success" onclick="SendTimesheetLink(@item.Id)">Link</button>
                                     </td>
                                 </tr>
-
+                                
 
 
                                 }
@@ -74,3 +76,47 @@
     <!-- /.col-xs-12 -->
 </div>
 <!-- /.row small-spacing -->
+
+
+<script>
+    function SendTimesheetLink(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ id: id }),
+            url: '@Url.Action("SendTimeSheetLink", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                alert(data);
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+
+    function DeleteTimesheetLink(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ id: id }),
+            url: '@Url.Action("DeleteTimeSheet", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var r = confirm(data);
+                if (r == true) {
+                    window.location.reload();
+                }
+                else 
+                {
+                    window.location.reload();
+                }
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+</script>

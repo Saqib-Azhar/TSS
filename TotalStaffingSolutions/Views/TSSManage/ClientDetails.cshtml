@@ -4,6 +4,7 @@
     var ContactsList = ViewBag.ClientContacts as List<TotalStaffingSolutions.Models.CustomerContact>;
     var db = new TSS_Sql_Entities();
 }
+<script src="~/assets/scripts/jquery.min.js"></script>
 <style>
 
 
@@ -46,7 +47,7 @@
             cursor: pointer;
         }
 </style>
-
+<input type="text" id="myInput" hidden />
 <div class="container-fluid">
 
     
@@ -284,7 +285,7 @@
                         <br />
                         <a href="/TSSManage/AddTimeSheet?CustomerId=@Model.FirstOrDefault().Customer.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-calendar-plus-o"> Add New Time Sheet</a>
                         <br /><br />
-                        <button id="myBtn"  class="btn btn-primary btn-xs waves-effect waves-light fa fa-calendar-plus-o">Addresses</button>
+                        <button id="myBtn"  class="btn btn-primary btn-xs waves-effect waves-light fa fa-calendar-plus-o" style="width:148px!important">Addresses</button>
                     </div>
                 </div>
                 <!-- /.box-title -->
@@ -312,13 +313,13 @@
                                         <td><button type="button" class="btn btn-primary btn-xs waves-effect waves-light">@item.TimeSheetStatu.Status</button></td>
                                         <td>@item.Total_employees</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-edit"></button>
-                                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-eye"></button>
-                                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-download"></button>
+                                            <a href="/TSSManage/EditTimeSheet/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-edit"></a>
+                                            <a href="/TSSManage/TimeSheetDetails/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-eye"></a>
+                                            <a href="/TSSManage/ExportTimesheetInExcel/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-download"></a>
                                             <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-clone"></button>
-                                            <button type="button" class="btn btn-danger btn-xs waves-effect waves-light fa fa-trash"></button>
-                                            <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Send Email</button>
-                                            <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Link</button>
+                                            <button type="button" onclick="DeleteTimesheetLink(@item.Id)" class="btn btn-danger btn-xs waves-effect waves-light fa fa-trash"></button>
+                                            <button type="button" onclick="SendTimesheetLink(@item.Id)" class="btn btn-success btn-xs waves-effect waves-light">Send Email</button>
+                                            <button type="button" onclick="copyLink(@item.Id)" class="btn btn-success btn-xs waves-effect waves-light">Link</button>
                                         </td>
                                     </tr>
                                 }
@@ -370,4 +371,57 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+</script>
+
+<script>
+    function SendTimesheetLink(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ id: id }),
+            url: '@Url.Action("SendTimeSheetLink", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                alert(data);
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+
+    function DeleteTimesheetLink(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ id: id }),
+            url: '@Url.Action("DeleteTimeSheet", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var r = confirm(data);
+                if (r == true) {
+                    window.location.reload();
+                }
+                else
+                {
+                    window.location.reload();
+                }
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+
+
+    function copyLink(id) {
+        debugger;
+        var copyText = document.getElementById("myInput");
+        copyText.value = "http://tss.viretechnologies.com/TSSManage/TimeSheetDetails/"+id;
+        copyText.select();
+        document.execCommand("copy");
+        alert("Copied the text: " + copyText.value);
+    }
 </script>

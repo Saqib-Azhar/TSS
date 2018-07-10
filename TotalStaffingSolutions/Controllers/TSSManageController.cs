@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using TotalStaffingSolutions.Models;
 //using System.Text.RegularExpressions;
 //using System.Threading.Tasks;
@@ -790,9 +792,151 @@ namespace TotalStaffingSolutions.Controllers
 
             }
 
+            
+        }
+
+        public JsonResult DeleteTimeSheet(int id)
+        {
+            var db = new TSS_Sql_Entities();
+            try
+            {
+                var timesheet = db.Timesheets.Find(id);
+
+                var timesheetSummariesList = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
+                var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
+
+                foreach (var item in timeSheetDetailsList)
+                {
+                    db.Timesheet_details.Remove(item);
+                }
 
 
-            return Json("");
+                foreach (var item in timesheetSummariesList)
+                {
+                    db.Timesheet_summaries.Remove(item);
+                }
+
+                db.Timesheets.Remove(timesheet);
+
+
+                db.SaveChanges();
+                return Json("Timesheet Deleted successfully", JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json("Something Went wrong..!", JsonRequestBehavior.AllowGet);
+
+            }
+
+
+        }
+
+
+        public bool ExportTimesheetInExcel(int id)
+        {
+            try
+            {
+
+
+                var db = new TSS_Sql_Entities();
+
+                TimeSheetTuple timeSheetDetailsTuple = new TimeSheetTuple();
+                timeSheetDetailsTuple.TimeSheetGeneralDetails = db.Timesheets.Find(id);
+                timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
+                var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
+                timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
+                //var userObject = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
+
+
+                var grid = new GridView();
+
+                grid.DataSource = from d in timeSheetDetailsTuple.TimeSheetSummary
+                                  select new
+                                  {
+                                      Timeslip_ID_ = "",
+                                      Job_Order_Number_ = "",
+                                      Customer_ID = d.Timesheet.Customer_Id_Generic,
+                                      Customer_Name = d.Timesheet.Customer.Name,
+                                      Site_Code = "",
+                                      Employee_ID = d.Employee_id,
+                                      Employee_Last_Name = d.Employee.Last_name,
+                                      Rate_Code = d.Rate,
+                                      Work_Date = "",
+                                      Batch_Date = d.Timesheet.End_date,
+                                      hour_Type = "",
+                                      Regular_Pay_hours = d.Total_hours,
+                                      Regular_Pay_Rate = d.Rate,
+                                      Regular_Bill_hours = "",
+                                      Regular_Bill_Rate = "",
+                                      Overtime_Pay_hours_ = "",
+                                      Overtime_Pay_Rate = "",
+                                      Overtime_Bill_hours_ = "",
+                                      Overtime_Bill_Rate_ = "",
+                                      Double_Time_Pay_hours = "",
+                                      Double_Time_Pay_Rate_ = "",
+                                      Double_Time_Bill_hours = "",
+                                      Double_Time_Bill_Rate_ = "",
+                                      Comp_Code = "",
+                                      Sales_Tax_Code = "",
+                                      PO_Number = "",
+                                      Release_ = "",
+                                      Project_ = "",
+                                      Department_Code_ = "",
+                                      Office_Code_ = "",
+                                      Location_Code = "",
+                                      Saleman_1_Code = "",
+                                      Salesman_2_Code = "",
+                                      Pay_Frequency = "",
+                                      Number_of_Days_ = "",
+                                      Pay_hold = "",
+                                      Bill_hold = "",
+                                      Separate_Check_ = "",
+                                      Misc_Pay = "",
+                                      Amount_1_ = "",
+                                      Misc_Bill_1 = "",
+                                      Misc_Pay_Amount_2_ = "",
+                                      Misc_Bill_2_ = "",
+                                      Misc_Pay_Amount_3_ = "",
+                                      Misc_Bill_3 = "",
+                                      Misc_Pay_Amount_4_ = "",
+                                      Misc_Bill_4_ = "",
+                                      Misc_Pay_Amount_5_ = "",
+                                      Misc_Bill_5_ = "",
+                                      Misc_Pay_Amount_6 = "",
+                                      Misc_Bill_6 = "",
+                                      Misc_Pay_Amount_7 = "",
+                                      Misc_Bill_7_ = "",
+                                      Misc_Pay_Amount_8_ = "",
+                                      Misc_Bill_8_ = "",
+                                      Misc_Pay_Amount_9 = "",
+                                      Misc_Bill_9_ = "",
+                                      Permanent_TimeSlip = "",
+                                      Expires_On = "",
+
+                                  };
+
+                grid.DataBind();
+
+                Response.ClearContent();
+                Response.AddHeader("content-disposition", "attachment; filename=Exported_Diners.xls");
+                Response.ContentType = "application/excel";
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                grid.RenderControl(htw);
+
+                Response.Write(sw.ToString());
+
+                Response.End();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
     }
