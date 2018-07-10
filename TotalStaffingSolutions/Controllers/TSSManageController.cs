@@ -609,6 +609,12 @@ namespace TotalStaffingSolutions.Controllers
         public ActionResult EditTimeSheet(int id)
         {
             var db = new TSS_Sql_Entities();
+
+            if (EmployeesStaticList == null)
+            {
+                EmployeesStaticList = db.Employees.ToList();
+
+            }
             TimeSheetTuple timeSheetDetailsTuple = new TimeSheetTuple();
             timeSheetDetailsTuple.TimeSheetGeneralDetails = db.Timesheets.Find(id);
             timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
@@ -617,6 +623,176 @@ namespace TotalStaffingSolutions.Controllers
             var userObject = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
             ViewBag.DisplayPicture = userObject.DisplayPicture;
             return View(timeSheetDetailsTuple);
+        }
+
+
+
+        public JsonResult EditTimeSheetDetails(Timesheet timesheet, List<Timesheet_summaries> timeSheet_summary, List<Timesheet_details> timeSheet_DetailsList , List<Timesheet_summaries> timeSheet_summary_NewEntries, List<Timesheet_details> timeSheet_DetailsList_NewEntries)
+        {
+
+            try
+            {
+                timesheet.Created_at = DateTime.Now;
+
+                var db = new TSS_Sql_Entities();
+                var NewTimeSheet = db.Timesheets.FirstOrDefault(s => s.Id == timesheet.Id);
+                //NewTimeSheet.Created_at = timesheet.Created_at;
+                //NewTimeSheet.Customer_id = timesheet.Customer_id;
+                //NewTimeSheet.End_date = timesheet.End_date;
+                //NewTimeSheet.For_internal_employee = timesheet.For_internal_employee;
+                //NewTimeSheet.Note = timesheet.Note;
+                //NewTimeSheet.Organization_id = timesheet.Organization_id;
+                //NewTimeSheet.Po_number = timesheet.Po_number;
+                //NewTimeSheet.Sent = timesheet.Sent;
+                //NewTimeSheet.Signature = timesheet.Signature;
+                //NewTimeSheet.Total_employees = timesheet.Total_employees;
+                //NewTimeSheet.Total_hours = timesheet.Total_hours;
+                NewTimeSheet.Updated_at = DateTime.Now;
+                NewTimeSheet.Submit_by_client = false;
+                NewTimeSheet.Sent = true;
+                //var customer = db.Customers.FirstOrDefault(s => s.Id == timesheet.Customer_id);
+                //if (customer != null)
+                //    NewTimeSheet.Customer_Id_Generic = customer.Customer_id;
+                //NewTimeSheet.Status_id = 3;
+
+                // db.Timesheets.Add(NewTimeSheet);
+                db.SaveChanges();
+
+                //var timesheetObj = db.Timesheets.FirstOrDefault(s => s.Created_at == timesheet.Created_at && s.Customer_id == timesheet.Customer_id);
+                //var timesheetObj = db.Timesheets.OrderByDescending(s => s.Created_at).FirstOrDefault(s => s.Customer_id == timesheet.Customer_id);
+
+                foreach (var item in timeSheet_summary)
+                {
+                    //item.Created_at = DateTime.Now;
+                    var NewTimeSheetSummary = db.Timesheet_summaries.FirstOrDefault(s => s.Id == item.Id);
+                    //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
+                    //NewTimeSheetSummary.Employee_id = item.Employee_id;
+                    NewTimeSheetSummary.Enitial = item.Enitial;
+                    //NewTimeSheetSummary.Timesheet_id = timesheetObj.Id;
+                    NewTimeSheetSummary.Rate = item.Rate;
+                    NewTimeSheetSummary.Total_hours = item.Total_hours;
+                    //NewTimeSheetSummary.Created_at = item.Created_at;
+                    NewTimeSheetSummary.Updated_at = DateTime.Now;
+                    NewTimeSheetSummary.Rating_by_client = item.Rating_by_client;
+                    //NewTimeSheetSummary.Updated_at = timeSheet_summary.Updated_at;
+
+                    //db.Timesheet_summaries.Add(NewTimeSheetSummary);
+                    db.SaveChanges();
+                }
+
+                foreach (var item in timeSheet_DetailsList)
+                {
+                    //item.Created_at = DateTime.Now;
+
+                    var NewTimeSheetDetailsObj = db.Timesheet_details.FirstOrDefault(s => s.Id == item.Id);
+                    //NewTimeSheetDetailsObj.Created_at = item.Created_at;
+                    NewTimeSheetDetailsObj.Updated_at = item.Created_at;
+                    //NewTimeSheetDetailsObj.Day = item.Day;
+                    //NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
+                    NewTimeSheetDetailsObj.Hours = item.Hours;
+                    //NewTimeSheetDetailsObj.Timesheet_id = timesheetObj.Id;
+                    //db.Timesheet_details.Add(NewTimeSheetDetailsObj);
+                    db.SaveChanges();
+                }
+
+
+                foreach (var item in timeSheet_summary_NewEntries)
+                {
+                    item.Created_at = DateTime.Now;
+                    var NewTimeSheetSummary = new Timesheet_summaries();
+                    //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
+                    NewTimeSheetSummary.Employee_id = item.Employee_id;
+                    NewTimeSheetSummary.Enitial = item.Enitial;
+                    NewTimeSheetSummary.Timesheet_id = timesheet.Id;
+                    NewTimeSheetSummary.Rate = item.Rate;
+                    NewTimeSheetSummary.Enitial = item.Enitial;
+                    NewTimeSheetSummary.Total_hours = item.Total_hours;
+                    NewTimeSheetSummary.Created_at = DateTime.Now;
+                    NewTimeSheetSummary.Updated_at = DateTime.Now;
+                    NewTimeSheetSummary.Rating_by_client = 0;
+                    //NewTimeSheetSummary.Updated_at = timeSheet_summary.Updated_at;
+
+                    db.Timesheet_summaries.Add(NewTimeSheetSummary);
+                    db.SaveChanges();
+                }
+
+                foreach (var item in timeSheet_DetailsList_NewEntries)
+                {
+                    item.Created_at = DateTime.Now;
+
+                    var NewTimeSheetDetailsObj = new Timesheet_details();
+                    NewTimeSheetDetailsObj.Created_at = item.Created_at;
+                    NewTimeSheetDetailsObj.Updated_at = item.Created_at;
+                    NewTimeSheetDetailsObj.Day = item.Day;
+                    NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
+                    NewTimeSheetDetailsObj.Hours = item.Hours;
+                    NewTimeSheetDetailsObj.Timesheet_id = timesheet.Id;
+                    db.Timesheet_details.Add(NewTimeSheetDetailsObj);
+                    db.SaveChanges();
+                }
+
+
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json("failure", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult SendTimeSheetLink(int id)
+        {
+            var db = new TSS_Sql_Entities();
+            var timesheet = db.Timesheets.Find(id);
+            var customerId = timesheet.Customer_Id_Generic;
+            var user = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == customerId);
+            if(user == null)
+            {
+                return Json("Customer Doesn't Exists", JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
+                var toAddress = new MailAddress("saqibabdullahazhar@gmail.com", user.UserName);
+                string fromPassword = SenderEmailPassword;
+                string subject = "Total Staffing Solution: Account Confirmation";
+                string body = "<b>Hello " + user.Email + "!</b><br />TimeSheet Link: <br /><a href='" 
+                    + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + id + "'>TimeSheet Link</a>";
+
+                var smtp = new SmtpClient
+                {
+                    Host = SenderEmailHost,
+                    Port = SenderEmailPort,
+                    EnableSsl = false,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    Timeout = 20000
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    IsBodyHtml = true,
+                    Subject = subject,
+                    Body = body,
+
+                })
+                {
+                    smtp.Send(message);
+                }
+
+                return Json("Link Sent successfully", JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json("Something Went wrong..!", JsonRequestBehavior.AllowGet);
+
+            }
+
+
+
+            return Json("");
         }
 
     }

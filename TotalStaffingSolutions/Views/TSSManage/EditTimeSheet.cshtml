@@ -108,7 +108,7 @@
                                         }
                                     }
                                     <td><input type="text" style="width:50px !important" class="form-control new-form-control" placeholder="@item.Total_hours" value="@item.Total_hours" disabled id="EmployeeTotalHours_@employeeCounter"></td>
-                                    @*<td>
+                                    <td hidden>
                                         <div class="form-group margin-bottom-20">
 
 
@@ -155,7 +155,7 @@
                                             @Html.DropDownListFor(model => item.Rating_by_client, listItems, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "Rating_by_client_" + counter, @alt = item.Id })
 
                                         </div>
-                                    </td>*@
+                                    </td>
                                     <td><input type="text" class="form-control new-form-control" placeholder="@item.Enitial" value="@item.Enitial" id="EmployeeEnitial_@employeeCounter"></td>
 
                                 </tr>
@@ -214,7 +214,7 @@
     <!-- /.col-lg-6 col-xs-12 -->
 </div>
 
-
+<input type="text" hidden id="NewlyAdded" value="0"/>
 
 
 <script>
@@ -411,10 +411,89 @@
                 timeSheet_DetailsList.push(timeSheet_details);
             }
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        var newEmp = $("#NewlyAdded").val();
+        var timeSheet_summary_NewEntries = [];
+
+
+        for (var i = 1; i <= parseInt(newEmp) ; i++) {
+            var timeSheet_summaryDetails_NewEntries = {
+                Timesheet_id: null,
+                Employee_id: $("#id_selected_employee_"+i).val(),
+                Rate: $("#rate_"+i).val(),
+                Enitial: $("#enitials_"+i).val(),
+                Total_hours : $("#totalHours_"+i).val(),
+                Created_at: Date(),
+                Updated_at:null,
+                Rating_by_client:null
+            }
+            timeSheet_summary_NewEntries.push(timeSheet_summaryDetails_NewEntries);
+        }
+        var timeSheet_DetailsList_NewEntries = [];
+
+
+        for (var i = 1; i <= parseInt(newEmp) ; i++) {
+
+            for (var j = 1; j <= 7 ; j++) {
+                var hoursPerDay = 0;
+                if(j == 1)
+                {
+                    hoursPerDay = $("#monday_" + i).val();
+                }
+                else if(j == 2)
+                {
+                    hoursPerDay = $("#tuesday_" + i).val();
+                }
+                else if(j == 3)
+                {
+                    hoursPerDay = $("#wednesday_" + i).val();
+                }
+                else if(j == 4)
+                {
+                    hoursPerDay = $("#thursday_" + i).val();
+                }
+                else if(j == 5)
+                {
+                    hoursPerDay = $("#friday_" + i).val();
+                }
+                else if(j == 6)
+                {
+                    hoursPerDay = $("#saturday_" + i).val();
+                }
+                else if(j == 7)
+                {
+                    hoursPerDay = $("#sunday_" + i).val();
+                }
+
+                var timeSheet_details_NewEntries = {
+                    Timesheet_id: null,
+                    Employee_id:$("#id_selected_employee_"+i).val(),
+                    Day:j,
+                    Hours:parseInt(hoursPerDay),
+                    Created_at:Date(),
+                    Updated_at:Date()
+
+                }
+                timeSheet_DetailsList_NewEntries.push(timeSheet_details_NewEntries);
+            }
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
          $.ajax({
             type: 'POST',
-            data: JSON.stringify({timesheet: timesheet, timeSheet_summary:timeSheet_summary,timeSheet_DetailsList:timeSheet_DetailsList}),
-            url: '@Url.Action("SubmitTimeSheetDetails", "TSSManage")',
+            data: JSON.stringify({timesheet: timesheet, timeSheet_summary:timeSheet_summary,timeSheet_DetailsList:timeSheet_DetailsList, timeSheet_summary_NewEntries:timeSheet_summary_NewEntries,timeSheet_DetailsList_NewEntries:timeSheet_DetailsList_NewEntries}),
+            url: '@Url.Action("EditTimeSheetDetails", "TSSManage")',
             dataType: "json",
             contentType: 'application/json; charset=utf-8',
             success: function(data) {
@@ -458,17 +537,20 @@
         var incemp = parseInt(totalemp) + 1;
         var dropdownid = "selected_employee_"+incemp;
         $("#TotalEmployees").val(incemp);
+        var newEmp = parseInt($("#NewlyAdded").val());
+        newEmp = newEmp + 1;
+        $("#NewlyAdded").val(newEmp);
         var dropdownhtml = "@Html.Raw(ViewBag.DropDownHtml)";
-        //$("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px">'+dropdownhtml+'</th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="monday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="tuesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="wednesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="thursday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="friday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="saturday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="sunday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
-        $("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_'+incemp+'" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_'+incemp+'"/></th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="monday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="tuesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="wednesday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="thursday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="friday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="saturday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="sunday_'+ incemp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
-        $("#selected_employee_"+incemp).autocomplete({
+        //$("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px">'+dropdownhtml+'</th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="monday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="tuesday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="wednesday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="thursday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="friday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="saturday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="sunday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="totalHours_'+ newEmp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ newEmp+'"></td></tr>')
+        $("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_'+newEmp+'" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_'+newEmp+'"/></th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="monday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="tuesday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="wednesday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="thursday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="friday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="saturday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="sunday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ newEmp+')" id="totalHours_'+ newEmp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ newEmp+'"></td></tr>')
+        $("#selected_employee_"+newEmp).autocomplete({
             source: function (request, response) {
                 $.ajax({
                     url: "/TSSManage/SearchEmployees",
                     type: "GET",
                     dataType: "json",
-                    data: { query: $("#selected_employee_"+incemp).val() },
-                    success: function (data) {
+                    data: { query: $("#selected_employee_"+newEmp).val() },
+                    success: function (data) {debugger;
                         response($.map(data,
                             function (item) {
                                 return { label: item.Name, value: item.Id };
@@ -480,7 +562,7 @@
 
             },
             select: function (event, ui) {
-                AutoCompleteSelectHandler(event, ui, 'selected_employee_'+incemp)
+                AutoCompleteSelectHandler(event, ui, 'selected_employee_'+newEmp)
             },
             messages: {
                 noResults: "",
@@ -490,7 +572,7 @@
             }
         });
         $("#TotalEmployees").attr("placeholder",incemp);
-        $("#dropdownid").attr("id", "selected_employee_"+incemp);
+        $("#dropdownid").attr("id", "selected_employee_"+newEmp);
     }
 
 
