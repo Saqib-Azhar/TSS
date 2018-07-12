@@ -47,7 +47,7 @@
                                     <td>@item.Total_employees</td>
                                     <td>
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                        <a class="btn btn-xs btn-primary" href="/TSSManage/CopyTimeSheet/@item.Id"><span class="glyphicon glyphicon-duplicate"></span></a>
+                                        <button class="btn btn-xs btn-primary" onclick="CopyTimesheet(@item.Id)"><span class="glyphicon glyphicon-duplicate"></span></button>
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/EditTimeSheet/@item.Id"><span class="glyphicon glyphicon-edit"></span></a>
                                         @*<a class="btn btn-xs btn-primary" href="/TSSManage/ExportTimesheetInExcel/@item.Id"><span class="glyphicon glyphicon-download"></span></a>*@
                                         <button class="btn btn-xs btn-danger" onclick="DeleteTimesheetLink(@item.Id)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -76,7 +76,7 @@
     <!-- /.col-xs-12 -->
 </div>
 <!-- /.row small-spacing -->
-
+<div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
 
 <script>
     function SendTimesheetLink(id)
@@ -119,4 +119,41 @@
             }
         });
     }
+    function CopyTimesheet(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ id: id }),
+            url: '@Url.Action("CopyTimeSheet", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var r = confirm(data);
+                if (r == true) {
+                    window.location.reload();
+                }
+                else 
+                {
+                    window.location.reload();
+                }
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+
+
+
+    $(document).ready(function () {
+        $(document).ajaxStart(function () {
+            $("#wait").css("display", "block");
+        });
+        $(document).ajaxComplete(function () {
+            $("#wait").css("display", "none");
+        });
+        $("button").click(function () {
+            $("#txt").load("demo_ajax_load.asp");
+        });
+    });
 </script>

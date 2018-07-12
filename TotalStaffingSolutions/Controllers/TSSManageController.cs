@@ -295,7 +295,7 @@ namespace TotalStaffingSolutions.Controllers
                 db.SaveChanges();
 
                 //var timesheetObj = db.Timesheets.FirstOrDefault(s => s.Created_at == timesheet.Created_at && s.Customer_id == timesheet.Customer_id);
-                var timesheetObj = db.Timesheets.OrderByDescending(s=>s.Created_at).FirstOrDefault(s=>s.Customer_id == timesheet.Customer_id);
+                var timesheetObj = db.Timesheets.OrderByDescending(s=>s.Id).FirstOrDefault(s=>s.Id == NewTimeSheet.Id);
 
                 foreach (var item in timeSheet_summary)
                 {
@@ -391,14 +391,20 @@ namespace TotalStaffingSolutions.Controllers
                 
             }
             var splitStr = Regex.Split(query, " ");
-            if (splitStr.Count() > 1)
+            if (splitStr.Count() == 2)
             {
                 splitStr[0] = splitStr[0].First().ToString().ToUpper() + splitStr[0].Substring(1);
                 splitStr[1] = splitStr[1].First().ToString().ToUpper() + splitStr[1].Substring(1);
                 var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[1]) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
                 return Json(results, JsonRequestBehavior.AllowGet);
             }
-
+            else if (splitStr.Count() == 3) 
+            {
+                splitStr[0] = splitStr[0].First().ToString().ToUpper() + splitStr[0].Substring(1);
+                splitStr[2] = splitStr[2].First().ToString().ToUpper() + splitStr[1].Substring(1);
+                var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[2]) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                return Json(results, JsonRequestBehavior.AllowGet);
+            }
             else
             {
                 query = query.First().ToString().ToUpper() + query.Substring(1);
@@ -634,7 +640,7 @@ namespace TotalStaffingSolutions.Controllers
 
             try
             {
-                timesheet.Created_at = DateTime.Now;
+                //timesheet.Created_at = DateTime.Now;
 
                 var db = new TSS_Sql_Entities();
                 var NewTimeSheet = db.Timesheets.FirstOrDefault(s => s.Id == timesheet.Id);
@@ -646,8 +652,11 @@ namespace TotalStaffingSolutions.Controllers
                 //NewTimeSheet.Organization_id = timesheet.Organization_id;
                 //NewTimeSheet.Po_number = timesheet.Po_number;
                 //NewTimeSheet.Sent = timesheet.Sent;
-                //NewTimeSheet.Signature = timesheet.Signature;
-                //NewTimeSheet.Total_employees = timesheet.Total_employees;
+                NewTimeSheet.Signature = timesheet.Signature;
+                if (timeSheet_summary_NewEntries != null)
+                    NewTimeSheet.Total_employees = timeSheet_summary_NewEntries.Count + timeSheet_summary.Count;
+                else
+                    NewTimeSheet.Total_employees = timeSheet_summary.Count;
                 //NewTimeSheet.Total_hours = timesheet.Total_hours;
                 NewTimeSheet.Updated_at = DateTime.Now;
                 NewTimeSheet.Submit_by_client = false;
@@ -668,7 +677,7 @@ namespace TotalStaffingSolutions.Controllers
                     //item.Created_at = DateTime.Now;
                     var NewTimeSheetSummary = db.Timesheet_summaries.FirstOrDefault(s => s.Id == item.Id);
                     //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
-                    //NewTimeSheetSummary.Employee_id = item.Employee_id;
+                    NewTimeSheetSummary.Employee_id = item.Employee_id;
                     NewTimeSheetSummary.Enitial = item.Enitial;
                     //NewTimeSheetSummary.Timesheet_id = timesheetObj.Id;
                     NewTimeSheetSummary.Rate = item.Rate;
@@ -690,49 +699,55 @@ namespace TotalStaffingSolutions.Controllers
                     //NewTimeSheetDetailsObj.Created_at = item.Created_at;
                     NewTimeSheetDetailsObj.Updated_at = item.Created_at;
                     //NewTimeSheetDetailsObj.Day = item.Day;
-                    //NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
+                    NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
                     NewTimeSheetDetailsObj.Hours = item.Hours;
                     //NewTimeSheetDetailsObj.Timesheet_id = timesheetObj.Id;
                     //db.Timesheet_details.Add(NewTimeSheetDetailsObj);
                     db.SaveChanges();
                 }
 
-
-                foreach (var item in timeSheet_summary_NewEntries)
+                if (timeSheet_summary_NewEntries != null)
                 {
-                    item.Created_at = DateTime.Now;
-                    var NewTimeSheetSummary = new Timesheet_summaries();
-                    //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
-                    NewTimeSheetSummary.Employee_id = item.Employee_id;
-                    NewTimeSheetSummary.Enitial = item.Enitial;
-                    NewTimeSheetSummary.Timesheet_id = timesheet.Id;
-                    NewTimeSheetSummary.Rate = item.Rate;
-                    NewTimeSheetSummary.Enitial = item.Enitial;
-                    NewTimeSheetSummary.Total_hours = item.Total_hours;
-                    NewTimeSheetSummary.Created_at = DateTime.Now;
-                    NewTimeSheetSummary.Updated_at = DateTime.Now;
-                    NewTimeSheetSummary.Rating_by_client = 0;
-                    //NewTimeSheetSummary.Updated_at = timeSheet_summary.Updated_at;
 
-                    db.Timesheet_summaries.Add(NewTimeSheetSummary);
-                    db.SaveChanges();
+
+                    foreach (var item in timeSheet_summary_NewEntries)
+                    {
+                        item.Created_at = DateTime.Now;
+                        var NewTimeSheetSummary = new Timesheet_summaries();
+                        //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
+                        NewTimeSheetSummary.Employee_id = item.Employee_id;
+                        NewTimeSheetSummary.Enitial = item.Enitial;
+                        NewTimeSheetSummary.Timesheet_id = timesheet.Id;
+                        NewTimeSheetSummary.Rate = item.Rate;
+                        NewTimeSheetSummary.Enitial = item.Enitial;
+                        NewTimeSheetSummary.Total_hours = item.Total_hours;
+                        NewTimeSheetSummary.Created_at = DateTime.Now;
+                        NewTimeSheetSummary.Updated_at = DateTime.Now;
+                        NewTimeSheetSummary.Rating_by_client = 0;
+                        //NewTimeSheetSummary.Updated_at = timeSheet_summary.Updated_at;
+
+                        db.Timesheet_summaries.Add(NewTimeSheetSummary);
+                        db.SaveChanges();
+                    }
                 }
 
-                foreach (var item in timeSheet_DetailsList_NewEntries)
+                if (timeSheet_DetailsList_NewEntries != null)
                 {
-                    item.Created_at = DateTime.Now;
+                    foreach (var item in timeSheet_DetailsList_NewEntries)
+                    {
+                        item.Created_at = DateTime.Now;
 
-                    var NewTimeSheetDetailsObj = new Timesheet_details();
-                    NewTimeSheetDetailsObj.Created_at = item.Created_at;
-                    NewTimeSheetDetailsObj.Updated_at = item.Created_at;
-                    NewTimeSheetDetailsObj.Day = item.Day;
-                    NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
-                    NewTimeSheetDetailsObj.Hours = item.Hours;
-                    NewTimeSheetDetailsObj.Timesheet_id = timesheet.Id;
-                    db.Timesheet_details.Add(NewTimeSheetDetailsObj);
-                    db.SaveChanges();
+                        var NewTimeSheetDetailsObj = new Timesheet_details();
+                        NewTimeSheetDetailsObj.Created_at = item.Created_at;
+                        NewTimeSheetDetailsObj.Updated_at = item.Created_at;
+                        NewTimeSheetDetailsObj.Day = item.Day;
+                        NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
+                        NewTimeSheetDetailsObj.Hours = item.Hours;
+                        NewTimeSheetDetailsObj.Timesheet_id = timesheet.Id;
+                        db.Timesheet_details.Add(NewTimeSheetDetailsObj);
+                        db.SaveChanges();
+                    }
                 }
-
 
 
                 return Json("success", JsonRequestBehavior.AllowGet);
@@ -929,6 +944,62 @@ namespace TotalStaffingSolutions.Controllers
                 Response.Write(sw.ToString());
 
                 Response.End();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+
+
+        public JsonResult CopyTimeSheet(int id)
+        {
+            try
+            {
+                var db = new TSS_Sql_Entities();
+
+                if (EmployeesStaticList == null)
+                {
+                    EmployeesStaticList = db.Employees.ToList();
+
+                }
+                TimeSheetTuple timeSheetDetailsTuple = new TimeSheetTuple();
+                timeSheetDetailsTuple.TimeSheetGeneralDetails = db.Timesheets.Find(id);
+                timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
+                var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
+                timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
+
+                AddTimeSheetDetails(timeSheetDetailsTuple.TimeSheetGeneralDetails, timeSheetDetailsTuple.TimeSheetSummary, timeSheetDetailsTuple.TimeSheetDetails);
+
+
+                return Json("Copy of Timesheet created successfully");
+            }
+            catch (Exception)
+            {
+
+                return Json("Something Went wrong.");
+            }
+        }
+
+
+        public bool updateentriesoftimesheets()
+        {
+            try
+            {
+                var db = new TSS_Sql_Entities();
+
+                var tss = db.Timesheets.ToList();
+                foreach (var item in tss)
+                {
+                    var ts = db.Timesheets.Find(item.Id);
+                    var sumlist = db.Timesheet_summaries.Where(s => s.Timesheet_id == ts.Id);
+                    ts.Total_employees = sumlist.Count();
+                    db.SaveChanges();
+                }
 
                 return true;
             }

@@ -30,7 +30,7 @@
                     <div class="new-invoice-top">
                         <div class="create-time-logo">
                             <div>END DATE: @Convert.ToDateTime(Model.TimeSheetGeneralDetails.End_date).ToString("dd/MMM/yyyy")<br>
-                            <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Download</button></div>
+                            <a href="/TSSManage/ExportTimesheetInExcel/@Model.TimeSheetGeneralDetails.Id" class="btn btn-success btn-xs waves-effect waves-light">Download</a></div>
                         </div>
                     </div>
                 </div>

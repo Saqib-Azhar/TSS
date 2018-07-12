@@ -378,6 +378,7 @@
     <Content Include="assets\images\404.jpg" />
     <Content Include="assets\images\icon-email.png" />
     <Content Include="assets\images\sativa.png" />
+    <Content Include="assets\loading_gif.gif" />
     <Content Include="assets\logo-w.png" />
     <Content Include="assets\logo.png" />
     <Content Include="assets\plugin\bootstrap\css\bootstrap-theme.css" />

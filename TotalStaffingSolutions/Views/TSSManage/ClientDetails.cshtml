@@ -316,7 +316,7 @@
                                             <a href="/TSSManage/EditTimeSheet/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-edit"></a>
                                             <a href="/TSSManage/TimeSheetDetails/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-eye"></a>
                                             <a href="/TSSManage/ExportTimesheetInExcel/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-download"></a>
-                                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa fa-clone"></button>
+                                            <button type="button" onclick="CopyTimesheet(@item.Id)" class="btn btn-primary btn-xs waves-effect waves-light fa fa-clone"></button>
                                             <button type="button" onclick="DeleteTimesheetLink(@item.Id)" class="btn btn-danger btn-xs waves-effect waves-light fa fa-trash"></button>
                                             <button type="button" onclick="SendTimesheetLink(@item.Id)" class="btn btn-success btn-xs waves-effect waves-light">Send Email</button>
                                             <button type="button" onclick="copyLink(@item.Id)" class="btn btn-success btn-xs waves-effect waves-light">Link</button>
@@ -345,6 +345,8 @@
     </div>
 
 </div>
+<div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
+
 <script>
 // Get the modal
 var modal = document.getElementById('myModal');
@@ -424,4 +426,42 @@ window.onclick = function(event) {
         document.execCommand("copy");
         alert("Copied the text: " + copyText.value);
     }
+
+    function CopyTimesheet(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ id: id }),
+            url: '@Url.Action("CopyTimeSheet", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var r = confirm(data);
+                if (r == true) {
+                    window.location.reload();
+                }
+                else 
+                {
+                    window.location.reload();
+                }
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+
+
+
+    $(document).ready(function () {
+        $(document).ajaxStart(function () {
+            $("#wait").css("display", "block");
+        });
+        $(document).ajaxComplete(function () {
+            $("#wait").css("display", "none");
+        });
+        $("button").click(function () {
+            $("#txt").load("demo_ajax_load.asp");
+        });
+    });
 </script>

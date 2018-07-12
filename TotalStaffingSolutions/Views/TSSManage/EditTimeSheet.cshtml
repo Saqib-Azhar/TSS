@@ -54,7 +54,9 @@
                         <div class="create-time-logo">
                             <div>
                                 END DATE: @Convert.ToDateTime(Model.TimeSheetGeneralDetails.End_date).ToString("dd/MMM/yyyy")<br>
-                                <button type="button" class="btn btn-success btn-xs waves-effect waves-light">Download</button>
+                                <a href="/TSSManage/ExportTimesheetInExcel/@Model.TimeSheetGeneralDetails.Id" class="btn btn-success btn-xs waves-effect waves-light">Download</a>
+                      
+
                             </div>
                         </div>
                     </div>
@@ -92,7 +94,7 @@
                                 employeeCounter++;
                                 counter++;
                                 <tr>
-                                    <td><input type="text" alt="@item.Employee_id" class="form-control ui-autocomplete ui-autocomplete-input"  value="@item.Employee.First_name @item.Employee.Middle_name @item.Employee.Last_name" id="EmployeeId_@employeeCounter"><input type="text" hidden id="id_EmployeeId_@employeeCounter" /></td>
+                                    <td><input type="text" alt="@item.Employee_id" class="form-control ui-autocomplete ui-autocomplete-input"  value="@item.Employee.First_name @item.Employee.Middle_name @item.Employee.Last_name" id="EmployeeId_@employeeCounter"><input type="text" hidden value="@item.Employee.Id" id="id_EmployeeId_@employeeCounter" /></td>
                                     @*<td>@item.Employee.First_name</td>
                                     <td>@item.Employee.User_id</td>*@
                                     <td><input type="text" value="@item.Rate" id="EmployeeRate_@employeeCounter" style="width:45px!important; height:39px!important" class="form-control"></td>
@@ -216,9 +218,22 @@
 
 <input type="text" hidden id="NewlyAdded" value="0"/>
 
+<input type="text" hidden id="idsaver" />
+
+<div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
+
 
 <script>
     $(document).ready(function() {
+        $(document).ajaxStart(function () {
+            $("#wait").css("display", "block");
+        });
+        $(document).ajaxComplete(function () {
+            $("#wait").css("display", "none");
+        });
+        $("button").click(function () {
+            $("#txt").load("demo_ajax_load.asp");
+        });
         $("#TotalEmployees").attr("placeholder",@counter);
         $("#TotalEmployees").val(@counter);
 
@@ -229,48 +244,40 @@
         $('.js-example-basic-multiple').select2();
         $('.js-example-basic-single').select2();
 
-        //$('#datepicker').datepicker({ beforeShowDay:
-        //  function(dt)
-        //  {
-        //      return [dt.getDay() == 0 , ""];
-        //  }
-        //});
-
-        //$("#datepicker").val(new Date());
-        //var sunday = getSunday();
-        //$("#datepicker").val(sunday.getMonth()+1+"/"+sunday.getDate()+"/"+sunday.getUTCFullYear());
-        //debugger;
-
+        
         $('[data-toggle=\'tooltip\']').tooltip({ container: 'body' });
         $(function () {
-            $("#EmployeeId_1").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: "/TSSManage/SearchEmployees",
-                        type: "GET",
-                        dataType: "json",
-                        data: { query: $("#EmployeeId_1").val() },
-                        success: function (data) {
-                            response($.map(data,
-                                function (item) {
-                                    return { label: item.Name, value: item.Id };
-                                }));
+            for (var i = 1; i <= @Model.TimeSheetSummary.Count; i++) {
+                $("#EmployeeId_"+i).autocomplete({
+                    source: function (request, response) {$("#idsaver").val($(this.element).prop("id"));
+                        $.ajax({
+                            url: "/TSSManage/SearchEmployees",
+                            type: "GET",
+                            dataType: "json",
+                            data: { query: request.term },
+                            success: function (data) {
+                                response($.map(data,
+                                    function (item) {
+                                        return { label: item.Name, value: item.Id };
+                                    }));
 
+                            }
+                        });
+
+
+                    },
+                    select: function (event, ui) {
+                        AutoCompleteSelectHandler(event, ui, $("#idsaver").val())
+                    },
+                    messages: {
+                        noResults: "",
+                        results: function(count) {
+                            return count + (count > 1 ? ' results' : ' result ') + ' found';
                         }
-                    });
-
-
-                },
-                select: function (event, ui) {
-                    AutoCompleteSelectHandler(event, ui, 'EmployeeId_1')
-                },
-                messages: {
-                    noResults: "",
-                    results: function(count) {
-                        return count + (count > 1 ? ' results' : ' result ') + ' found';
                     }
-                }
-            });
+                });
+            }
+
         } );
 
 
@@ -278,7 +285,7 @@
 
 
     function updateEntries1()
-    {debugger;
+    {
         var totalemp = parseInt($("#TotalEmployees").val());
         var mondays = 0;
         var tuesdays = 0;
@@ -411,7 +418,7 @@
             var timeSheet_summaryDetails = {
                 Id:$("#Rating_by_client_"+i).attr("alt"),
                 Timesheet_id: @Model.TimeSheetGeneralDetails.Id,
-                Employee_id: $("#EmployeeId_"+i).val(),
+                Employee_id: $("#id_EmployeeId_"+i).val(),
                 Rate: $("#EmployeeRate_"+i).val(),
                 Enitial: $("#EmployeeEnitial_"+i).val(),
                 Total_hours : $("#EmployeeTotalHours_"+i).val(),
@@ -430,7 +437,7 @@
                 var timeSheet_details = {
                     Id:$("#EmployeeId_"+i+"_Day_"+j).attr("alt"),
                     Timesheet_id: @Model.TimeSheetGeneralDetails.Id,
-                    Employee_id:$("#EmployeeId_"+i).val(),
+                    Employee_id:$("#id_EmployeeId_"+i).val(),
                     Day:j,
                     Hours:$("#EmployeeId_"+i+"_Day_"+j).val(),
                     Created_at:'@Model.TimeSheetGeneralDetails.Created_at',
@@ -548,7 +555,7 @@
     }
     
     function UpdateNewEntryHours(newEmployeeCounter)
-    {//debugger;
+    {
         var totalhours = 0;
         totalhours = totalhours+ parseInt($("#monday_"+newEmployeeCounter).val());
         totalhours = totalhours+ parseInt($("#tuesday_"+newEmployeeCounter).val());
@@ -564,17 +571,17 @@
 </script>
 
 <script>
-    function AutoCompleteSelectHandler(event, ui, id) {//debugger;
+    function AutoCompleteSelectHandler(event, ui, id) {
         var selectedObjVal = ui.item.value;
         var selectedObjLabel = ui.item.label;
-        var thisid = "#id_"+id;
-        $(thisid).val(selectedObjVal);
+        //var thisid = "#id_"+id;
+        $("#id_"+id).val(selectedObjVal);
         $("#"+id).val(selectedObjLabel);
 
     }
 
     function AddRow()
-    {//debugger;
+    {
         var totalemp = $("#TotalEmployees").val();
         var incemp = parseInt(totalemp) + 1;
         var dropdownid = "selected_employee_"+incemp;
@@ -591,7 +598,7 @@
                     type: "GET",
                     dataType: "json",
                     data: { query: $("#selected_employee_"+newEmp).val() },
-                    success: function (data) {//debugger;
+                    success: function (data) {
                         response($.map(data,
                             function (item) {
                                 return { label: item.Name, value: item.Id };
