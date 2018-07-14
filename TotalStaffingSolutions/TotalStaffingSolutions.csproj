@@ -375,6 +375,7 @@
     <Content Include="assets\fonts\material-design\fonts\materialdesignicons-webfont.svg" />
     <Content Include="assets\fonts\themify-icons\fonts\themify.svg" />
     <Content Include="assets\fonts\themify-icons\themify-icons.css" />
+    <Content Include="assets\Image-not-available.png" />
     <Content Include="assets\images\404.jpg" />
     <Content Include="assets\images\icon-email.png" />
     <Content Include="assets\images\sativa.png" />

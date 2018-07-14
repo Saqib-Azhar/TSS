@@ -372,8 +372,15 @@ namespace TotalStaffingSolutions.Controllers
             timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s=>s.Timesheet_id == id).ToList();
             var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
             timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
-            var userObject = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
-            ViewBag.DisplayPicture = userObject.DisplayPicture;
+            try
+            {
+                var userObject = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
+                ViewBag.DisplayPicture = userObject.DisplayPicture;
+            }
+            catch (Exception)
+            {
+                ViewBag.DisplayPicture = "";
+            }
             return View(timeSheetDetailsTuple);
         }
 

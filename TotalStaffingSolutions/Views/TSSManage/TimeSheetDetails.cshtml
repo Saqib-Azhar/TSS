@@ -11,12 +11,19 @@
 
 <script src="~/assets/scripts/jquery.min.js"></script>
 
-<div class="row small-spacing">
+<div class="row small-spacing" id="parent_div">
     <div class="col-xs-12">
         <div class="box-content">
             <div class="row new-main-invoice">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 create-time-text">
-                    <img alt="logo" style="width:150px; height:150px" src="~/ProfileImages/@ViewBag.DisplayPicture">
+                    @if (ViewBag.DisplayPicture != "" && ViewBag.DisplayPicture != null)
+                    {
+                        <img alt="logo" style="width:150px; height:150px" src="~/ProfileImages/@ViewBag.DisplayPicture">
+                    }
+                    else
+                    {
+                        <img alt="logo" style="width:150px; height:150px" src="~/assets/Image-not-available.png">
+                    }
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                     <div class="new-invoice-top2">
@@ -188,6 +195,7 @@
     <!-- /.col-lg-6 col-xs-12 -->
 </div>
 
+<div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
 
 
 
@@ -201,7 +209,17 @@
         // updateEntries();
         updateEntries1();
 
-
+        
+        $(document).ajaxStart(function () {
+            $("#wait").css("display", "block");
+            $("#parent_div :input").attr("disabled", true);
+        });
+        $(document).ajaxComplete(function () {
+            $("#wait").css("display", "none");
+        });
+        $("button").click(function () {
+            $("#txt").load("demo_ajax_load.asp");
+        });
     });
 
 
@@ -281,7 +299,11 @@
 <script>
     function UpdateTimeSheet()
     {
-
+        var signVal = $("#signatures").val();
+        if (signVal == null || signVal == '') {
+            window.alert("Please Fill the signature field.");
+            return false;
+        }
         var timesheet = {
             Id: '@Model.TimeSheetGeneralDetails.Id',
             Customer_id:'@Model.TimeSheetGeneralDetails.Id',
@@ -292,7 +314,7 @@
             Total_hours:@Model.TimeSheetGeneralDetails.Total_hours,
             Submit_by_client:true,
             Uuid:null,
-            Signature:$("signatures"),
+            Signature:$("#signatures").val(),
             Created_at:'@Model.TimeSheetGeneralDetails.Created_at',
             Updated_at:'',
             Note: $("#comment").val(),

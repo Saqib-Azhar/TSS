@@ -34,12 +34,19 @@
 
 @*<script src="~/assets/scripts/jquery.min.js"></script>*@
 
-<div class="row small-spacing">
+<div class="row small-spacing" id="parent_div">
     <div class="col-xs-12">
         <div class="box-content">
             <div class="row new-main-invoice">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 create-time-text">
-                    <img alt="logo" style="width:150px; height:150px" src="~/ProfileImages/@ViewBag.DisplayPicture">
+                    @if (ViewBag.DisplayPicture != "" && ViewBag.DisplayPicture != null)
+                    {
+                        <img alt="logo" style="width:150px; height:150px" src="~/ProfileImages/@ViewBag.DisplayPicture">
+                    }
+                    else
+                    {
+                        <img alt="logo" style="width:150px; height:150px" src="~/assets/Image-not-available.png">
+                    }
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                     <div class="new-invoice-top2">
@@ -197,7 +204,7 @@
             <div class="new-forms-buttons">
                 @*<button type="button" class="btn btn-success btn-xs waves-effect waves-light">Save As draft</button>*@
                 <button type="button" class="btn btn-success btn-xs waves-effect waves-light" onclick="AddRow()">Add Row</button>
-                <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="UpdateTimeSheet()">Submit</button>
+                <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="UpdateTimeSheet()">Save Changes</button>
             </div>
             <div class="bottom-text">
                 <input type="text" id="signatures" />
@@ -389,6 +396,7 @@
 <script>
     function UpdateTimeSheet()
     {
+        $("#parent_div :input").attr("disabled", true);
 
         var timesheet = {
             Id: '@Model.TimeSheetGeneralDetails.Id',
