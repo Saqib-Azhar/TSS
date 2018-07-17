@@ -36,6 +36,14 @@ namespace TotalStaffingSolutions.Controllers
             try
             {
                 var db = new TSS_Sql_Entities();
+                List<Branch> bl = db.Branches.ToList();
+                Branch b = new Branch();
+                b.Id = 0;
+                b.Name = "Select Branch";
+                bl.Add(b);
+                var a = bl.OrderBy(s => s.Id);
+                var branchlist = new SelectList(a, "Id", "Name");
+                ViewBag.BranchsList = branchlist;
                 return View(db.Timesheets.ToList()); 
             }
             catch (Exception ex)
@@ -446,7 +454,7 @@ namespace TotalStaffingSolutions.Controllers
                 //NewTimeSheet.Organization_id = timesheet.Organization_id;
                 //NewTimeSheet.Po_number = timesheet.Po_number;
                 //NewTimeSheet.Sent = timesheet.Sent;
-                //NewTimeSheet.Signature = timesheet.Signature;
+                NewTimeSheet.Signature = timesheet.Signature;
                 //NewTimeSheet.Total_employees = timesheet.Total_employees;
                 //NewTimeSheet.Total_hours = timesheet.Total_hours;
                 NewTimeSheet.Updated_at = DateTime.Now;
@@ -564,7 +572,7 @@ namespace TotalStaffingSolutions.Controllers
             try
             {
                 var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
-                var toAddress = new MailAddress("saqibabdullahazhar@gmail.com", savedContactObj.Contact_name);
+                var toAddress = new MailAddress("sazhar@viretechnologies.com", savedContactObj.Contact_name);
                 string fromPassword = SenderEmailPassword;
                 string subject = "Total Staffing Solution: Account Confirmation";
                 string body = "<b>Hello " + savedContactObj.Email_id + "!</b><br />Someone has invited you to http://total-staffing.raisenit.com/, you can accept it through the link below.<br /> <a href='" + TSSLiveSiteURL + "/ClientDashboard/ConfirmAccount?token=" + ConfirmationToken + "'>Accept invitation</a><br /><small style='text-align:center;'>(If you don't want to accept the invitation, please ignore this email.Your account won't be created until you access the link above and set your password.<br/><b>This Link is active for next 24 hours, Please make sure to Enable your account before " + DateTime.Now.AddHours(24) + "</b>)</small>";
@@ -584,8 +592,10 @@ namespace TotalStaffingSolutions.Controllers
                     Subject = subject,
                     Body = body,
 
+
                 })
                 {
+                    //message.CC.Add("jgallelli@4tssi.com");
                     smtp.Send(message);
                 }
                 ///
@@ -779,10 +789,10 @@ namespace TotalStaffingSolutions.Controllers
             try
             {
                 var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
-                var toAddress = new MailAddress("saqibabdullahazhar@gmail.com", user.UserName);
+                var toAddress = new MailAddress("sazhar@viretechnologies.com", user.UserName);
                 string fromPassword = SenderEmailPassword;
-                string subject = "Total Staffing Solution: Account Confirmation";
-                string body = "<b>Hello " + user.Email + "!</b><br />TimeSheet Link: <br /><a href='" 
+                string subject = "Total Staffing Solution: New Timesheet";
+                string body = "<b>Hello " + user.Email + "!</b><br />A new timesheet is created, You can access it through the link below. <br /><a href='"
                     + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + id + "'>TimeSheet Link</a>";
 
                 var smtp = new SmtpClient
@@ -802,6 +812,7 @@ namespace TotalStaffingSolutions.Controllers
 
                 })
                 {
+                    //message.CC.Add("jgallelli@4tssi.com");
                     smtp.Send(message);
                 }
 
@@ -1017,5 +1028,39 @@ namespace TotalStaffingSolutions.Controllers
             }
         }
 
+
+
+        public ActionResult TimeSheetsByBranch(int? id=0)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    var db = new TSS_Sql_Entities();
+
+                    List<Branch> bl = db.Branches.ToList();
+                    Branch b = new Branch();
+                    b.Id = 0;
+                    b.Name = "Select Branch";
+                    bl.Add(b);
+                    var a = bl.OrderBy(s => s.Id);
+                    var branchlist = new SelectList(a, "Id", "Name");
+                    ViewBag.BranchsList = branchlist;
+                    var timesheets = db.Timesheets.Where(s => s.Customer.Branch_id == id).ToList();
+                    ViewBag.SelectedBranchId = id;
+                    return View(timesheets);
+                }
+                else
+                    return RedirectToAction("Dashboard");
+            }
+            catch (Exception ex)
+            {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
+            }
+            var list = new List<Timesheet>();
+
+            return View(list);
+        }
     }
 }

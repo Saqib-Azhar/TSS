@@ -52,7 +52,7 @@
                                         <!-- /.input-group -->
                                     </div>
                                 </div>
-                                PO Number:<br><input type="text" id="Po_number" class="form-control ponumber" disabled value="@Model.PhoneNumber" placeholder="@Model.PhoneNumber">
+                                PO Number:<br><input type="text" id="Po_number" class="form-control ponumber" value="" >
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                         <tr>
                             @*<th colspan="1" style="width: 230px">@Html.DropDownList("Employees", null, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "selected_employee_1" })</th>*@
                             <th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_1" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_1"/></th>
-                            <td><input type="number" class="form-control new-form-control" placeholder="" id="rate_1"></td>
+                            <td><input type="number" min="0" class="form-control new-form-control" placeholder="" id="rate_1"></td>
                             <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="monday_1"></td>
                             <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="tuesday_1"></td>
                             <td><input type="number" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="wednesday_1"></td>
@@ -154,7 +154,7 @@
     function AddRow()
     {debugger;
         var totalemp = $("#TotalEmployees").val();
-        var incemp = parseInt(totalemp) + 1;
+        var incemp = parseFloat(totalemp) + 1;
         var dropdownid = "selected_employee_"+incemp;
         $("#TotalEmployees").val(incemp);
         var dropdownhtml = "@Html.Raw(ViewBag.DropDownHtml)";
@@ -204,7 +204,7 @@
 
         debugger;
         //console.log(val1 + " " + val2 + " " + val3 + " " + val4 + " " + val5 + " " + val6 + " " + val7);
-        var total = parseInt(val1) + parseInt(val2) + parseInt(val3) + parseInt(val4) + parseInt(val5) + parseInt(val6) + parseInt(val7);
+        var total = parseFloat(val1) + parseFloat(val2) + parseFloat(val3) + parseFloat(val4) + parseFloat(val5) + parseFloat(val6) + parseFloat(val7);
         $("#totalHours_" + trNo).val(total);
         $("#totalHours_" + trNo).attr("placeholder", total);
         var totalHoursAllEmp = 0;
@@ -224,57 +224,57 @@
         var totalfridayEmployees = 0;
         var totalsaturdayEmployees = 0;
         var totalsundayEmployees = 0;
-        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+        for (var i = 1; i <= parseFloat(totalemp) ; i++) {
             var hoursPerEmp = $("#totalHours_" + i).val();
-            totalHoursAllEmp = totalHoursAllEmp + parseInt(hoursPerEmp);
+            totalHoursAllEmp = totalHoursAllEmp + parseFloat(hoursPerEmp);
 
 
-            totalmondayHours = totalmondayHours + parseInt($("#monday_" + i).val());
+            totalmondayHours = totalmondayHours + parseFloat($("#monday_" + i).val());
             $("#MondayTotalHours").val(totalmondayHours);
-            totaltuesdayHours = totaltuesdayHours + parseInt($("#tuesday_" + i).val());
+            totaltuesdayHours = totaltuesdayHours + parseFloat($("#tuesday_" + i).val());
             $("#TuesdayTotalHours").val(totaltuesdayHours);
-            totalwednesdayHours = totalwednesdayHours + parseInt($("#wednesday_" + i).val());
+            totalwednesdayHours = totalwednesdayHours + parseFloat($("#wednesday_" + i).val());
             $("#WednesdayTotalHours").val(totalwednesdayHours);
-            totalthursdayHours = totalthursdayHours + parseInt($("#thursday_" + i).val());
+            totalthursdayHours = totalthursdayHours + parseFloat($("#thursday_" + i).val());
             $("#ThursdayTotalHours").val(totalthursdayHours);
-            totalfridayHours = totalfridayHours + parseInt($("#friday_" + i).val());
+            totalfridayHours = totalfridayHours + parseFloat($("#friday_" + i).val());
             $("#FridayTotalHours").val(totalfridayHours);
-            totalsaturdayHours = totalsaturdayHours + parseInt($("#saturday_" + i).val());
+            totalsaturdayHours = totalsaturdayHours + parseFloat($("#saturday_" + i).val());
             $("#SaturdayTotalHours").val(totalsaturdayHours);
-            totalsundayHours  = totalsundayHours + parseInt($("#sunday_" + i).val());
+            totalsundayHours  = totalsundayHours + parseFloat($("#sunday_" + i).val());
             $("#SundayTotalHours").val(totalsundayHours);
 
-            if(parseInt($("#monday_" + i).val()) > 0)
+            if(parseFloat($("#monday_" + i).val()) > 0)
             {
                 totalmondayEmployees = totalmondayEmployees + 1;
             }
             $("#MondayTotalEmployees").val(totalmondayEmployees);
-            if(parseInt($("#tuesday_" + i).val()) > 0)
+            if(parseFloat($("#tuesday_" + i).val()) > 0)
             {
                 totaltuesdayEmployees = totaltuesdayEmployees + 1;
             }
             $("#TuesdayTotalEmployees").val(totaltuesdayEmployees);
-            if(parseInt($("#wednesday_" + i).val()) > 0)
+            if(parseFloat($("#wednesday_" + i).val()) > 0)
             {
                 totalwednesdayEmployees = totalwednesdayEmployees + 1;
             }
             $("#WednesdayTotalEmployees").val(totalwednesdayEmployees);
-            if(parseInt($("#thursday_" + i).val()) > 0)
+            if(parseFloat($("#thursday_" + i).val()) > 0)
             {
                 totalthursdayEmployees = totalthursdayEmployees + 1;
                 $("#ThursdayTotalEmployees").val(totalthursdayEmployees);
             }
-            if(parseInt($("#friday_" + i).val()) > 0)
+            if(parseFloat($("#friday_" + i).val()) > 0)
             {
                 totalfridayEmployees = totalfridayEmployees + 1;
             }
             $("#FridayTotalEmployees").val(totalfridayEmployees);
-            if(parseInt($("#saturday_" + i).val()) > 0)
+            if(parseFloat($("#saturday_" + i).val()) > 0)
             {
                 totalsaturdayEmployees = totalsaturdayEmployees + 1;
             }
             $("#SaturdayTotalEmployees").val(totalsaturdayEmployees);
-            if(parseInt($("#sunday_" + i).val()) > 0)
+            if(parseFloat($("#sunday_" + i).val()) > 0)
             {
                 totalsundayEmployees = totalsundayEmployees + 1;
             }
@@ -312,7 +312,7 @@
         var timeSheet_summary = [];
 
 
-        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+        for (var i = 1; i <= parseFloat(totalemp) ; i++) {
             var timeSheet_summaryDetails = {
                 Timesheet_id: null,
                 Employee_id: $("#id_selected_employee_"+i).val(),
@@ -328,7 +328,7 @@
         var timeSheet_DetailsList = [];
 
 
-        for (var i = 1; i <= parseInt(totalemp) ; i++) {
+        for (var i = 1; i <= parseFloat(totalemp) ; i++) {
 
             for (var j = 1; j <= 7 ; j++) {
                 var hoursPerDay = 0;
@@ -365,7 +365,7 @@
                     Timesheet_id: null,
                     Employee_id:$("#id_selected_employee_"+i).val(),
                     Day:j,
-                    Hours:parseInt(hoursPerDay),
+                    Hours:parseFloat(hoursPerDay),
                     Created_at:Date(),
                     Updated_at:Date()
 
