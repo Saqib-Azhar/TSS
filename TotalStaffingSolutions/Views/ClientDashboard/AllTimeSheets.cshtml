@@ -2,7 +2,45 @@
 @{ 
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<script src="~/assets/scripts/jquery.min.js"></script>
+<div class="modal fadee" id="ShowRejectionReason" role="dialog">
+    <div class="modal-dialog" style="top: 189px;">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Rejection Reason</h4>
+            </div>
+            <div class="modal-body" id="rejectionContentBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fadee" id="RejectionReasonModal" role="dialog">
+    <div class="modal-dialog" style="top: 189px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Rejection Reason</h4>
+            </div>
+            <div class="modal-body" id="contentBody">
+                <textarea class="form-control" style="max-width:540px!important" id="RejectionReason"></textarea><br />
+                <button class="btn btn-danger right pull-right" onclick="RejectTimeSheet()">Reject</button><br /><br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="row small-spacing">
     <div class="col-xs-12">
         <div class="box-content">
@@ -39,6 +77,10 @@
                                     {
                                         <span class="notice notice-purple">@item.TimeSheetStatu.Status</span>
                                     }
+                                    else if (item.TimeSheetStatu.Id == 4)
+                                    {
+                                        <span class="notice notice-danger" onclick="RejectionReason(@item.Id)">@item.TimeSheetStatu.Status</span>
+                                    }
                                     else
                                     {
                                         <span class="notice notice-blue">@item.TimeSheetStatu.Status</span>
@@ -46,10 +88,11 @@
                                 <td>@item.Total_employees</td>
                                 <td>
                                     <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                    @*<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-duplicate"></span></button>
-                                    <a class="btn btn-xs btn-primary" href="#"><span class="glyphicon glyphicon-edit"></span></a>
-                                    <a class="btn btn-xs btn-danger" href="#"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <button class="btn btn-xs btn-success">Link</button>*@
+
+                                    @if (item.TimeSheetStatu.Id == 1)
+                                    {
+                                        <button class="btn btn-xs btn-danger" onclick="ShowModal(@item.Id)"><span class="glyphicon glyphicon-floppy-remove"></span></button>
+                                    }
                                 </td>
                             </tr>
 
@@ -66,3 +109,73 @@
     <!-- /.col-xs-12 -->
 </div>
 <!-- /.row small-spacing -->
+
+<input type="text" id="RejectedTimeSheetId" value="" hidden/>
+<div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
+<script>
+    $(document).ready(function () {
+        $(document).ajaxStart(function () {
+            $("#wait").css("display", "block");
+        });
+        $(document).ajaxComplete(function () {
+            $("#wait").css("display", "none");
+        });
+        $("button").click(function () {
+            $("#txt").load("demo_ajax_load.asp");
+        });
+    });
+
+
+    function ShowModal(id)
+    {
+        $("#RejectedTimeSheetId").val(id);
+        $("#RejectionReasonModal").modal("show");
+        $('.modal-backdrop').remove();
+    }
+
+    function RejectTimeSheet()
+    {
+        var reason = $("#RejectionReason").val();
+        var timesheetId = $("#RejectedTimeSheetId").val();
+        if (reason != null && reason != '')
+        {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify({ timesheetId: timesheetId, reason: reason }),
+                url: '@Url.Action("RejectTimeSheet", "ClientDashboard")',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert(data);
+                    window.location.reload();
+                },
+                error: function (req, status, errorObj) {
+                    alert(errorObj.toString());
+                }
+            });
+        }
+
+    }
+
+    function RejectionReason(timesheetId)
+    {
+
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ timesheetId: timesheetId }),
+            url: '@Url.Action("GetRejectionReason", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#ShowRejectionReason").modal("show");
+                $("#rejectionContentBody").html("");
+                $("#rejectionContentBody").html("<div class='row'><div class='col-md-12'>" + data.RejectionReason + "</div><div class='col-md-6'></div></div>");
+            
+                $('.modal-backdrop').remove();
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+</script>

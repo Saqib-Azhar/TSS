@@ -54,6 +54,10 @@ namespace TotalStaffingSolutions.Controllers
                 var clientlist = new SelectList(orderedClients, "Id", "Name");
                 ViewBag.ClientsList = clientlist;
 
+                ViewBag.SelectedBranchId = "";
+                ViewBag.SelectedClientId = "";
+
+                //ViewBag.RejectedTimeSheets = db.RejectedTimesheets.ToList();
 
                 return View(db.Timesheets.ToList()); 
             }
@@ -1096,6 +1100,8 @@ namespace TotalStaffingSolutions.Controllers
                     var orderedClients = cl.OrderBy(s => s.Id);
                     var clientlist = new SelectList(orderedClients, "Id", "Name");
                     ViewBag.ClientsList = clientlist;
+                    
+                    ViewBag.SelectedClientId = null;
                     return View(timesheets);
                 }
                 else
@@ -1135,6 +1141,8 @@ namespace TotalStaffingSolutions.Controllers
                 var clientlist = new SelectList(orderedClients, "Id", "Name");
                 ViewBag.ClientsList = clientlist;
 
+                ViewBag.SelectedBranchId = null;
+                ViewBag.SelectedClientId = null;
                 return View(timesheets);
 
             }
@@ -1173,7 +1181,8 @@ namespace TotalStaffingSolutions.Controllers
                 var orderedClients = cl.OrderBy(s => s.Id);
                 var clientlist = new SelectList(orderedClients, "Id", "Name");
                 ViewBag.ClientsList = clientlist;
-                
+
+                ViewBag.SelectedBranchId = null;
                 ViewBag.SelectedClientId = id;
 
                 return View(timesheets);
@@ -1199,5 +1208,11 @@ namespace TotalStaffingSolutions.Controllers
             return Json(availableEmails,JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetRejectionReason(int timesheetId)
+        {
+            var db = new TSS_Sql_Entities();
+            var reason = db.RejectedTimesheets.FirstOrDefault(s => s.TimeSheetId == timesheetId);
+            return Json(reason, JsonRequestBehavior.AllowGet);
+        }
     }
 }

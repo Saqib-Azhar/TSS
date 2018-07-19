@@ -138,5 +138,31 @@ namespace TotalStaffingSolutions.Controllers
 
             return RedirectToAction("UserProfile", "ClientDashboard");
         }
+
+        [Authorize(Roles="User")]
+        public JsonResult RejectTimeSheet(int timesheetId, string reason)
+        {
+            try
+            {
+                var db = new TSS_Sql_Entities();
+                var userid = User.Identity.GetUserId();
+                var user = db.AspNetUsers.FirstOrDefault(s => s.Id == userid);
+                var rejectionObj = new RejectedTimesheet();
+                rejectionObj.TimeSheetId = timesheetId;
+                rejectionObj.RejectionReason = reason;
+                rejectionObj.RejectedAt = DateTime.Now;
+                rejectionObj.IsUpdatedOrDeleted = false;
+                rejectionObj.RejecetedByCustomerId = Convert.ToInt32(user.Customer_id);
+                db.RejectedTimesheets.Add(rejectionObj);
+                var timesheet = db.Timesheets.FirstOrDefault(s => s.Id == timesheetId);
+                timesheet.Status_id = 4;
+                db.SaveChanges();
+                return Json("Rejected Successfully!", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("",JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

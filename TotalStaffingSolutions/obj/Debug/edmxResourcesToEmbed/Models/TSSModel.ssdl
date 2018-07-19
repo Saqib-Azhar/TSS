@@ -220,6 +220,17 @@
     <Property Name="Domain" Type="nvarchar(max)" />
     <Property Name="Timezone" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="RejectedTimesheets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TimeSheetId" Type="int" />
+    <Property Name="RejectionReason" Type="nvarchar(max)" />
+    <Property Name="RejecetedByCustomerId" Type="int" />
+    <Property Name="RejectedAt" Type="datetime" />
+    <Property Name="IsUpdatedOrDeleted" Type="bit" />
+  </EntityType>
   <EntityType Name="Timesheet_details">
     <Key>
       <PropertyRef Name="Id" />
@@ -725,6 +736,7 @@
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RejectedTimesheets" EntityType="Self.RejectedTimesheets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Timesheet_details" EntityType="Self.Timesheet_details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Timesheet_summaries" EntityType="Self.Timesheet_summaries" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Timesheets" EntityType="Self.Timesheets" Schema="dbo" store:Type="Tables" />

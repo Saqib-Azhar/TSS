@@ -303,6 +303,9 @@
     <Compile Include="Models\Organization.cs">
       <DependentUpon>TSSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RejectedTimesheet.cs">
+      <DependentUpon>TSSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Schema.cs">
       <DependentUpon>TSSModel.tt</DependentUpon>
     </Compile>

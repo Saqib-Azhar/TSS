@@ -450,5 +450,17 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="RejectedTimesheets">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.RejectedTimesheet">
+        <MappingFragment StoreEntitySet="RejectedTimesheets">
+          <ScalarProperty Name="IsUpdatedOrDeleted" ColumnName="IsUpdatedOrDeleted" />
+          <ScalarProperty Name="RejectedAt" ColumnName="RejectedAt" />
+          <ScalarProperty Name="RejecetedByCustomerId" ColumnName="RejecetedByCustomerId" />
+          <ScalarProperty Name="RejectionReason" ColumnName="RejectionReason" />
+          <ScalarProperty Name="TimeSheetId" ColumnName="TimeSheetId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -2,6 +2,43 @@
 
 
 <script src="~/assets/scripts/jquery.min.js"></script>
+<div class="modal fadee" id="ShowRejectionReason" role="dialog">
+    <div class="modal-dialog" style="top: 189px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Rejection Reason</h4>
+            </div>
+            <div class="modal-body" id="rejectionContentBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fadee" id="emailsList" role="dialog">
+    <div class="modal-dialog" style="top: 189px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Available Email Addresses</h4>
+            </div>
+            <div class="modal-body" id="contentBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="row small-spacing">
     <div class="col-xs-12">
         <div class="box-content">
@@ -57,6 +94,10 @@
                                         {
                                             <span class="notice notice-yellow">@item.TimeSheetStatu.Status</span>
                                         }
+                                        else if (item.TimeSheetStatu.Id == 4)
+                                        {
+                                            <span class="notice notice-danger" onclick="RejectionReason(@item.Id)">@item.TimeSheetStatu.Status</span>
+                                        }
                                         else
                                         {
                                             <span class="notice notice-blue">@item.TimeSheetStatu.Status</span>
@@ -69,7 +110,7 @@
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/EditTimeSheet/@item.Id"><span class="glyphicon glyphicon-edit"></span></a>
                                         @*<a class="btn btn-xs btn-primary" href="/TSSManage/ExportTimesheetInExcel/@item.Id"><span class="glyphicon glyphicon-download"></span></a>*@
                                         <button class="btn btn-xs btn-danger" onclick="DeleteTimesheetLink(@item.Id)"><span class="glyphicon glyphicon-remove"></span></button>
-                                        <button class="btn btn-xs btn-success" onclick="SendTimesheetLink(@item.Id)">Link</button>
+                                        <button class="btn btn-xs btn-success" onclick="GetClientEmails(@item.Id)">Link</button>
                                     </td>
                                 </tr>
 
@@ -97,11 +138,12 @@
 <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
 
 <script>
-    function SendTimesheetLink(id)
+    function SendTimesheetLink(id,email)
     {
+
         $.ajax({
             type: 'POST',
-            data: JSON.stringify({ id: id }),
+            data: JSON.stringify({ id: id, email: email }),
             url: '@Url.Action("SendTimeSheetLink", "TSSManage")',
             dataType: "json",
             contentType: 'application/json; charset=utf-8',
@@ -158,6 +200,7 @@
             error: function (req, status, errorObj) {
                 alert(errorObj.toString());
             }
+
         });
     }
 
@@ -166,7 +209,6 @@
         var dropdownValue = $("#BranchsList").val();
         window.location = "/TSSManage/TimeSheetsByBranch/"+dropdownValue;
     }
-
 
     $(document).ready(function () {
         $(document).ajaxStart(function () {
@@ -178,11 +220,22 @@
         $("button").click(function () {
             $("#txt").load("demo_ajax_load.asp");
         });
+
+        if ('@(ViewBag.SelectedBranchId)' != null && '@(ViewBag.SelectedBranchId)' != "")
+        {
+            var selectedBranchId = '@ViewBag.SelectedBranchId';
+            document.getElementById('BranchsList').value = selectedBranchId;
+        }
+
+        if ('@(ViewBag.SelectedClientId)' != null && '@(ViewBag.SelectedClientId)' != "")
+        {
+            var SelectedClientId = '@ViewBag.SelectedClientId';
+            document.getElementById('ClientsList').value = SelectedClientId;
+        }
     });
 
     function DateFilterUpdate(dateElem)
     {
-        console.log(dateElem);
         if (dateElem.id == "start_date")
         {
 
@@ -193,17 +246,8 @@
         }
     }
 
-
-    function DateFilterUpdate(dateElem) {
-        if (dateElem.id == "start_date") {
-
-        }
-        else if (dateElem.id == "end_date") {
-
-        }
-    }
-
-    function SearchByDates() {
+    function SearchByDates()
+    {
         var startdate = $("#start_date").val();
         var enddate = $("#end_date").val();
         window.location = "/TSSManage/Timesheetsbyperiod?start_date=" + startdate + "&end_date=" + enddate;
@@ -213,5 +257,51 @@
     function ResultsByClient() {
         var dropdownValue = $("#ClientsList").val();
         window.location = "/TSSManage/TimeSheetsByClient/" + dropdownValue;
+    }
+
+    function GetClientEmails(timesheetId)
+    {
+
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ timesheetId: timesheetId }),
+            url: '@Url.Action("GetClientEmails", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#emailsList").modal("show");
+                $.each(data, function (i, item) {
+                    var email = JSON.stringify(item);
+                    $("#contentBody").html("<div class='row'><div class='col-md-6'>" + item + "</div><div class='col-md-6'><button onclick='SendTimesheetLink(" + timesheetId + "," + email + ")' class='btn btn-default form-control'>Send Email</button></div></div>");
+                });
+                $('.modal-backdrop').remove();
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
+
+    function RejectionReason(timesheetId) {
+
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ timesheetId: timesheetId }),
+            url: '@Url.Action("GetRejectionReason", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#rejectionContentBody").html("");
+                $("#ShowRejectionReason").modal("show");
+                $("#rejectionContentBody").html("<div class='row'><div class='col-md-12'>" + data.RejectionReason + "</div><div class='col-md-6'></div></div>");
+                $('.modal-backdrop').remove();
+                //window.location.hash = '#rejectionContentBody';
+                //$('#ShowRejectionReason').focus();
+
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
     }
 </script>

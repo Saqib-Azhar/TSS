@@ -841,5 +841,17 @@
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="RejectedTimesheets" EntityType="TotalStaffingSolutionsModel.RejectedTimesheet" />
   </EntityContainer>
+  <EntityType Name="RejectedTimesheet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TimeSheetId" Type="Int32" />
+    <Property Name="RejectionReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RejecetedByCustomerId" Type="Int32" />
+    <Property Name="RejectedAt" Type="DateTime" Precision="3" />
+    <Property Name="IsUpdatedOrDeleted" Type="Boolean" />
+  </EntityType>
 </Schema>
