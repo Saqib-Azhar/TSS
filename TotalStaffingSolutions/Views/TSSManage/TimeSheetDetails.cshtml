@@ -1,14 +1,10 @@
 ﻿@using TotalStaffingSolutions.Models
 @model TotalStaffingSolutions.Models.TimeSheetTuple
 @{
-    ViewBag.Title = "Time Sheet Details";
+    //ViewBag.Title = "Time Sheet Details";
     int counter = 0;
     int HoursCounter = 0;
 }
-<style>
-
-</style>
-
 <script src="~/assets/scripts/jquery.min.js"></script>
 
 <div class="row small-spacing" id="parent_div">
@@ -36,8 +32,10 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="new-invoice-top">
                         <div class="create-time-logo">
-                            <div>END DATE: @Convert.ToDateTime(Model.TimeSheetGeneralDetails.End_date).ToString("dd/MMM/yyyy")<br>
-                            <a href="/TSSManage/ExportTimesheetInExcel/@Model.TimeSheetGeneralDetails.Id" class="btn btn-success btn-xs waves-effect waves-light">Download</a></div>
+                            <div>
+                                END DATE: @Convert.ToDateTime(Model.TimeSheetGeneralDetails.End_date).ToString("dd/MMM/yyyy")<br>
+                                <a href="/TSSManage/ExportTimesheetInExcel/@Model.TimeSheetGeneralDetails.Id" class="btn btn-success btn-xs waves-effect waves-light">Download</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,15 +66,30 @@
                     </thead>
                     <tbody>
                         @{
+                            int rateitem = 0;
                             int employeeCounter = 0;
                             foreach (var item in Model.TimeSheetSummary)
                             {
+
+                                //if (item.Rate != null && item.Rate != "")
+                                //{
+
+                                //    rateitem = item.Rate;
+                                //}
                                 employeeCounter++;
                                 counter++;
                                 <tr>
                                     <td><input type="text" value="@item.Employee_id" hidden id="EmployeeId_@employeeCounter">@item.Employee.Last_name</td>
                                     <td>@item.Employee.First_name</td>
                                     <td>@item.Employee.User_id</td>
+                                   
+                                    @{ 
+                                        if(item.Rate == "" || item.Rate == null)
+                                        {
+                                            item.Rate = "0";
+
+                                        }
+                                    }
                                     <td><input type="text" value="@item.Rate" hidden id="EmployeeRate_@employeeCounter">@item.Rate</td>
                                     @{
                                         var Detailslist = Model.TimeSheetDetails.Where(s => s.Employee_id == item.Employee_id).ToList();
@@ -86,10 +99,10 @@
                                             hourCounter++;
                                             string thisId = "EmployeeId_" + employeeCounter + "_Day_" + hourCounter;
                                             HoursCounter = HoursCounter + Convert.ToInt32(itemDetail.Hours);
-                                            <td><input type="text" class="form-control new-form-control"style="width:50px !important" placeholder="@itemDetail.Hours" value="@itemDetail.Hours" id="@thisId" alt="@itemDetail.Id" onchange="UpdateHours(@thisId,@employeeCounter)"></td>
+                                            <td><input type="text" class="form-control new-form-control" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" placeholder="@itemDetail.Hours" value="@itemDetail.Hours" id="@thisId" alt="@itemDetail.Id" onchange="UpdateHours(@thisId,@employeeCounter)"></td>
                                         }
                                     }
-                                    <td><input type="text" style="width:50px !important"class="form-control new-form-control" placeholder="@item.Total_hours" value="@item.Total_hours" disabled id="EmployeeTotalHours_@employeeCounter"></td>
+                                    <td><input type="text" style="width: 60px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" placeholder="@item.Total_hours" value="@item.Total_hours" disabled id="EmployeeTotalHours_@employeeCounter"></td>
                                     <td>
                                         <div class="form-group margin-bottom-20">
 
@@ -134,11 +147,18 @@
                                                 });
                                             }
 
-                                            @Html.DropDownListFor(model => item.Rating_by_client, listItems, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "Rating_by_client_" + counter, @alt= item.Id })
+                                            @Html.DropDownListFor(model => item.Rating_by_client, listItems, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "Rating_by_client_" + counter, @alt = item.Id })
 
                                         </div>
                                     </td>
-                                    <td><input type="text" class="form-control new-form-control" placeholder="@item.Enitial" value="@item.Enitial" id="EmployeeEnitial_@employeeCounter"></td>
+                                    @if (ViewBag.Initials == "")
+                                    {
+                                        <td><input type="text" style="width:75px!important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" placeholder="@item.Enitial" value="@item.Enitial" id="EmployeeEnitial_@employeeCounter"></td>
+                                    }
+                                    else
+                                    {
+                                        <td><input type="text" style="width:75px!important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" placeholder="@ViewBag.Initials" value="@ViewBag.Initials" id="EmployeeEnitial_@employeeCounter"></td>
+                                    }
 
                                 </tr>
                                                 }
@@ -148,27 +168,27 @@
 
                         <tr>
                             <th colspan="4">Total Hours</th>
-                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="MondayTotalHours" disabled></td>
-                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="TuesdayTotalHours" disabled></td>
-                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="WednesdayTotalHours" disabled></td>
-                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="ThursdayTotalHours" disabled></td>
-                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="FridayTotalHours" disabled></td>
-                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="SaturdayTotalHours" disabled></td>
-                            <td><input type="text" class="form-control new-form-control" value="0" placeholder="0" id="SundayTotalHours" disabled></td>
-                            <td><input type="text" class="form-control new-form-control" id="EmployeesTotalHours" value="0" placeholder="0" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" value="0" placeholder="0" id="MondayTotalHours" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" value="0" placeholder="0" id="TuesdayTotalHours" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" value="0" placeholder="0" id="WednesdayTotalHours" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" value="0" placeholder="0" id="ThursdayTotalHours" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" value="0" placeholder="0" id="FridayTotalHours" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" value="0" placeholder="0" id="SaturdayTotalHours" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" value="0" placeholder="0" id="SundayTotalHours" disabled></td>
+                            <td><input type="text" style="width: 60px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" id="EmployeesTotalHours" value="0" placeholder="0" disabled></td>
                             <td></td>
                         </tr>
                         <tr>
                             <th colspan="4">Numbers of People</th>
                             @*<td></td>*@
-                            <td><input type="text" id="MondayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" id="TuesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" id="WednesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" id="ThursdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" id="FridayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" id="SaturdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" id="SundayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" class="form-control new-form-control" id="TotalEmployees" placeholder="1" value="1" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" id="MondayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" id="TuesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" id="WednesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" id="ThursdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" id="FridayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" id="SaturdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width: 45px !important; text-align:center!important; padding:0px 0px 0px 0px!important" id="SundayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width: 60px !important; text-align:center!important; padding:0px 0px 0px 0px!important" class="form-control new-form-control" id="TotalEmployees" placeholder="1" value="1" disabled></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -179,7 +199,7 @@
                 <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="UpdateTimeSheet()">Submit</button>
             </div>
             <div class="bottom-text">
-                <input type="text" id="signatures" value="@Model.TimeSheetGeneralDetails.Signature"/>
+                <input type="text" id="signatures" value="@Model.TimeSheetGeneralDetails.Signature" />
                 <h4>Authorized Signature<i></i></h4>
                 <p>Please email to payroll@4tssi.com on Monday's before 10:am</p>
 
@@ -209,7 +229,7 @@
         // updateEntries();
         updateEntries1();
 
-        
+
         $(document).ajaxStart(function () {
             $("#wait").css("display", "block");
             $("#parent_div :input").attr("disabled", true);
@@ -267,7 +287,7 @@
 
         }
 
-        var EmployeesTotHours = mondays + tuesdays+ wednesdays+ thursdays+ fridays+ saturdays+ sundays; 
+        var EmployeesTotHours = mondays + tuesdays+ wednesdays+ thursdays+ fridays+ saturdays+ sundays;
         $("#EmployeesTotalHours").val(EmployeesTotHours);
 
 
@@ -279,7 +299,7 @@
         $("#SaturdayTotalHours").val(saturdays);
         $("#SundayTotalHours").val(sundays);
 
-        
+
         $("#MondayTotalEmployees").val(mondaysEmpCount);
         $("#TuesdayTotalEmployees").val(tuesdaysEmpCount);
         $("#WednesdayTotalEmployees").val(wednesdaysEmpCount);

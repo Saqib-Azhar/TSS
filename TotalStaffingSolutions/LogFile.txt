@@ -6,3 +6,7 @@
 09-Jul-18 5:35:31 PM EntityFramework The underlying provider failed on Open.
 09-Jul-18 5:36:48 PM The underlying provider failed on Open.
 09-Jul-18 5:36:48 PM EntityFramework The underlying provider failed on Open.
+17-Jul-18 7:35:06 PM Object reference not set to an instance of an object.
+17-Jul-18 7:35:06 PM EntityFramework Object reference not set to an instance of an object.
+18-Jul-18 2:24:05 PM The underlying provider failed on Open.
+18-Jul-18 2:24:06 PM EntityFramework The underlying provider failed on Open.

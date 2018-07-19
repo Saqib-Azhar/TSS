@@ -1908,7 +1908,6 @@
     <Content Include="Views\TSSManage\ClientDetails.cshtml" />
     <Content Include="Views\TSSManage\Dashboard.cshtml" />
     <Content Include="Views\TSSManage\EditBranch.cshtml" />
-    <Content Include="Views\TSSManage\TimeSheetDetails.cshtml" />
     <Content Include="Views\TSSManage\UpdateCustomerInfo.cshtml" />
     <Content Include="Views\TSSManage\UpdateEmployee.cshtml" />
     <Content Include="Views\Web.config" />
@@ -1925,6 +1924,9 @@
     <Content Include="Views\ClientDashboard\EditProfile.cshtml" />
     <Content Include="Views\TSSManage\EditTimeSheet.cshtml" />
     <Content Include="Views\TSSManage\TimeSheetsByBranch.cshtml" />
+    <Content Include="Views\TSSManage\Timesheetsbyperiod.cshtml" />
+    <Content Include="Views\TSSManage\TimeSheetsByClient.cshtml" />
+    <Content Include="Views\TSSManage\TimeSheetDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

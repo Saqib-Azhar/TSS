@@ -83,7 +83,7 @@ namespace TotalStaffingSolutions.Controllers
                     {
                         if(User.IsInRole("User"))
                         {
-                            returnUrl = "/ClientDashboard/UserProfile";
+                            returnUrl = "/ClientDashboard/AllTimeSheets";
                         }
                         else if(User.IsInRole("Admin"))
                         {
@@ -557,7 +557,7 @@ namespace TotalStaffingSolutions.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    return RedirectToAction("UserProfile", "ClientDashboard");
+                    return RedirectToAction("AllTimeSheets", "ClientDashboard");
 
                 }
                 AddErrors(result);

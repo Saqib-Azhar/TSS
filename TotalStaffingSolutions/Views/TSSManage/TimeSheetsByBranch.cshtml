@@ -12,12 +12,21 @@
             <!-- /.dropdown js__dropdown -->
 
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <input type="date" id="start_date" class="form-control" />
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input type="date" id="start_date" onchange="DateFilterUpdate(this)" class="form-control" />
+                        </div>
+                        <div class="col-md-5">
+                            <input type="date" id="end_date" onchange="DateFilterUpdate(this)" class="form-control" />
+                        </div>
+                        <div class="col-md-2">
+                            <button onclick="SearchByDates()" class="form-control btn btn-default"><span class="fa fa-search"></span></button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-3">
-                    <input type="date" id="end-date" class="form-control" />
+                    @Html.DropDownList("ClientsList", null, htmlAttributes: new { @class = "form-control", @onchange = "ResultsByClient()" })
                 </div>
                 <div class="col-md-3 right pull-right">
                     @Html.DropDownList("BranchsList", null, htmlAttributes: new { @class = "form-control", @onchange = "ResultsByBranches()" })
@@ -176,4 +185,30 @@
         var selectedBranchId = @ViewBag.SelectedBranchId;
         document.getElementById('BranchsList').value = selectedBranchId;
     });
+
+    
+    function DateFilterUpdate(dateElem)
+    {
+        if (dateElem.id == "start_date")
+        {
+
+        }
+        else if (dateElem.id == "end_date")
+        {
+
+        } 
+    }
+
+    function SearchByDates()
+    {
+        var startdate = $("#start_date").val();
+        var enddate = $("#end_date").val();
+        window.location = "/TSSManage/Timesheetsbyperiod?start_date=" + startdate + "&end_date=" + enddate;
+    }
+
+
+    function ResultsByClient() {
+        var dropdownValue = $("#ClientsList").val();
+        window.location = "/TSSManage/TimeSheetsByClient/" + dropdownValue;
+    }
 </script>

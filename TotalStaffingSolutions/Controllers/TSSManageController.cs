@@ -31,7 +31,7 @@ namespace TotalStaffingSolutions.Controllers
         private static string TSSLiveSiteURL = WebConfigurationManager.AppSettings["TSSLiveSiteURL"];
         // GET: Manage
         [Authorize(Roles = "Admin")]
-        public ActionResult Dashboard()
+        public ActionResult Dashboard() //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
         {
             try
             {
@@ -41,9 +41,20 @@ namespace TotalStaffingSolutions.Controllers
                 b.Id = 0;
                 b.Name = "Select Branch";
                 bl.Add(b);
-                var a = bl.OrderBy(s => s.Id);
-                var branchlist = new SelectList(a, "Id", "Name");
+                var orderedbranches = bl.OrderBy(s => s.Id);
+                var branchlist = new SelectList(orderedbranches, "Id", "Name");
                 ViewBag.BranchsList = branchlist;
+
+                List<Customer> cl = db.Customers.ToList();
+                Customer c = new Customer();
+                c.Id = 0;
+                c.Name = "Select Client";
+                cl.Add(c);
+                var orderedClients = cl.OrderBy(s => s.Id);
+                var clientlist = new SelectList(orderedClients, "Id", "Name");
+                ViewBag.ClientsList = clientlist;
+
+
                 return View(db.Timesheets.ToList()); 
             }
             catch (Exception ex)
@@ -380,6 +391,20 @@ namespace TotalStaffingSolutions.Controllers
             timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s=>s.Timesheet_id == id).ToList();
             var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
             timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
+
+            if (User.IsInRole("User"))
+            {
+                var contact = db.CustomerContacts.FirstOrDefault(s => s.Id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_id);
+            
+                string initials = "";
+                contact.Contact_name.Split(' ').ToList().ForEach(i => initials = initials + i[0]);
+                ViewBag.Initials = initials;
+            }
+            else
+            {
+                ViewBag.Initials = "";
+            }
+
             try
             {
                 var userObject = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
@@ -399,32 +424,45 @@ namespace TotalStaffingSolutions.Controllers
         public JsonResult SearchEmployees(String query)
         {
             var db = new TSS_Sql_Entities();
+            
+            int n;
+            bool isNumeric = int.TryParse(query, out n);
 
             if (EmployeesStaticList == null)
             {
                 EmployeesStaticList = db.Employees.ToList();
-                
             }
-            var splitStr = Regex.Split(query, " ");
-            if (splitStr.Count() == 2)
+
+            if (isNumeric == true)
             {
-                splitStr[0] = splitStr[0].First().ToString().ToUpper() + splitStr[0].Substring(1);
-                splitStr[1] = splitStr[1].First().ToString().ToUpper() + splitStr[1].Substring(1);
-                var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[1]) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
-                return Json(results, JsonRequestBehavior.AllowGet);
-            }
-            else if (splitStr.Count() == 3) 
-            {
-                splitStr[0] = splitStr[0].First().ToString().ToUpper() + splitStr[0].Substring(1);
-                splitStr[2] = splitStr[2].First().ToString().ToUpper() + splitStr[1].Substring(1);
-                var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[2]) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                var integerValue = Convert.ToInt32(query);
+                var results = (from obj in EmployeesStaticList where obj.User_id == integerValue select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
                 return Json(results, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                query = query.First().ToString().ToUpper() + query.Substring(1);
-                var results = (from obj in EmployeesStaticList where obj.First_name.Contains(query) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
-                return Json(results, JsonRequestBehavior.AllowGet);
+
+                var splitStr = Regex.Split(query, " ");
+                if (splitStr.Count() == 2)
+                {
+                    splitStr[0] = splitStr[0].First().ToString().ToUpper() + splitStr[0].Substring(1);
+                    splitStr[1] = splitStr[1].First().ToString().ToUpper() + splitStr[1].Substring(1);
+                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[1]) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                    return Json(results, JsonRequestBehavior.AllowGet);
+                }
+                else if (splitStr.Count() == 3)
+                {
+                    splitStr[0] = splitStr[0].First().ToString().ToUpper() + splitStr[0].Substring(1);
+                    splitStr[2] = splitStr[2].First().ToString().ToUpper() + splitStr[1].Substring(1);
+                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[2]) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                    return Json(results, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    query = query.First().ToString().ToUpper() + query.Substring(1);
+                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(query) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                    return Json(results, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 
@@ -595,7 +633,7 @@ namespace TotalStaffingSolutions.Controllers
 
                 })
                 {
-                    //message.CC.Add("jgallelli@4tssi.com");
+                    message.CC.Add("jgallelli@4tssi.com");
                     smtp.Send(message);
                 }
                 ///
@@ -775,12 +813,12 @@ namespace TotalStaffingSolutions.Controllers
             }
         }
 
-        public JsonResult SendTimeSheetLink(int id)
+        public JsonResult SendTimeSheetLink(int id, string email)
         {
             var db = new TSS_Sql_Entities();
             var timesheet = db.Timesheets.Find(id);
-            var customerId = timesheet.Customer_Id_Generic;
-            var user = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == customerId);
+            //var customerId = timesheet.Customer_Id_Generic;
+            var user = db.AspNetUsers.FirstOrDefault(s => s.Email == email);
             if(user == null)
             {
                 return Json("Customer Doesn't Exists", JsonRequestBehavior.AllowGet);
@@ -792,9 +830,11 @@ namespace TotalStaffingSolutions.Controllers
                 var toAddress = new MailAddress("sazhar@viretechnologies.com", user.UserName);
                 string fromPassword = SenderEmailPassword;
                 string subject = "Total Staffing Solution: New Timesheet";
-                string body = "<b>Hello " + user.Email + "!</b><br />A new timesheet is created, You can access it through the link below. <br /><a href='"
-                    + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + id + "'>TimeSheet Link</a>";
-
+                DateTime saturday = DateTime.Now.AddDays(6 - Convert.ToDouble(DateTime.Now.DayOfWeek));
+                string dateString = String.Format("{0:MM/dd/yyyy}", saturday);
+                string body = "<b>Hello "+user.Email + "!</b><br />Below you'll find the link to your timesheets for the upcoming week. Please enter the hours worked for the employees listed and return to us by " + dateString + ".<br /><br /><a href='"
+                    + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + id + "'>Timesheet Link</a> <br />Thanks for joining and have a great day! <br />Total Staffing Solutions";
+                
                 var smtp = new SmtpClient
                 {
                     Host = SenderEmailHost,
@@ -812,7 +852,7 @@ namespace TotalStaffingSolutions.Controllers
 
                 })
                 {
-                    //message.CC.Add("jgallelli@4tssi.com");
+                    message.CC.Add("jgallelli@4tssi.com");
                     smtp.Send(message);
                 }
 
@@ -1030,7 +1070,7 @@ namespace TotalStaffingSolutions.Controllers
 
 
 
-        public ActionResult TimeSheetsByBranch(int? id=0)
+        public ActionResult TimeSheetsByBranch(int? id=0) //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
         {
             try
             {
@@ -1048,6 +1088,14 @@ namespace TotalStaffingSolutions.Controllers
                     ViewBag.BranchsList = branchlist;
                     var timesheets = db.Timesheets.Where(s => s.Customer.Branch_id == id).ToList();
                     ViewBag.SelectedBranchId = id;
+                    List<Customer> cl = db.Customers.ToList();
+                    Customer c = new Customer();
+                    c.Id = 0;
+                    c.Name = "Select Client";
+                    cl.Add(c);
+                    var orderedClients = cl.OrderBy(s => s.Id);
+                    var clientlist = new SelectList(orderedClients, "Id", "Name");
+                    ViewBag.ClientsList = clientlist;
                     return View(timesheets);
                 }
                 else
@@ -1062,5 +1110,94 @@ namespace TotalStaffingSolutions.Controllers
 
             return View(list);
         }
+
+        public ActionResult Timesheetsbyperiod(DateTime start_date, DateTime end_date) //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
+        {
+            try
+            {
+                var db = new TSS_Sql_Entities();
+
+                List<Branch> bl = db.Branches.ToList();
+                Branch b = new Branch();
+                b.Id = 0;
+                b.Name = "Select Branch";
+                bl.Add(b);
+                var a = bl.OrderBy(s => s.Id);
+                var branchlist = new SelectList(a, "Id", "Name");
+                ViewBag.BranchsList = branchlist;
+                var timesheets = db.Timesheets.Where(s => s.End_date >= start_date && s.End_date <= end_date).ToList();
+                List<Customer> cl = db.Customers.ToList();
+                Customer c = new Customer();
+                c.Id = 0;
+                c.Name = "Select Client";
+                cl.Add(c);
+                var orderedClients = cl.OrderBy(s => s.Id);
+                var clientlist = new SelectList(orderedClients, "Id", "Name");
+                ViewBag.ClientsList = clientlist;
+
+                return View(timesheets);
+
+            }
+            catch (Exception ex)
+            {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
+            }
+            var list = new List<Timesheet>();
+
+            return View(list);
+        }
+
+
+
+        public ActionResult TimeSheetsByClient(int id) //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
+        {
+            try
+            {
+                var db = new TSS_Sql_Entities();
+
+                List<Branch> bl = db.Branches.ToList();
+                Branch b = new Branch();
+                b.Id = 0;
+                b.Name = "Select Branch";
+                bl.Add(b);
+                var orderedbranches = bl.OrderBy(s => s.Id);
+                var branchlist = new SelectList(orderedbranches, "Id", "Name");
+                ViewBag.BranchsList = branchlist;
+                var timesheets = db.Timesheets.Where(s => s.Customer_id == id).ToList();
+                List<Customer> cl = db.Customers.ToList();
+                Customer c = new Customer();
+                c.Id = 0;
+                c.Name = "Select Client";
+                cl.Add(c);
+                var orderedClients = cl.OrderBy(s => s.Id);
+                var clientlist = new SelectList(orderedClients, "Id", "Name");
+                ViewBag.ClientsList = clientlist;
+                
+                ViewBag.SelectedClientId = id;
+
+                return View(timesheets);
+
+            }
+            catch (Exception ex)
+            {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
+            }
+            var list = new List<Timesheet>();
+
+            return View(list);
+        }
+
+
+        public JsonResult GetClientEmails(int timesheetId)
+        {
+            var db = new TSS_Sql_Entities();
+            var timesheet = db.Timesheets.FirstOrDefault(s => s.Id == timesheetId);
+            var availableUsers = db.AspNetUsers.Where(s => s.Customer_id == timesheet.Customer_Id_Generic).ToList();
+            var availableEmails = availableUsers.Select(s => s.Email).ToList();
+            return Json(availableEmails,JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
