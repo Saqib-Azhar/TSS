@@ -15,7 +15,7 @@
                         <tr>
                             @*<th><input type="checkbox" id="rememberme"></th>*@
                             <th>Name</th>
-                            <th>Email</th>
+                            @*<th>Email</th>*@
                             <th>Time Sheets</th>
                             <th>Branch</th>
                             <th>Last Sent</th>
@@ -31,14 +31,14 @@
                                 @*<th><input type="checkbox" id="rememberme"></th>*@
                                 <td><a href="/TSSManage/ClientDetails/@item.Id">@item.Name</a></td>
                                 
-                                @if (item.Email == null)
+                                @*@if (item.Email == null)
                                 {
                                     <td>N/A</td>
                                 }
                                 else
                                 {
                                     <td>@item.Email</td>
-                                }
+                                }*@
                                 <td>@item.Timesheets.Count</td>
                                 @if (item.Branch_id != null)
                                 {

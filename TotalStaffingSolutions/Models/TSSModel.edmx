@@ -225,6 +225,15 @@
           <Property Name="Domain" Type="nvarchar(max)" />
           <Property Name="Timezone" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Po_Numbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PoNumber" Type="nvarchar(max)" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="Client_Generic_Id" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="RejectedTimesheets">
           <Key>
             <PropertyRef Name="Id" />
@@ -741,6 +750,7 @@
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Po_Numbers" EntityType="Self.Po_Numbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RejectedTimesheets" EntityType="Self.RejectedTimesheets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Timesheet_details" EntityType="Self.Timesheet_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Timesheet_summaries" EntityType="Self.Timesheet_summaries" Schema="dbo" store:Type="Tables" />
@@ -1698,6 +1708,7 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="RejectedTimesheets" EntityType="TotalStaffingSolutionsModel.RejectedTimesheet" />
+          <EntitySet Name="Po_Numbers" EntityType="TotalStaffingSolutionsModel.Po_Numbers" />
         </EntityContainer>
         <EntityType Name="RejectedTimesheet">
           <Key>
@@ -1709,6 +1720,15 @@
           <Property Name="RejecetedByCustomerId" Type="Int32" />
           <Property Name="RejectedAt" Type="DateTime" Precision="3" />
           <Property Name="IsUpdatedOrDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Po_Numbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PoNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="Client_Generic_Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2173,6 +2193,16 @@
                 <ScalarProperty Name="RejecetedByCustomerId" ColumnName="RejecetedByCustomerId" />
                 <ScalarProperty Name="RejectionReason" ColumnName="RejectionReason" />
                 <ScalarProperty Name="TimeSheetId" ColumnName="TimeSheetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Po_Numbers">
+            <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Po_Numbers">
+              <MappingFragment StoreEntitySet="Po_Numbers">
+                <ScalarProperty Name="Client_Generic_Id" ColumnName="Client_Generic_Id" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="PoNumber" ColumnName="PoNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

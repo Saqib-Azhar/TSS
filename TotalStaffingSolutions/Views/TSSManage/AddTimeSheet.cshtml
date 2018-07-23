@@ -27,7 +27,25 @@
     }
 </style>
 
+<div class="modal fadee" id="emailsList" role="dialog">
+    <div class="modal-dialog" style="top: 360px;">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Available Email Addresses</h4><small>(Timesheet saved, Please select email address to send the link)</small>
+            </div>
+            <div class="modal-body" id="contentBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <div class="row small-spacing">
     <div class="col-xs-12">
@@ -52,7 +70,14 @@
                                         <!-- /.input-group -->
                                     </div>
                                 </div>
-                                PO Number:<br><input type="text" id="Po_number" class="form-control ponumber" value="" >
+                                PO Number:<br>
+                                <input list="browsers" name="Po_number"  id="Po_number" class="form-control ponumber" value=""/>
+                                <datalist id="browsers">
+                                    @foreach (var item in ViewBag.PONumbers)
+                                    {
+                                        <option value='@item.PoNumber'></option>
+                                    }
+                                </datalist>
                             </div>
                         </div>
                     </div>
@@ -126,7 +151,8 @@
             </div>
             <div class="new-forms-buttons">
                 <button type="button" class="btn btn-success btn-xs waves-effect waves-light" onclick="AddRow()">Add Row</button>
-                <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="SubmitTimeSheet()">Submit</button>
+                <button type="button" class="btn btn-default btn-xs waves-effect waves-light" onclick="SubmitTimeSheet(0)">Save Timesheet</button>
+                <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="SubmitTimeSheet(1)">Submit</button>
             </div>
             <div class="bottom-text">
                 <h4>Authorized Signature<i></i></h4>
@@ -203,7 +229,35 @@
         var val6 = $("#saturday_" + trNo).val();
         var val7 = $("#sunday_" + trNo).val();
 
-        debugger;
+        if(val1 == '')
+        {
+            val1 = '0';
+        }
+        if(val2 == '')
+        {
+            val2 = '0';
+        }
+        if(val3 == '')
+        {
+            val3 = '0';
+        }
+        if(val4 == '')
+        {
+            val4 = '0';
+        }
+        if(val5 == '')
+        {
+            val5 = '0';
+        }
+        if(val6 == '')
+        {
+            val6 = '0';
+        }
+        if(val7 == '')
+        {
+            val7 = '0';
+        }
+
         //console.log(val1 + " " + val2 + " " + val3 + " " + val4 + " " + val5 + " " + val6 + " " + val7);
         var total = parseFloat(val1) + parseFloat(val2) + parseFloat(val3) + parseFloat(val4) + parseFloat(val5) + parseFloat(val6) + parseFloat(val7);
         $("#totalHours_" + trNo).val(total);
@@ -229,20 +283,79 @@
             var hoursPerEmp = $("#totalHours_" + i).val();
             totalHoursAllEmp = totalHoursAllEmp + parseFloat(hoursPerEmp);
 
-
-            totalmondayHours = totalmondayHours + parseFloat($("#monday_" + i).val());
+            if($("#monday_" + i).val() == '')
+            {
+                totalmondayHours = totalmondayHours + 0;
+            }
+            else
+            {
+                totalmondayHours = totalmondayHours + parseFloat($("#monday_" + i).val());
+            }
             $("#MondayTotalHours").val(totalmondayHours);
-            totaltuesdayHours = totaltuesdayHours + parseFloat($("#tuesday_" + i).val());
+
+
+
+            if($("#tuesday_" + i).val() == '')
+            {
+                totaltuesdayHours = totaltuesdayHours + 0;
+            }
+            else
+            {
+                totaltuesdayHours = totaltuesdayHours + parseFloat($("#tuesday_" + i).val());
+            }
             $("#TuesdayTotalHours").val(totaltuesdayHours);
-            totalwednesdayHours = totalwednesdayHours + parseFloat($("#wednesday_" + i).val());
+
+
+            if($("#wednesday_" + i).val() == '')
+            {
+                totalwednesdayHours = totalwednesdayHours + 0;
+            }
+            else
+            {
+                totalwednesdayHours = totalwednesdayHours + parseFloat($("#wednesday_" + i).val());
+            }
             $("#WednesdayTotalHours").val(totalwednesdayHours);
-            totalthursdayHours = totalthursdayHours + parseFloat($("#thursday_" + i).val());
+
+            if($("#thursday_" + i).val() == '')
+            {
+                totalthursdayHours = totalthursdayHours + 0;
+            }
+            else
+            {
+                totalthursdayHours = totalthursdayHours + parseFloat($("#thursday_" + i).val());
+            }
             $("#ThursdayTotalHours").val(totalthursdayHours);
-            totalfridayHours = totalfridayHours + parseFloat($("#friday_" + i).val());
+
+
+            if($("#friday_" + i).val() == '')
+            {
+                totalfridayHours = totalfridayHours + 0;
+            }
+            else
+            {
+                totalfridayHours = totalfridayHours + parseFloat($("#friday_" + i).val());
+            }
             $("#FridayTotalHours").val(totalfridayHours);
-            totalsaturdayHours = totalsaturdayHours + parseFloat($("#saturday_" + i).val());
+
+
+            if($("#saturday_" + i).val() == '')
+            {
+                totalsaturdayHours = totalsaturdayHours + 0;
+            }
+            else
+            {
+                totalsaturdayHours = totalsaturdayHours + parseFloat($("#saturday_" + i).val());
+            }
             $("#SaturdayTotalHours").val(totalsaturdayHours);
-            totalsundayHours  = totalsundayHours + parseFloat($("#sunday_" + i).val());
+
+            if($("#sunday_" + i).val() == '')
+            {
+                totalsundayHours = totalsundayHours + 0;
+            }
+            else
+            {
+                totalsundayHours = totalsundayHours + parseFloat($("#sunday_" + i).val());
+            }
             $("#SundayTotalHours").val(totalsundayHours);
 
             if(parseFloat($("#monday_" + i).val()) > 0)
@@ -288,7 +401,7 @@
 
     }
 
-    function SubmitTimeSheet()
+    function SubmitTimeSheet(submitState)
     {
 
         var timesheet = {
@@ -383,14 +496,70 @@
             dataType: "json",
             contentType: 'application/json; charset=utf-8',
             success: function(data) {
-                window.location = "/TSSManage/Dashboard";
+                if(data == 'failure' && (submitState == 0 || submitState == 1))
+                {
+                    alert(data);
+                    window.location = "/TSSManage/Dashboard";
+
+                }
+                if(submitState == 0)
+                {
+                    window.location = "/TSSManage/Dashboard";
+                }
+                else if(submitState == 1)
+                {debugger;
+                    GetClientEmails(data);
+                }
+
             },
             error: function(req, status, errorObj) {
                 alert(errorObj.toString());
             }
         });
+
+
+    }
+    function SendTimesheetLink(id,email)
+    {
+
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ id: id, email: email }),
+            url: '@Url.Action("SendTimeSheetLink", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                alert(data);
+                window.location = "/TSSManage/Dashboard";
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
     }
 
+    function GetClientEmails(timesheetId)
+    {
+        debugger;
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ timesheetId: timesheetId }),
+            url: '@Url.Action("GetClientEmails", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#emailsList").modal("show");
+                $.each(data, function (i, item) {
+                    var email = JSON.stringify(item);
+                    $("#contentBody").html("<div class='row'><div class='col-md-6'>" + item + "</div><div class='col-md-6'><button onclick='SendTimesheetLink(" + timesheetId + "," + email + ")' class='btn btn-default form-control'>Send Email</button></div></div>");
+                });
+                $('.modal-backdrop').remove();
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }
 
     function getMonday() {
         var monday = $("#datepicker").val();
@@ -411,11 +580,11 @@
         return new Date(d.setDate(diff));
     }
     function UpdateDates()
-    {debugger;
-    var dateselected = $("#datepicker").val();
-    var diff = Date();
-    d = new Date(dateselected);
-    var day = d.getDay();
+    {
+        var dateselected = $("#datepicker").val();
+        var diff = Date();
+        d = new Date(dateselected);
+        var day = d.getDay();
         diff = d.getDate() -6;
         var a = d.getDate() - day + diff;
         var dateNew = new Date(d.setDate(diff));
@@ -425,35 +594,35 @@
         day = d.getDay();
         diff = d.getDate() -5;
         var a = d.getDate() - day + diff;
-          dateNew = new Date(d.setDate(diff));
+        dateNew = new Date(d.setDate(diff));
         $("#date_1").text((dateNew.getMonth()+1) + '-' + dateNew.getDate());
 
         d = new Date(dateselected);
         day = d.getDay();
         diff = d.getDate() -4;
         var a = d.getDate() - day + diff;
-           dateNew = new Date(d.setDate(diff));
+        dateNew = new Date(d.setDate(diff));
         $("#date_2").text((dateNew.getMonth()+1) + '-' + dateNew.getDate());
 
         d = new Date(dateselected);
         day = d.getDay();
         diff = d.getDate() -3;
         var a = d.getDate() - day + diff;
-          dateNew = new Date(d.setDate(diff));
+        dateNew = new Date(d.setDate(diff));
         $("#date_3").text((dateNew.getMonth()+1) + '-' + dateNew.getDate());
         day = d.getDay();
 
         d = new Date(dateselected);
         diff = d.getDate() -2;
         var a = d.getDate() - day + diff;
-          dateNew = new Date(d.setDate(diff));
+        dateNew = new Date(d.setDate(diff));
         $("#date_4").text((dateNew.getMonth()+1) + '-' + dateNew.getDate());
 
         d = new Date(dateselected);
         day = d.getDay();
         diff = d.getDate() -1;
         var a = d.getDate() - day + diff;
-          dateNew = new Date(d.setDate(diff));
+        dateNew = new Date(d.setDate(diff));
         $("#date_5").text((dateNew.getMonth()+1) + '-' + dateNew.getDate());
 
         d = new Date(dateselected);
@@ -461,7 +630,7 @@
 
         diff = d.getDate() -0;
         var a = d.getDate() - day + diff;
-         dateNew = new Date(d.setDate(diff));
+        dateNew = new Date(d.setDate(diff));
         $("#date_6").text((dateNew.getMonth()+1) + '-' + dateNew.getDate());
     }
 </script>
@@ -478,7 +647,6 @@
             $("button").click(function () {
                 $("#txt").load("demo_ajax_load.asp");
             });
-
 
 
     $('.js-example-basic-multiple').select2();
@@ -529,6 +697,8 @@
         });
     } );
 
+    $("#ui-datepicker-div").attr("hidden",true);
+
 });
     function AutoCompleteSelectHandler(event, ui, id) {
         var selectedObjVal = ui.item.value;
@@ -537,5 +707,6 @@
         $("#"+id).val(selectedObjLabel);
 
     }
+
 
 </script>

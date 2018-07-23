@@ -59,6 +59,7 @@
         <AssociationConnector Association="TotalStaffingSolutionsModel.FK_HangFire_State_Job" ManuallyRouted="false" />
         <AssociationConnector Association="TotalStaffingSolutionsModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TotalStaffingSolutionsModel.RejectedTimesheet" Width="1.5" PointX="15.375" PointY="18.75" />
+        <EntityTypeShape EntityType="TotalStaffingSolutionsModel.Po_Numbers" Width="1.5" PointX="17.375" PointY="18.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

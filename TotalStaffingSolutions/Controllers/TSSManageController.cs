@@ -275,7 +275,6 @@ namespace TotalStaffingSolutions.Controllers
                 #endregion
 
 
-
                 EmployeesStaticList = db.Employees.ToList();
 
 
@@ -283,6 +282,7 @@ namespace TotalStaffingSolutions.Controllers
 
 
             }
+            ViewBag.PONumbers = db.Po_Numbers.Where(s => s.ClientId == CustomerId).ToList();
             return View(db.Customers.FirstOrDefault(a=>a.Id == CustomerId));
         }
 
@@ -291,7 +291,11 @@ namespace TotalStaffingSolutions.Controllers
         {
             try
             {
-                    timesheet.Created_at = DateTime.Now;
+                if(timeSheet_summary.Count == 1 && timeSheet_summary[0].Employee_id == null)
+                {
+                    return Json("Please fill the form first.", JsonRequestBehavior.AllowGet);
+                }
+                timesheet.Created_at = DateTime.Now;
                 
                 var db = new TSS_Sql_Entities();
                 var NewTimeSheet = new Timesheet();
@@ -356,8 +360,8 @@ namespace TotalStaffingSolutions.Controllers
                 }
 
 
-
-                return Json("success", JsonRequestBehavior.AllowGet);
+                var timesheetId = NewTimeSheet.Id.ToString();
+                return Json(timesheetId, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -924,7 +928,7 @@ namespace TotalStaffingSolutions.Controllers
                 var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
                 timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
                 //var userObject = db.AspNetUsers.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
-
+                var pono = timeSheetDetailsTuple.TimeSheetGeneralDetails.Po_number;
 
                 var grid = new GridView();
 
@@ -956,7 +960,7 @@ namespace TotalStaffingSolutions.Controllers
                                       Double_Time_Bill_Rate_ = "",
                                       Comp_Code = "",
                                       Sales_Tax_Code = "",
-                                      PO_Number = "",
+                                      PO_Number = pono,
                                       Release_ = "",
                                       Project_ = "",
                                       Department_Code_ = "",

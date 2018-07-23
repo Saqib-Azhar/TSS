@@ -70,10 +70,16 @@ namespace TotalStaffingSolutions.Controllers
                         userobj.ZipCode = item.Cuczipcode;
                         userobj.Country = item.Cuccountry;
                         userobj.Created_at = DateTime.Now;
-                        userobj.PhoneNumber = item.Cucpono;
+                        //userobj.PhoneNumber = item.Cucpono;
                         userobj.Status = item.Cucstatus;
                         userobj.ENTITY_ADDED_AT = DateTime.Now;
                         db.Customers.Add(userobj);
+                        db.SaveChanges();
+                        var ponoObj = new Po_Numbers();
+                        ponoObj.ClientId = userobj.Id;
+                        ponoObj.Client_Generic_Id = userobj.Customer_id;
+                        ponoObj.PoNumber = item.Cucpono;
+                        db.Po_Numbers.Add(ponoObj);
                         db.SaveChanges();
                     }
                 }

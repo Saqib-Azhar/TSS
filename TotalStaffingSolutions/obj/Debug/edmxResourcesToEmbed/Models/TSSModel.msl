@@ -462,5 +462,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Po_Numbers">
+      <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Po_Numbers">
+        <MappingFragment StoreEntitySet="Po_Numbers">
+          <ScalarProperty Name="Client_Generic_Id" ColumnName="Client_Generic_Id" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="PoNumber" ColumnName="PoNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

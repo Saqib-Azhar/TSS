@@ -842,6 +842,7 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
     <EntitySet Name="RejectedTimesheets" EntityType="TotalStaffingSolutionsModel.RejectedTimesheet" />
+    <EntitySet Name="Po_Numbers" EntityType="TotalStaffingSolutionsModel.Po_Numbers" />
   </EntityContainer>
   <EntityType Name="RejectedTimesheet">
     <Key>
@@ -853,5 +854,14 @@
     <Property Name="RejecetedByCustomerId" Type="Int32" />
     <Property Name="RejectedAt" Type="DateTime" Precision="3" />
     <Property Name="IsUpdatedOrDeleted" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Po_Numbers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PoNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClientId" Type="Int32" />
+    <Property Name="Client_Generic_Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

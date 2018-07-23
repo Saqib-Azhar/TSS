@@ -192,7 +192,7 @@
                 </div>
 
                 <div class="row new-main-invoice new-customer-details">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 create-time-text">
                         <div class="new-profile-avatar">
                             @if (ViewBag.DisplayPicture != null)
                             {
@@ -210,7 +210,7 @@
                             
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                    @*<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
                         <div class="new-email">
                             <span>EMAIL</span>
                             @if (Model.FirstOrDefault().Customer.Email != null)
@@ -229,8 +229,8 @@
                             <span>PHONE</span>
                             <p>@Model.FirstOrDefault().Customer.PhoneNumber</p>
                         </div>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                    </div>*@
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 create-time-text">
                         <div class="new-home">
                             <span>ADDRESS</span>
                             <p>
@@ -250,7 +250,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 create-time-text">
                         <div class="new-home">
                             <span>SIGNED UP</span>
                             @{
@@ -270,8 +270,8 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 create-time-text">
-                        <div class="new-home">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 create-time-text">
+                        <div class="new-home" style="text-align:center;align-content:center;">
                             <span>BRANCH TAGS</span>
                             @if (Model.FirstOrDefault().Customer.Branch != null)
                             {

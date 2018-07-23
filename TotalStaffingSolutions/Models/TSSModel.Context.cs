@@ -57,5 +57,6 @@ namespace TotalStaffingSolutions.Models
         public virtual DbSet<Set> Sets { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<RejectedTimesheet> RejectedTimesheets { get; set; }
+        public virtual DbSet<Po_Numbers> Po_Numbers { get; set; }
     }
 }
