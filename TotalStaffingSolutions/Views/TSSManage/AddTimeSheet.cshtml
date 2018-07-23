@@ -640,6 +640,8 @@
 
             $(document).ajaxStart(function () {
                 $("#wait").css("display", "block");
+                var screenTop = $(document).scrollTop();
+                $('#wait').css('top', screenTop + 320);
             });
             $(document).ajaxComplete(function () {
                 $("#wait").css("display", "none");

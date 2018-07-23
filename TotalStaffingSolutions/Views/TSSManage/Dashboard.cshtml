@@ -4,7 +4,7 @@
 <script src="~/assets/scripts/jquery.min.js"></script>
 
 <div class="modal fadee" id="ShowRejectionReason" role="dialog">
-    <div class="modal-dialog" style="top: 189px;">
+    <div class="modal-dialog" >
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="modal fadee" id="emailsList" role="dialog">
-    <div class="modal-dialog" style="top: 189px;">
+    <div class="modal-dialog" >
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -214,6 +214,8 @@
     $(document).ready(function () {
         $(document).ajaxStart(function () {
             $("#wait").css("display", "block");
+            var screenTop = $(document).scrollTop();
+            $('#wait').css('top', screenTop + 320);
         });
         $(document).ajaxComplete(function () {
             $("#wait").css("display", "none");
@@ -233,6 +235,7 @@
             var SelectedClientId = '@ViewBag.SelectedClientId';
             document.getElementById('ClientsList').value = SelectedClientId;
         }
+        
     });
 
     function DateFilterUpdate(dateElem)
@@ -276,6 +279,8 @@
                     $("#contentBody").html("<div class='row'><div class='col-md-6'>" + item + "</div><div class='col-md-6'><button onclick='SendTimesheetLink(" + timesheetId + "," + email + ")' class='btn btn-default form-control'>Send Email</button></div></div>");
                 });
                 $('.modal-backdrop').remove();
+                var screenTop = $(document).scrollTop();
+                $('.modal').css('top', screenTop + 150);
             },
             error: function (req, status, errorObj) {
                 alert(errorObj.toString());
@@ -294,11 +299,14 @@
             success: function (data) {
                 $("#rejectionContentBody").html("");
                 $("#ShowRejectionReason").modal("show");
+                
                 $("#rejectionContentBody").html("<div class='row'><div class='col-md-12'>" + data.RejectionReason + "</div><div class='col-md-6'></div></div>");
                 $('.modal-backdrop').remove();
                 //window.location.hash = '#rejectionContentBody';
                 //$('#ShowRejectionReason').focus();
 
+                var screenTop = $(document).scrollTop();
+                $('.modal').css('top', screenTop + 150);
             },
             error: function (req, status, errorObj) {
                 alert(errorObj.toString());

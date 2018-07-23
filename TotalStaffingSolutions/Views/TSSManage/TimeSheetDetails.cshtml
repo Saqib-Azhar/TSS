@@ -233,6 +233,8 @@
         $(document).ajaxStart(function () {
             $("#wait").css("display", "block");
             $("#parent_div :input").attr("disabled", true);
+            var screenTop = $(document).scrollTop();
+            $('#wait').css('top', screenTop + 320);
         });
         $(document).ajaxComplete(function () {
             $("#wait").css("display", "none");
