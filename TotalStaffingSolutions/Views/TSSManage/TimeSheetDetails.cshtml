@@ -262,28 +262,50 @@
         var sundaysEmpCount =  0;
         for(i = 1; i<= totalemp; i++)
         {
-            mondays = mondays+ parseFloat($("#EmployeeId_"+i+"_Day_1").val());
-            tuesdays = tuesdays+ parseFloat($("#EmployeeId_"+i+"_Day_2").val());
-            wednesdays = wednesdays+ parseFloat($("#EmployeeId_"+i+"_Day_3").val());
-            thursdays  = thursdays+ parseFloat($("#EmployeeId_"+i+"_Day_4").val());
-            fridays = fridays+ parseFloat($("#EmployeeId_"+i+"_Day_5").val());
-            saturdays = saturdays+ parseFloat($("#EmployeeId_"+i+"_Day_6").val());
-            sundays = sundays+ parseFloat($("#EmployeeId_"+i+"_Day_7").val());
+            
 
             if(parseFloat($("#EmployeeId_"+i+"_Day_1").val()) > 0)
+            {    
+                mondays = mondays+ parseFloat($("#EmployeeId_"+i+"_Day_1").val());
+
                 mondaysEmpCount = mondaysEmpCount+ 1;
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_2").val()) > 0)
+            {   
+                tuesdays = tuesdays+ parseFloat($("#EmployeeId_"+i+"_Day_2").val());
+
                 tuesdaysEmpCount = tuesdaysEmpCount+ 1;
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_3").val()) > 0)
+            {  
+                wednesdays = wednesdays+ parseFloat($("#EmployeeId_"+i+"_Day_3").val());
+                
                 wednesdaysEmpCount = wednesdaysEmpCount+ 1;
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_4").val()) > 0)
+            { 
+                thursdays  = thursdays+ parseFloat($("#EmployeeId_"+i+"_Day_4").val());
+               
                 thursdaysEmpCount  = thursdaysEmpCount+ 1;
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_5").val()) > 0)
+            {     
+                fridays = fridays+ parseFloat($("#EmployeeId_"+i+"_Day_5").val());
+               
                 fridaysEmpCount = fridaysEmpCount+ 1;
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_6").val()) > 0)
+            {    
+                saturdays = saturdays+ parseFloat($("#EmployeeId_"+i+"_Day_6").val());
+               
                 saturdaysEmpCount = saturdaysEmpCount+ 1;
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_7").val()) > 0)
-            sundaysEmpCount = sundaysEmpCount+ 1;
+            {
+                sundays = sundays+ parseFloat($("#EmployeeId_"+i+"_Day_7").val());
+
+                sundaysEmpCount = sundaysEmpCount+ 1;
+            }
 
         }
 
@@ -402,8 +424,11 @@
         var totalhours = 0;
         for(var counter = 1; counter <= 7; counter++)
         {
-            var hours = parseFloat($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val());
-            totalhours = totalhours + hours;
+            if ($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val() != '') 
+            {
+                var hours = parseFloat($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val());
+                totalhours = totalhours + hours;
+            }
         }
         $("#EmployeeTotalHours_"+employeeCounter).val(totalhours);
         updateEntries1();

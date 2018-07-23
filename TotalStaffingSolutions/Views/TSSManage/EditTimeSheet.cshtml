@@ -113,10 +113,10 @@
                                             hourCounter++;
                                             string thisId = "EmployeeId_" + employeeCounter + "_Day_" + hourCounter;
                                             HoursCounter = HoursCounter + Convert.ToInt32(itemDetail.Hours);
-                                            <td><input type="text" class="form-control new-form-control" style="width: 66px !important;" placeholder="@itemDetail.Hours" value="@itemDetail.Hours" id="@thisId" alt="@itemDetail.Id" onchange="UpdateHours(@employeeCounter)"></td>
+                                            <td><input type="text" class="form-control new-form-control" style="width: 66px !important; text-align:center!important" placeholder="0" value="@itemDetail.Hours" id="@thisId" alt="@itemDetail.Id" onchange="UpdateHours(@employeeCounter)"></td>
                                         }
                                     }
-                                    <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" placeholder="@item.Total_hours" value="@item.Total_hours" disabled id="EmployeeTotalHours_@employeeCounter"></td>
+                                    <td><input type="text" style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="@item.Total_hours" value="@item.Total_hours" disabled id="EmployeeTotalHours_@employeeCounter"></td>
                                     <td hidden>
                                         <div class="form-group margin-bottom-20">
 
@@ -165,7 +165,7 @@
 
                                         </div>
                                     </td>
-                                    <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" placeholder="@item.Enitial" value="@item.Enitial" id="EmployeeEnitial_@employeeCounter"></td>
+                                    <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" placeholder="@item.Enitial" value="@item.Enitial" id="EmployeeEnitial_@employeeCounter"></td>
 
                                 </tr>
                                                 }
@@ -175,27 +175,27 @@
 
                         <tr>
                             <th colspan="2">Total Hours</th>
-                            <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" value="0" placeholder="0" id="MondayTotalHours" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" value="0" placeholder="0" id="TuesdayTotalHours" disabled></td>
-                            <td><input type="text" style="width: 66px !important;"class="form-control new-form-control" value="0" placeholder="0" id="WednesdayTotalHours" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" value="0" placeholder="0" id="ThursdayTotalHours" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" value="0" placeholder="0" id="FridayTotalHours" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" value="0" placeholder="0" id="SaturdayTotalHours" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" value="0" placeholder="0" id="SundayTotalHours" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" id="EmployeesTotalHours" value="0" placeholder="0" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" value="0" placeholder="0" id="MondayTotalHours" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" value="0" placeholder="0" id="TuesdayTotalHours" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important"class="form-control new-form-control" value="0" placeholder="0" id="WednesdayTotalHours" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" value="0" placeholder="0" id="ThursdayTotalHours" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" value="0" placeholder="0" id="FridayTotalHours" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" value="0" placeholder="0" id="SaturdayTotalHours" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" value="0" placeholder="0" id="SundayTotalHours" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" id="EmployeesTotalHours" value="0" placeholder="0" disabled></td>
                             <td></td>
                         </tr>
                         <tr>
                             <th colspan="2">Numbers of People</th>
                             @*<td></td>*@
-                            <td><input type="text" style="width: 66px !important;" id="MondayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" id="TuesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" id="WednesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" id="ThursdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" id="FridayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" id="SaturdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" id="SundayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text" style="width: 66px !important;" class="form-control new-form-control" id="TotalEmployees" placeholder="1" value="1" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" id="MondayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" id="TuesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" id="WednesdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" id="ThursdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" id="FridayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" id="SaturdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" id="SundayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
+                            <td><input type="text" style="width:66px !important; text-align:center!important" class="form-control new-form-control" id="TotalEmployees" placeholder="1" value="1" disabled></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -312,13 +312,75 @@
         var totalnewemp = parseFloat($("#NewlyAdded").val());
         for(i = 1; i<= totalnewemp; i++)
         {
-            mondays = mondays+ parseFloat($("#monday_"+i).val());
-            tuesdays = tuesdays+ parseFloat($("#tuesday_"+i).val());
-            wednesdays = wednesdays+ parseFloat($("#wednesday_"+i).val());
-            thursdays  = thursdays+ parseFloat($("#thursday_"+i).val());
-            fridays = fridays+ parseFloat($("#friday_"+i).val());
-            saturdays = saturdays+ parseFloat($("#saturday_"+i).val());
-            sundays = sundays+ parseFloat($("#sunday_"+i).val());
+            if($("#monday_"+i).val() == '')
+            {            
+                mondays = mondays;
+            }
+            else
+            {
+                mondays = mondays+ parseFloat($("#monday_"+i).val());
+            }
+      ////////////////////////////////////////////////////////////////////////
+
+            if($("#tuesday_"+i).val() == '')
+            {            
+                tuesdays = tuesdays;
+            }
+            else
+            {
+                tuesdays = tuesdays+ parseFloat($("#tuesday_"+i).val());
+
+            }
+            ////////////////////////////////////////////////////////////////////////
+            if($("#wednesday_"+i).val() == '')
+            {            
+                wednesdays = wednesdays;
+            }
+            else
+            {
+                wednesdays = wednesdays+ parseFloat($("#wednesday_"+i).val());
+            }
+            ////////////////////////////////////////////////////////////////////////
+            
+            if($("#thursday_"+i).val() == '')
+            {            
+                thursdays = thursdays;
+            }
+            else
+            {
+                thursdays  = thursdays+ parseFloat($("#thursday_"+i).val());
+            }
+            ////////////////////////////////////////////////////////////////////////
+            
+            if($("#friday_"+i).val() == '')
+            {            
+                fridays = fridays;
+            }
+            else
+            {
+                fridays = fridays+ parseFloat($("#friday_"+i).val());
+            }
+            ////////////////////////////////////////////////////////////////////////
+            
+            if($("#saturday_"+i).val() == '')
+            {            
+                saturdays = saturdays;
+            }
+            else
+            {
+                saturdays = saturdays+ parseFloat($("#saturday_"+i).val());
+            }
+            ////////////////////////////////////////////////////////////////////////
+            
+            if($("#sunday_"+i).val() == '')
+            {            
+                sundays = sundays;
+            }
+            else
+            {
+                sundays = sundays+ parseFloat($("#sunday_"+i).val());
+            }
+            ////////////////////////////////////////////////////////////////////////
 
             if(parseFloat($("#monday_"+i).val()) > 0)
                 mondaysEmpCount = mondaysEmpCount+ 1;
@@ -339,13 +401,41 @@
 
         for(i = 1; i<= (totalemp - totalnewemp); i++)
         {
-            mondays = mondays+ parseFloat($("#EmployeeId_"+i+"_Day_1").val());
-            tuesdays = tuesdays+ parseFloat($("#EmployeeId_"+i+"_Day_2").val());
-            wednesdays = wednesdays+ parseFloat($("#EmployeeId_"+i+"_Day_3").val());
-            thursdays  = thursdays+ parseFloat($("#EmployeeId_"+i+"_Day_4").val());
-            fridays = fridays+ parseFloat($("#EmployeeId_"+i+"_Day_5").val());
-            saturdays = saturdays+ parseFloat($("#EmployeeId_"+i+"_Day_6").val());
-            sundays = sundays+ parseFloat($("#EmployeeId_"+i+"_Day_7").val());
+            if ($("#EmployeeId_"+i+"_Day_1").val() != '') {
+                mondays = mondays+ parseFloat($("#EmployeeId_"+i+"_Day_1").val());
+            }
+                
+            
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            if ($("#EmployeeId_"+i+"_Day_2").val() != '') {
+                tuesdays = tuesdays+ parseFloat($("#EmployeeId_"+i+"_Day_2").val());
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            
+            if ($("#EmployeeId_"+i+"_Day_3").val() != '') {
+                wednesdays = wednesdays+ parseFloat($("#EmployeeId_"+i+"_Day_3").val());
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            
+            if ($("#EmployeeId_"+i+"_Day_4").val() != '') {
+                thursdays  = thursdays+ parseFloat($("#EmployeeId_"+i+"_Day_4").val());
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            
+            if ($("#EmployeeId_"+i+"_Day_5").val() != '') {
+                fridays = fridays+ parseFloat($("#EmployeeId_"+i+"_Day_5").val());
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            
+            if ($("#EmployeeId_"+i+"_Day_6").val() != '') {
+                saturdays = saturdays+ parseFloat($("#EmployeeId_"+i+"_Day_6").val());
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            
+            if ($("#EmployeeId_"+i+"_Day_7").val() != '') {
+                sundays = sundays+ parseFloat($("#EmployeeId_"+i+"_Day_7").val());
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////
 
             if(parseFloat($("#EmployeeId_"+i+"_Day_1").val()) > 0)
                 mondaysEmpCount = mondaysEmpCount+ 1;
@@ -555,23 +645,88 @@
         var totalhours = 0;
         for(var counter = 1; counter <= 7; counter++)
         {
-            var hours = parseFloat($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val());
-            totalhours = totalhours + hours;
+            if($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val() != '')
+            {
+                var hours = parseFloat($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val());
+                totalhours = totalhours + hours;
+            }
         }
         $("#EmployeeTotalHours_"+employeeCounter).val(totalhours);
         updateEntries1();
     }
     
     function UpdateNewEntryHours(newEmployeeCounter)
-    {
+    {debugger;
         var totalhours = 0;
-        totalhours = totalhours+ parseFloat($("#monday_"+newEmployeeCounter).val());
-        totalhours = totalhours+ parseFloat($("#tuesday_"+newEmployeeCounter).val());
-        totalhours = totalhours+ parseFloat($("#wednesday_"+newEmployeeCounter).val());
-        totalhours  = totalhours+ parseFloat($("#thursday_"+newEmployeeCounter).val());
-        totalhours = totalhours+ parseFloat($("#friday_"+newEmployeeCounter).val());
-        totalhours = totalhours+ parseFloat($("#saturday_"+newEmployeeCounter).val());
-        totalhours = totalhours+ parseFloat($("#sunday_"+newEmployeeCounter).val());
+        if($("#monday_"+newEmployeeCounter).val() == '')
+        {
+            totalhours = totalhours;
+        }
+        else
+        {
+            totalhours = totalhours+ parseFloat($("#monday_"+newEmployeeCounter).val());
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
+        if ($("#tuesday_"+newEmployeeCounter).val() == '') 
+        {
+            totalhours = totalhours;
+        }
+        else 
+        {
+            totalhours = totalhours+ parseFloat($("#tuesday_"+newEmployeeCounter).val());
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        if ($("#wednesday_"+newEmployeeCounter).val() == '') 
+        {
+            totalhours = totalhours;
+        }
+        else 
+        {
+            totalhours = totalhours+ parseFloat($("#wednesday_"+newEmployeeCounter).val());
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        if ($("#thursday_"+newEmployeeCounter).val() == '') 
+        {
+            totalhours = totalhours;
+        }
+        else 
+        {
+            totalhours = totalhours+ parseFloat($("#thursday_"+newEmployeeCounter).val());
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        if ($("#friday_"+newEmployeeCounter).val() == '') 
+        {
+            totalhours = totalhours;
+        }
+        else 
+        {
+            totalhours = totalhours+ parseFloat($("#friday_"+newEmployeeCounter).val());
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        if ($("#saturday_"+newEmployeeCounter).val() == '') 
+        {
+            totalhours = totalhours;
+        }
+        else 
+        {
+            totalhours = totalhours+ parseFloat($("#saturday_"+newEmployeeCounter).val());
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        if ($("#sunday_"+newEmployeeCounter).val() == '') 
+        {
+            totalhours = totalhours;
+        }
+        else 
+        {
+            totalhours = totalhours+ parseFloat($("#sunday_"+newEmployeeCounter).val());
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
+
         $("#totalHours_"+newEmployeeCounter).val(totalhours);
         updateEntries1();
     }
@@ -598,7 +753,7 @@
         newEmp = newEmp + 1;
         $("#NewlyAdded").val(newEmp);
         var dropdownhtml = "@Html.Raw(ViewBag.DropDownHtml)";
-        $("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_'+newEmp+'" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_'+newEmp+'"/></th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:50px !important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="monday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:50px !important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="tuesday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:50px !important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="wednesday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:50px !important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="thursday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:50px !important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="friday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:50px !important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="saturday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:50px !important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="sunday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:50px !important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="totalHours_'+ newEmp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" style="width:45px !important" id="enitials_'+ newEmp+'"></td></tr>')
+        $("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_'+newEmp+'" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_'+newEmp+'"/></th><td><input type="number" class="form-control new-form-control" placeholder="" id="rate_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:66px !important; text-align:center!important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="monday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:66px !important; text-align:center!important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="tuesday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:66px !important; text-align:center!important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="wednesday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:66px !important; text-align:center!important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="thursday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:66px !important; text-align:center!important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="friday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:66px !important; text-align:center!important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="saturday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:66px !important; text-align:center!important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="sunday_'+ newEmp+'"></td><td><input type="number" class="form-control new-form-control" placeholder="0" value="0" style="width:66px !important; text-align:center!important"  onchange="UpdateNewEntryHours('+ newEmp+')" id="totalHours_'+ newEmp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" style="width:66px !important; text-align:center!important" id="enitials_'+ newEmp+'"></td></tr>')
         $("#selected_employee_"+newEmp).autocomplete({
             source: function (request, response) {
                 $.ajax({
