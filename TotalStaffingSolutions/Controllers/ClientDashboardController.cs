@@ -7,11 +7,21 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using System.IO;
+using System.Net.Mail;
+using System.Net;
+using System.Web.Configuration;
 
 namespace TotalStaffingSolutions.Controllers
 {
     public class ClientDashboardController : Controller
     {
+
+        private static string SenderEmailId = WebConfigurationManager.AppSettings["DefaultEmailId"];
+        private static string SenderEmailPassword = WebConfigurationManager.AppSettings["DefaultEmailPassword"];
+        private static int SenderEmailPort = Convert.ToInt32(WebConfigurationManager.AppSettings["DefaultEmailPort"]);
+        private static string SenderEmailHost = WebConfigurationManager.AppSettings["DefaultEmailHost"];
+
+        private static string TSSLiveSiteURL = WebConfigurationManager.AppSettings["TSSLiveSiteURL"];
         [AllowAnonymous]
         public ActionResult ConfirmAccount(string token)
         {
@@ -157,6 +167,54 @@ namespace TotalStaffingSolutions.Controllers
                 var timesheet = db.Timesheets.FirstOrDefault(s => s.Id == timesheetId);
                 timesheet.Status_id = 4;
                 db.SaveChanges();
+
+                ///////////////////////////////////ADMIN EMAIL UPDATE/////////////////////////////////////
+                #region ADMIN EMAIL UPDATE
+                if (User.IsInRole("User"))
+                {
+                    try
+                    {
+                        var AdminId = timesheet.Created_By;
+                        var admin = db.AspNetUsers.FirstOrDefault(s => s.Id == AdminId);
+                        var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
+                        var toAddress = new MailAddress("sazhar@viretechnologies.com", admin.Email);
+                        string fromPassword = SenderEmailPassword;
+                        string subject = "Total Staffing Solution: Timesheet Update";
+                        string body = "<b>Hello " + admin.UserName + "!</b><br />Client has Rejected the timesheet<br /> <a href='" + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + timesheet.Id + "'>Timesheet Link</a><br />";
+
+                        var smtp = new SmtpClient
+                        {
+                            Host = SenderEmailHost,
+                            Port = SenderEmailPort,
+                            EnableSsl = false,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                            Timeout = 20000
+                        };
+                        using (var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            IsBodyHtml = true,
+                            Subject = subject,
+                            Body = body,
+
+
+                        })
+                        {
+                            //message.CC.Add("jgallelli@4tssi.com");
+                            //message.CC.Add("payroll@4tssi.com");
+                            smtp.Send(message);
+                        }
+                        ///
+
+
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+                #endregion
+                //////////////////////////////////////////////////////////////////////////////////////////
                 return Json("Rejected Successfully!", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

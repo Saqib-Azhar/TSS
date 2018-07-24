@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -313,6 +314,7 @@ namespace TotalStaffingSolutions.Controllers
                 NewTimeSheet.Updated_at = timesheet.Updated_at;
                 NewTimeSheet.Submit_by_client = false;
                 NewTimeSheet.Sent = false;
+                NewTimeSheet.Created_By = User.Identity.GetUserId();
                 var customer = db.Customers.FirstOrDefault(s => s.Id == timesheet.Customer_id);
                 if(customer != null)
                     NewTimeSheet.Customer_Id_Generic = customer.Customer_id;
@@ -552,7 +554,53 @@ namespace TotalStaffingSolutions.Controllers
                 }
 
 
+                ///////////////////////////////////ADMIN EMAIL UPDATE/////////////////////////////////////
+                #region ADMIN EMAIL UPDATE
+                if (User.IsInRole("User"))
+                {
+                    var AdminId = NewTimeSheet.Created_By;
+                    var admin = db.AspNetUsers.FirstOrDefault(s => s.Id == AdminId);
+                    try
+                    {
+                        var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
+                        var toAddress = new MailAddress("sazhar@viretechnologies.com", admin.Email);
+                        string fromPassword = SenderEmailPassword;
+                        string subject = "Total Staffing Solution: Timesheet Update";
+                        string body = "<b>Hello " + admin.UserName + "!</b><br />Client has submitted the timesheet<br /> <a href='" + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + timesheet.Id + "'>Timesheet Link</a><br />";
 
+                        var smtp = new SmtpClient
+                        {
+                            Host = SenderEmailHost,
+                            Port = SenderEmailPort,
+                            EnableSsl = false,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                            Timeout = 20000
+                        };
+                        using (var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            IsBodyHtml = true,
+                            Subject = subject,
+                            Body = body,
+
+
+                        })
+                        {
+                            //message.CC.Add("jgallelli@4tssi.com");
+                            //message.CC.Add("payroll@4tssi.com");
+                            smtp.Send(message);
+                        }
+                        ///
+                        
+
+                    }
+                    catch (Exception)
+                    {
+                      
+                    }
+                }
+                #endregion
+                //////////////////////////////////////////////////////////////////////////////////////////
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
