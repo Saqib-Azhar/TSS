@@ -293,6 +293,7 @@
           <Property Name="For_internal_employee" Type="bit" />
           <Property Name="Status_id" Type="int" />
           <Property Name="Customer_Id_Generic" Type="nvarchar(max)" />
+          <Property Name="Created_By" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TimeSheetStatus">
           <Key>
@@ -1162,6 +1163,7 @@
           <NavigationProperty Name="Timesheet_details" Relationship="Self.FK_TimesheetDetails_to_Timesheets" FromRole="Timesheets" ToRole="Timesheet_details" />
           <NavigationProperty Name="Timesheet_summaries" Relationship="Self.FK_TimesheetSummeries_to_Timesheets" FromRole="Timesheets" ToRole="Timesheet_summaries" />
           <NavigationProperty Name="TimeSheetStatu" Relationship="Self.FK_Timesheets_to_Status" FromRole="Timesheets" ToRole="TimeSheetStatus" />
+          <Property Name="Created_By" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TimeSheetStatu">
           <Key>
@@ -1990,6 +1992,7 @@
           <EntitySetMapping Name="Timesheets">
             <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Timesheet">
               <MappingFragment StoreEntitySet="Timesheets">
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
                 <ScalarProperty Name="Organization_id" ColumnName="Organization_id" />

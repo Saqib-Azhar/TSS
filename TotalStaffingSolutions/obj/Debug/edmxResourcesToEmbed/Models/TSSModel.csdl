@@ -296,6 +296,7 @@
     <NavigationProperty Name="Timesheet_details" Relationship="Self.FK_TimesheetDetails_to_Timesheets" FromRole="Timesheets" ToRole="Timesheet_details" />
     <NavigationProperty Name="Timesheet_summaries" Relationship="Self.FK_TimesheetSummeries_to_Timesheets" FromRole="Timesheets" ToRole="Timesheet_summaries" />
     <NavigationProperty Name="TimeSheetStatu" Relationship="Self.FK_Timesheets_to_Status" FromRole="Timesheets" ToRole="TimeSheetStatus" />
+    <Property Name="Created_By" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TimeSheetStatu">
     <Key>

@@ -39,6 +39,7 @@ namespace TotalStaffingSolutions.Models
         public Nullable<bool> For_internal_employee { get; set; }
         public Nullable<int> Status_id { get; set; }
         public string Customer_Id_Generic { get; set; }
+        public string Created_By { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Organization Organization { get; set; }

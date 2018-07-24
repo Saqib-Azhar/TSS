@@ -32,10 +32,11 @@
             </div>
             <div class="modal-body" id="contentBody">
                 <textarea class="form-control" style="max-width:540px!important" id="RejectionReason"></textarea><br />
-                <button class="btn btn-danger right pull-right" onclick="RejectTimeSheet()">Reject</button><br /><br />
+                <br /><br />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right:5px!important">Close</button>
+                <button class="btn btn-danger right pull-right" onclick="RejectTimeSheet()">Reject</button>
             </div>
         </div>
 
@@ -89,7 +90,7 @@
                                 <td>
                                     <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id"><span class="glyphicon glyphicon-eye-open"></span></a>
 
-                                    @if (item.TimeSheetStatu.Id == 1)
+                                    @if (item.TimeSheetStatu.Id == 2)
                                     {
                                         <button class="btn btn-xs btn-danger" onclick="ShowModal(@item.Id)"><span class="glyphicon glyphicon-floppy-remove"></span></button>
                                     }

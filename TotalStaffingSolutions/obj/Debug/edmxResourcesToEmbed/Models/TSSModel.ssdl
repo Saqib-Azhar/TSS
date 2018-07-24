@@ -288,6 +288,7 @@
     <Property Name="For_internal_employee" Type="bit" />
     <Property Name="Status_id" Type="int" />
     <Property Name="Customer_Id_Generic" Type="nvarchar(max)" />
+    <Property Name="Created_By" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="TimeSheetStatus">
     <Key>

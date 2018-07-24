@@ -242,6 +242,10 @@
         $("button").click(function () {
             $("#txt").load("demo_ajax_load.asp");
         });
+        if(@Model.TimeSheetGeneralDetails.Status_id == 3)
+        {
+            $("#parent_div :input").attr("disabled", true);
+    }
     });
 
 
@@ -264,42 +268,42 @@
         var sundaysEmpCount =  0;
         for(i = 1; i<= totalemp; i++)
         {
-            
+
 
             if(parseFloat($("#EmployeeId_"+i+"_Day_1").val()) > 0)
-            {    
+            {
                 mondays = mondays+ parseFloat($("#EmployeeId_"+i+"_Day_1").val());
 
                 mondaysEmpCount = mondaysEmpCount+ 1;
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_2").val()) > 0)
-            {   
+            {
                 tuesdays = tuesdays+ parseFloat($("#EmployeeId_"+i+"_Day_2").val());
 
                 tuesdaysEmpCount = tuesdaysEmpCount+ 1;
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_3").val()) > 0)
-            {  
+            {
                 wednesdays = wednesdays+ parseFloat($("#EmployeeId_"+i+"_Day_3").val());
-                
+
                 wednesdaysEmpCount = wednesdaysEmpCount+ 1;
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_4").val()) > 0)
-            { 
+            {
                 thursdays  = thursdays+ parseFloat($("#EmployeeId_"+i+"_Day_4").val());
-               
+
                 thursdaysEmpCount  = thursdaysEmpCount+ 1;
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_5").val()) > 0)
-            {     
+            {
                 fridays = fridays+ parseFloat($("#EmployeeId_"+i+"_Day_5").val());
-               
+
                 fridaysEmpCount = fridaysEmpCount+ 1;
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_6").val()) > 0)
-            {    
+            {
                 saturdays = saturdays+ parseFloat($("#EmployeeId_"+i+"_Day_6").val());
-               
+
                 saturdaysEmpCount = saturdaysEmpCount+ 1;
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_7").val()) > 0)
@@ -346,6 +350,9 @@
         var signVal = $("#signatures").val();
         if (signVal == null || signVal == '') {
             window.alert("Please Fill the signature field.");
+            return false;
+        }
+        if (!window.confirm("Are you sure you want to submit this timesheet?")) {
             return false;
         }
         var timesheet = {

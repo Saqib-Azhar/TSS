@@ -255,6 +255,7 @@
     <EntitySetMapping Name="Timesheets">
       <EntityTypeMapping TypeName="TotalStaffingSolutionsModel.Timesheet">
         <MappingFragment StoreEntitySet="Timesheets">
+          <ScalarProperty Name="Created_By" ColumnName="Created_By" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
           <ScalarProperty Name="Organization_id" ColumnName="Organization_id" />

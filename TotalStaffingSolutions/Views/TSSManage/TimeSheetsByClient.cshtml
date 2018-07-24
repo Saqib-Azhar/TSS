@@ -3,6 +3,11 @@
 
 <script src="~/assets/scripts/jquery.min.js"></script>
 
+<style>
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 6px !important;
+    }
+</style>
 <div class="modal fadee" id="ShowRejectionReason" role="dialog">
     <div class="modal-dialog">
 
@@ -105,13 +110,13 @@
                                         }
                                     </td>
                                     <td>@item.Total_employees</td>
-                                    <td>
+                                    <td colspan="2">
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id"><span class="glyphicon glyphicon-eye-open"></span></a>
                                         <button class="btn btn-xs btn-primary" onclick="CopyTimesheet(@item.Id)"><span class="glyphicon glyphicon-duplicate"></span></button>
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/EditTimeSheet/@item.Id"><span class="glyphicon glyphicon-edit"></span></a>
-                                        @*<a class="btn btn-xs btn-primary" href="/TSSManage/ExportTimesheetInExcel/@item.Id"><span class="glyphicon glyphicon-download"></span></a>*@
+                                        <a class="btn btn-xs btn-primary" href="/TSSManage/ExportTimesheetInExcel/@item.Id"><span class="glyphicon glyphicon-download"></span></a>
                                         <button class="btn btn-xs btn-danger" onclick="DeleteTimesheetLink(@item.Id)"><span class="glyphicon glyphicon-remove"></span></button>
-                                        <button class="btn btn-xs btn-success" onclick="GetClientEmails(@item.Id)">Link</button>
+                                        <button class="btn btn-xs btn-success" onclick="GetClientEmails(@item.Id)"><span class="glyphicon glyphicon-forward"></span></button>
                                     </td>
                                 </tr>
 

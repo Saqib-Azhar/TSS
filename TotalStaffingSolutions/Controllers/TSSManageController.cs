@@ -444,7 +444,7 @@ namespace TotalStaffingSolutions.Controllers
             if (isNumeric == true)
             {
                 var integerValue = Convert.ToInt32(query);
-                var results = (from obj in EmployeesStaticList where obj.User_id == integerValue select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                var results = (from obj in EmployeesStaticList where obj.User_id == integerValue select new { Id = obj.Id, Name = obj.User_id + "-" + obj.First_name + " " + obj.Last_name }).Take(25).ToList();
                 return Json(results, JsonRequestBehavior.AllowGet);
             }
             else
@@ -455,20 +455,20 @@ namespace TotalStaffingSolutions.Controllers
                 {
                     splitStr[0] = splitStr[0].First().ToString().ToUpper() + splitStr[0].Substring(1);
                     splitStr[1] = splitStr[1].First().ToString().ToUpper() + splitStr[1].Substring(1);
-                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[1]) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[1]) select new { Id = obj.Id, Name = obj.User_id + "-" + obj.First_name + " " + obj.Last_name }).Take(25).ToList();
                     return Json(results, JsonRequestBehavior.AllowGet);
                 }
                 else if (splitStr.Count() == 3)
                 {
                     splitStr[0] = splitStr[0].First().ToString().ToUpper() + splitStr[0].Substring(1);
                     splitStr[2] = splitStr[2].First().ToString().ToUpper() + splitStr[1].Substring(1);
-                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[2]) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(splitStr[0]) || obj.Last_name.Contains(splitStr[2]) select new { Id = obj.Id, Name = obj.User_id + "-" + obj.First_name + " " + obj.Last_name }).Take(25).ToList();
                     return Json(results, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
                     query = query.First().ToString().ToUpper() + query.Substring(1);
-                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(query) select new { Id = obj.Id, Name = obj.First_name + " " + obj.Last_name }).Take(25).ToList();
+                    var results = (from obj in EmployeesStaticList where obj.First_name.Contains(query) select new { Id = obj.Id, Name = obj.User_id + "-" + obj.First_name + " " + obj.Last_name }).Take(25).ToList();
                     return Json(results, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -642,6 +642,7 @@ namespace TotalStaffingSolutions.Controllers
                 })
                 {
                     //message.CC.Add("jgallelli@4tssi.com");
+                    //message.CC.Add("payroll@4tssi.com");
                     smtp.Send(message);
                 }
                 ///
@@ -826,6 +827,8 @@ namespace TotalStaffingSolutions.Controllers
             var db = new TSS_Sql_Entities();
             var timesheet = db.Timesheets.Find(id);
             //var customerId = timesheet.Customer_Id_Generic;
+            timesheet.Status_id = 2;
+            db.SaveChanges();
             var user = db.AspNetUsers.FirstOrDefault(s => s.Email == email);
             if(user == null)
             {
@@ -861,6 +864,7 @@ namespace TotalStaffingSolutions.Controllers
                 })
                 {
                     //message.CC.Add("jgallelli@4tssi.com");
+                    //message.CC.Add("payroll@4tssi.com");
                     smtp.Send(message);
                 }
 

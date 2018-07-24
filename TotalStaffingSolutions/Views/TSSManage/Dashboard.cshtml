@@ -3,6 +3,11 @@
 
 <script src="~/assets/scripts/jquery.min.js"></script>
 
+<style>
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 6px !important;
+}
+</style>
 <div class="modal fadee" id="ShowRejectionReason" role="dialog">
     <div class="modal-dialog" >
 
@@ -97,7 +102,7 @@
                                         }
                                         else if (item.TimeSheetStatu.Id == 4)
                                         {
-                                            <span class="notice notice-danger" onclick="RejectionReason(@item.Id)">@item.TimeSheetStatu.Status</span>
+                                            <span class="notice notice-danger" style="cursor:pointer" onclick="RejectionReason(@item.Id)">@item.TimeSheetStatu.Status</span>
                                         }
                                         else
                                         {
@@ -105,13 +110,13 @@
                                         }
                                     </td>
                                     <td>@item.Total_employees</td>
-                                    <td>
+                                    <td colspan="2">
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id"><span class="glyphicon glyphicon-eye-open"></span></a>
                                         <button class="btn btn-xs btn-primary" onclick="CopyTimesheet(@item.Id)"><span class="glyphicon glyphicon-duplicate"></span></button>
                                         <a class="btn btn-xs btn-primary" href="/TSSManage/EditTimeSheet/@item.Id"><span class="glyphicon glyphicon-edit"></span></a>
-                                        @*<a class="btn btn-xs btn-primary" href="/TSSManage/ExportTimesheetInExcel/@item.Id"><span class="glyphicon glyphicon-download"></span></a>*@
+                                        <a class="btn btn-xs btn-primary" href="/TSSManage/ExportTimesheetInExcel/@item.Id"><span class="glyphicon glyphicon-download"></span></a>
                                         <button class="btn btn-xs btn-danger" onclick="DeleteTimesheetLink(@item.Id)"><span class="glyphicon glyphicon-remove"></span></button>
-                                        <button class="btn btn-xs btn-success" onclick="GetClientEmails(@item.Id)">Link</button>
+                                        <button class="btn btn-xs btn-success" onclick="GetClientEmails(@item.Id,@item.TimeSheetStatu.Id)"><span class="glyphicon glyphicon-forward"></span></button>
                                     </td>
                                 </tr>
 
@@ -139,9 +144,36 @@
 <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
 
 <script>
-    function SendTimesheetLink(id,email)
+    function SendTimesheetLink(id, email, timesheetStatus)
     {
+        if (timesheetStatus == 3)
+        {
+            if (window.confirm("This timesheet is already submitted, \nDo you want still want to Send link?"))
+            {
+                $('#emailsList').modal('toggle');
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify({ id: id, email: email }),
+                    url: '@Url.Action("SendTimeSheetLink", "TSSManage")',
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (req, status, errorObj) {
+                        alert(errorObj.toString());
+                    }
+                });
+            }
+            else
+            {
+                $('#emailsList').modal('toggle');
 
+            }
+        }
+        else
+        {
+            $('#emailsList').modal('toggle');
         $.ajax({
             type: 'POST',
             data: JSON.stringify({ id: id, email: email }),
@@ -155,6 +187,9 @@
                 alert(errorObj.toString());
             }
         });
+
+
+        }
     }
 
     function DeleteTimesheetLink(id)
@@ -235,7 +270,7 @@
             var SelectedClientId = '@ViewBag.SelectedClientId';
             document.getElementById('ClientsList').value = SelectedClientId;
         }
-        
+
     });
 
     function DateFilterUpdate(dateElem)
@@ -263,7 +298,7 @@
         window.location = "/TSSManage/TimeSheetsByClient/" + dropdownValue;
     }
 
-    function GetClientEmails(timesheetId)
+    function GetClientEmails(timesheetId,timesheetStatus)
     {
 
         $.ajax({
@@ -276,7 +311,7 @@
                 $("#emailsList").modal("show");
                 $.each(data, function (i, item) {
                     var email = JSON.stringify(item);
-                    $("#contentBody").html("<div class='row'><div class='col-md-6'>" + item + "</div><div class='col-md-6'><button onclick='SendTimesheetLink(" + timesheetId + "," + email + ")' class='btn btn-default form-control'>Send Email</button></div></div>");
+                    $("#contentBody").html("<div class='row'><div class='col-md-6'>" + item + "</div><div class='col-md-6'><button onclick='SendTimesheetLink(" + timesheetId + "," + email + "," + timesheetStatus + ")' class='btn btn-default form-control'>Send Email</button></div></div>");
                 });
                 $('.modal-backdrop').remove();
                 var screenTop = $(document).scrollTop();
@@ -286,7 +321,7 @@
                 alert(errorObj.toString());
             }
         });
-    }
+    } 
 
     function RejectionReason(timesheetId) {
 
@@ -299,7 +334,7 @@
             success: function (data) {
                 $("#rejectionContentBody").html("");
                 $("#ShowRejectionReason").modal("show");
-                
+
                 $("#rejectionContentBody").html("<div class='row'><div class='col-md-12'>" + data.RejectionReason + "</div><div class='col-md-6'></div></div>");
                 $('.modal-backdrop').remove();
                 //window.location.hash = '#rejectionContentBody';
