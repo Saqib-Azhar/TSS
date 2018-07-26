@@ -107,13 +107,13 @@
                             @*<th colspan="1" style="width: 230px">@Html.DropDownList("Employees", null, htmlAttributes: new { @class = "form-control js-example-basic-single", @id = "selected_employee_1" })</th>*@
                             <th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_1" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_1"/></th>
                             <td><input type="number" style="width: 50px !important;text-align:center!important" min="0" class="form-control new-form-control" placeholder="" id="rate_1"></td>
-                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="monday_1"></td>
-                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="tuesday_1"></td>
-                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="wednesday_1"></td>
-                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="thursday_1"></td>
-                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="friday_1"></td>
-                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="saturday_1"></td>
-                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="sunday_1"></td>
+                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" min="0" max="24" value="0" onchange="UpdateHours(1)" id="monday_1"></td>
+                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" min="0" max="24" value="0" onchange="UpdateHours(1)" id="tuesday_1"></td>
+                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" min="0" max="24" value="0" onchange="UpdateHours(1)" id="wednesday_1"></td>
+                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" min="0" max="24" value="0" onchange="UpdateHours(1)" id="thursday_1"></td>
+                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" min="0" max="24" value="0" onchange="UpdateHours(1)" id="friday_1"></td>
+                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" min="0" max="24" value="0" onchange="UpdateHours(1)" id="saturday_1"></td>
+                            <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" min="0" max="24" value="0" onchange="UpdateHours(1)" id="sunday_1"></td>
                             <td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours(1)" id="totalHours_1" disabled></td>
                             <td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_1"></td>
                         </tr>
@@ -140,7 +140,7 @@
                             <td><input type="text"  style="width: 66px !important; text-align:center!important" id="FridayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
                             <td><input type="text"  style="width: 66px !important; text-align:center!important" id="SaturdayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
                             <td><input type="text"  style="width: 66px !important; text-align:center!important" id="SundayTotalEmployees" value="0" class="form-control new-form-control" placeholder="0" disabled></td>
-                            <td><input type="text"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" id="TotalEmployees" placeholder="1" value="1" disabled></td>
+                            <td><input type="text"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" id="TotalEmployees" placeholder="0" value="0" disabled></td>
                             <td></td>
                         </tr>
 
@@ -161,7 +161,7 @@
             </div>
             <div class="new-comment-section">
                 <label for="male">Comment</label>
-                <input type="text" id="comment">
+                <input type="text" id="comment" class="form-control">
             </div>
         </div>
         <!-- /.box-content -->
@@ -170,7 +170,7 @@
 </div>
 
 <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
-
+<input type="text" hidden style="display:none" id="totalNoOfEmployees" value="1"/>
 
 @*@foreach (var item in ViewBag.Employees)
     {
@@ -179,14 +179,15 @@
 
 <script type="text/javascript">
     function AddRow()
-    {debugger;
-        var totalemp = $("#TotalEmployees").val();
+    {
+        var totalemp = $("#totalNoOfEmployees").val();
         var incemp = parseFloat(totalemp) + 1;
         var dropdownid = "selected_employee_"+incemp;
-        $("#TotalEmployees").val(incemp);
+        //$("#TotalEmployees").val(incemp);
+        $("#totalNoOfEmployees").val(incemp);
         var dropdownhtml = "@Html.Raw(ViewBag.DropDownHtml)";
-        //$("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px">'+dropdownhtml+'</th><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="monday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="tuesday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="wednesday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="thursday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="friday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="saturday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="sunday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
-        $("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_'+incemp+'" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_'+incemp+'"/></th><td><input type="number"  style="width:50px!important;text-align:center!important" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" style="width: 66px !important; text-align:center!important" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="monday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="tuesday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="wednesday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="thursday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="friday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="saturday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="sunday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
+        //$("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px">'+dropdownhtml+'</th><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="monday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="tuesday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="wednesday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="thursday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="friday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="saturday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="sunday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
+        $("#EmpTr").prepend('<tr><th colspan="1" style="width: 230px"><input type="text" class="form-control ui-autocomplete" id="selected_employee_'+incemp+'" placeholder="Search Employees.."/><input type="text" hidden id="id_selected_employee_'+incemp+'"/></th><td><input type="number"  style="width:50px!important;text-align:center!important" class="form-control new-form-control" placeholder="" id="rate_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" style="width: 66px !important; text-align:center!important" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="monday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="tuesday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="wednesday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="thursday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="friday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="saturday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="sunday_'+ incemp+'"></td><td><input type="number"  style="width: 66px !important; text-align:center!important" class="form-control new-form-control" placeholder="0" value="0" onchange="UpdateHours('+ incemp+')" min="0" max="24" id="totalHours_'+ incemp+'" disabled></td><td><input type="text" class="form-control new-form-control" placeholder="" id="enitials_'+ incemp+'"></td></tr>')
         $("#selected_employee_"+incemp).autocomplete({
             source: function (request, response) {
                 $.ajax({
@@ -215,7 +216,6 @@
                 }
             }
         });
-        $("#TotalEmployees").attr("placeholder",incemp);
         $("#dropdownid").attr("id", "selected_employee_"+incemp);
     }
 
@@ -263,7 +263,7 @@
         $("#totalHours_" + trNo).val(total);
         $("#totalHours_" + trNo).attr("placeholder", total);
         var totalHoursAllEmp = 0;
-        var totalemp = $("#TotalEmployees").val();
+        var totalemp = $("#totalNoOfEmployees").val();
         var totalmondayHours = 0;
         var totaltuesdayHours = 0;
         var totalwednesdayHours = 0;
@@ -279,6 +279,8 @@
         var totalfridayEmployees = 0;
         var totalsaturdayEmployees = 0;
         var totalsundayEmployees = 0;
+        var TotalWorkingEmployees = 0;
+
         for (var i = 1; i <= parseFloat(totalemp) ; i++) {
             var hoursPerEmp = $("#totalHours_" + i).val();
             totalHoursAllEmp = totalHoursAllEmp + parseFloat(hoursPerEmp);
@@ -361,36 +363,71 @@
             if(parseFloat($("#monday_" + i).val()) > 0)
             {
                 totalmondayEmployees = totalmondayEmployees + 1;
+                if(totalmondayEmployees > TotalWorkingEmployees)
+                {
+                    TotalWorkingEmployees= totalmondayEmployees;
+                    
+                }
             }
             $("#MondayTotalEmployees").val(totalmondayEmployees);
             if(parseFloat($("#tuesday_" + i).val()) > 0)
             {
                 totaltuesdayEmployees = totaltuesdayEmployees + 1;
+                if(totaltuesdayEmployees > TotalWorkingEmployees)
+                {
+                    TotalWorkingEmployees= totaltuesdayEmployees;
+                    
+                }
             }
             $("#TuesdayTotalEmployees").val(totaltuesdayEmployees);
             if(parseFloat($("#wednesday_" + i).val()) > 0)
             {
                 totalwednesdayEmployees = totalwednesdayEmployees + 1;
+                if(totalwednesdayEmployees > TotalWorkingEmployees)
+                {
+                    TotalWorkingEmployees= totalwednesdayEmployees;
+                    
+                }
             }
             $("#WednesdayTotalEmployees").val(totalwednesdayEmployees);
             if(parseFloat($("#thursday_" + i).val()) > 0)
             {
                 totalthursdayEmployees = totalthursdayEmployees + 1;
+                if(totalthursdayEmployees > TotalWorkingEmployees)
+                {
+                    TotalWorkingEmployees= totalthursdayEmployees;
+                    
+                }
                 $("#ThursdayTotalEmployees").val(totalthursdayEmployees);
             }
             if(parseFloat($("#friday_" + i).val()) > 0)
             {
                 totalfridayEmployees = totalfridayEmployees + 1;
+                if(totalfridayEmployees > TotalWorkingEmployees)
+                {
+                    TotalWorkingEmployees= totalfridayEmployees;
+                    
+                }
             }
             $("#FridayTotalEmployees").val(totalfridayEmployees);
             if(parseFloat($("#saturday_" + i).val()) > 0)
             {
                 totalsaturdayEmployees = totalsaturdayEmployees + 1;
+                if(totalsaturdayEmployees > TotalWorkingEmployees)
+                {
+                    TotalWorkingEmployees= totalsaturdayEmployees;
+                    
+                }
             }
             $("#SaturdayTotalEmployees").val(totalsaturdayEmployees);
             if(parseFloat($("#sunday_" + i).val()) > 0)
             {
                 totalsundayEmployees = totalsundayEmployees + 1;
+                if(totalsundayEmployees > TotalWorkingEmployees)
+                {
+                    TotalWorkingEmployees= totalsundayEmployees;
+                    
+                }
             }
             $("#SundayTotalEmployees").val(totalsundayEmployees);
 
@@ -398,6 +435,7 @@
         $("#EmployeesTotalHours").val(totalHoursAllEmp);
 
         $("#EmployeesTotalHours").attr("placeholder",totalHoursAllEmp);
+        $("#TotalEmployees").val(TotalWorkingEmployees);
 
     }
 
@@ -422,7 +460,7 @@
             For_internal_employee:false
         }
 
-        var totalemp = $("#TotalEmployees").val();
+        var totalemp = $("#totalNoOfEmployees").val();
         var timeSheet_summary = [];
 
 

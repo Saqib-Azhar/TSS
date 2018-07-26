@@ -207,7 +207,8 @@
                 <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="UpdateTimeSheet()">Save Changes</button>
             </div>
             <div class="bottom-text">
-                <input type="text" id="signatures" />
+                <input type="text" id="signatures" value="@Model.TimeSheetGeneralDetails.Signature" style="border-style:dashed; text-align:center" />
+
                 <h4>Authorized Signature<i></i></h4>
                 <p>Please email to payroll@4tssi.com on Monday's before 10:am</p>
 
@@ -228,6 +229,7 @@
 <input type="text" hidden id="idsaver" />
 
 <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
+<input type="text" hidden style="display:none" id="totalNoOfEmployees" value="1" />
 
 
 <script>
@@ -243,8 +245,8 @@
         $("button").click(function () {
             $("#txt").load("demo_ajax_load.asp");
         });
-        $("#TotalEmployees").attr("placeholder",@counter);
         $("#TotalEmployees").val(@counter);
+        $("#totalNoOfEmployees").val(@counter);
 
         $("#EmployeesTotalHours").attr("placeholder",@HoursCounter);
         $("#EmployeesTotalHours").val(@HoursCounter);
@@ -253,7 +255,7 @@
         $('.js-example-basic-multiple').select2();
         $('.js-example-basic-single').select2();
 
-        
+
         $('[data-toggle=\'tooltip\']').tooltip({ container: 'body' });
         $(function () {
             for (var i = 1; i <= @Model.TimeSheetSummary.Count; i++) {
@@ -295,7 +297,7 @@
 
     function updateEntries1()
     {
-        var totalemp = parseFloat($("#TotalEmployees").val());
+        var totalemp = parseFloat($("#totalNoOfEmployees").val());
         var mondays = 0;
         var tuesdays = 0;
         var wednesdays =  0;
@@ -310,75 +312,48 @@
         var fridaysEmpCount =  0;
         var saturdaysEmpCount = 0;
         var sundaysEmpCount =  0;
+        var totalWorkingEmployees = 0;
 
         var totalnewemp = parseFloat($("#NewlyAdded").val());
         for(i = 1; i<= totalnewemp; i++)
         {
-            if($("#monday_"+i).val() == '')
-            {            
-                mondays = mondays;
-            }
-            else
+            if($("#monday_"+i).val() != '')
             {
                 mondays = mondays+ parseFloat($("#monday_"+i).val());
             }
-      ////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////
 
-            if($("#tuesday_"+i).val() == '')
-            {            
-                tuesdays = tuesdays;
-            }
-            else
+            if($("#tuesday_"+i).val()  != '')
             {
                 tuesdays = tuesdays+ parseFloat($("#tuesday_"+i).val());
 
             }
             ////////////////////////////////////////////////////////////////////////
-            if($("#wednesday_"+i).val() == '')
-            {            
-                wednesdays = wednesdays;
-            }
-            else
+            if($("#wednesday_"+i).val()  != '')
             {
                 wednesdays = wednesdays+ parseFloat($("#wednesday_"+i).val());
             }
             ////////////////////////////////////////////////////////////////////////
-            
-            if($("#thursday_"+i).val() == '')
-            {            
-                thursdays = thursdays;
-            }
-            else
+
+            if($("#thursday_"+i).val()  != '')
             {
                 thursdays  = thursdays+ parseFloat($("#thursday_"+i).val());
             }
             ////////////////////////////////////////////////////////////////////////
-            
-            if($("#friday_"+i).val() == '')
-            {            
-                fridays = fridays;
-            }
-            else
+
+            if($("#friday_"+i).val()  != '')
             {
                 fridays = fridays+ parseFloat($("#friday_"+i).val());
             }
             ////////////////////////////////////////////////////////////////////////
-            
-            if($("#saturday_"+i).val() == '')
-            {            
-                saturdays = saturdays;
-            }
-            else
+
+            if($("#saturday_"+i).val()  != '')
             {
                 saturdays = saturdays+ parseFloat($("#saturday_"+i).val());
             }
             ////////////////////////////////////////////////////////////////////////
-            
-            if($("#sunday_"+i).val() == '')
-            {            
-                sundays = sundays;
-            }
-            else
+
+            if($("#sunday_"+i).val()  != '')
             {
                 sundays = sundays+ parseFloat($("#sunday_"+i).val());
             }
@@ -406,53 +381,95 @@
             if ($("#EmployeeId_"+i+"_Day_1").val() != '') {
                 mondays = mondays+ parseFloat($("#EmployeeId_"+i+"_Day_1").val());
             }
-                
-            
+
+
             ///////////////////////////////////////////////////////////////////////////////////////////////
             if ($("#EmployeeId_"+i+"_Day_2").val() != '') {
                 tuesdays = tuesdays+ parseFloat($("#EmployeeId_"+i+"_Day_2").val());
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////
-            
+
             if ($("#EmployeeId_"+i+"_Day_3").val() != '') {
                 wednesdays = wednesdays+ parseFloat($("#EmployeeId_"+i+"_Day_3").val());
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////
-            
+
             if ($("#EmployeeId_"+i+"_Day_4").val() != '') {
                 thursdays  = thursdays+ parseFloat($("#EmployeeId_"+i+"_Day_4").val());
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////
-            
+
             if ($("#EmployeeId_"+i+"_Day_5").val() != '') {
                 fridays = fridays+ parseFloat($("#EmployeeId_"+i+"_Day_5").val());
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////
-            
+
             if ($("#EmployeeId_"+i+"_Day_6").val() != '') {
                 saturdays = saturdays+ parseFloat($("#EmployeeId_"+i+"_Day_6").val());
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////
-            
+
             if ($("#EmployeeId_"+i+"_Day_7").val() != '') {
                 sundays = sundays+ parseFloat($("#EmployeeId_"+i+"_Day_7").val());
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////
 
             if(parseFloat($("#EmployeeId_"+i+"_Day_1").val()) > 0)
+            {
                 mondaysEmpCount = mondaysEmpCount+ 1;
+                if(mondaysEmpCount > totalWorkingEmployees)
+                {
+                    totalWorkingEmployees = mondaysEmpCount
+                }
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_2").val()) > 0)
+            {
                 tuesdaysEmpCount = tuesdaysEmpCount+ 1;
+                if(tuesdaysEmpCount > totalWorkingEmployees)
+                {
+                    totalWorkingEmployees = tuesdaysEmpCount
+                }
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_3").val()) > 0)
+            {
                 wednesdaysEmpCount = wednesdaysEmpCount+ 1;
+                if(wednesdaysEmpCount > totalWorkingEmployees)
+                {
+                    totalWorkingEmployees = wednesdaysEmpCount
+                }
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_4").val()) > 0)
+            {
                 thursdaysEmpCount  = thursdaysEmpCount+ 1;
+                if(thursdaysEmpCount > totalWorkingEmployees)
+                {
+                    totalWorkingEmployees = thursdaysEmpCount
+                }
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_5").val()) > 0)
+            {
                 fridaysEmpCount = fridaysEmpCount+ 1;
+                if(fridaysEmpCount > totalWorkingEmployees)
+                {
+                    totalWorkingEmployees = fridaysEmpCount
+                }
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_6").val()) > 0)
+            {
                 saturdaysEmpCount = saturdaysEmpCount+ 1;
+                if(saturdaysEmpCount > totalWorkingEmployees)
+                {
+                    totalWorkingEmployees = saturdaysEmpCount
+                }
+            }
             if(parseFloat($("#EmployeeId_"+i+"_Day_7").val()) > 0)
-            sundaysEmpCount = sundaysEmpCount+ 1;
+            {
+                sundaysEmpCount = sundaysEmpCount+ 1;
+                if(sundaysEmpCount > totalWorkingEmployees)
+                {
+                    totalWorkingEmployees = sundaysEmpCount
+                }
+            }
 
         }
 
@@ -476,6 +493,8 @@
         $("#FridayTotalEmployees").val(fridaysEmpCount);
         $("#SaturdayTotalEmployees").val(saturdaysEmpCount);
         $("#SundayTotalEmployees").val(sundaysEmpCount);
+
+        $("#TotalEmployees").val(totalWorkingEmployees);
     }
 
 
@@ -658,72 +677,45 @@
     }
     
     function UpdateNewEntryHours(newEmployeeCounter)
-    {debugger;
+    {
         var totalhours = 0;
-        if($("#monday_"+newEmployeeCounter).val() == '')
-        {
-            totalhours = totalhours;
-        }
-        else
+        if($("#monday_"+newEmployeeCounter).val() != '')
         {
             totalhours = totalhours+ parseFloat($("#monday_"+newEmployeeCounter).val());
         }
         ///////////////////////////////////////////////////////////////////////////////////////
-        if ($("#tuesday_"+newEmployeeCounter).val() == '') 
-        {
-            totalhours = totalhours;
-        }
-        else 
+        if ($("#tuesday_"+newEmployeeCounter).val()  != '')
         {
             totalhours = totalhours+ parseFloat($("#tuesday_"+newEmployeeCounter).val());
         }
         ///////////////////////////////////////////////////////////////////////////////////////
 
-        if ($("#wednesday_"+newEmployeeCounter).val() == '') 
-        {
-            totalhours = totalhours;
-        }
-        else 
+        if ($("#wednesday_"+newEmployeeCounter).val() != '')
+        
         {
             totalhours = totalhours+ parseFloat($("#wednesday_"+newEmployeeCounter).val());
         }
         ///////////////////////////////////////////////////////////////////////////////////////
 
-        if ($("#thursday_"+newEmployeeCounter).val() == '') 
-        {
-            totalhours = totalhours;
-        }
-        else 
+        if ($("#thursday_"+newEmployeeCounter).val()  != '')
         {
             totalhours = totalhours+ parseFloat($("#thursday_"+newEmployeeCounter).val());
         }
         ///////////////////////////////////////////////////////////////////////////////////////
 
-        if ($("#friday_"+newEmployeeCounter).val() == '') 
-        {
-            totalhours = totalhours;
-        }
-        else 
+        if ($("#friday_"+newEmployeeCounter).val()  != '')
         {
             totalhours = totalhours+ parseFloat($("#friday_"+newEmployeeCounter).val());
         }
         ///////////////////////////////////////////////////////////////////////////////////////
 
-        if ($("#saturday_"+newEmployeeCounter).val() == '') 
-        {
-            totalhours = totalhours;
-        }
-        else 
+        if ($("#saturday_"+newEmployeeCounter).val() != '')
         {
             totalhours = totalhours+ parseFloat($("#saturday_"+newEmployeeCounter).val());
         }
         ///////////////////////////////////////////////////////////////////////////////////////
 
-        if ($("#sunday_"+newEmployeeCounter).val() == '') 
-        {
-            totalhours = totalhours;
-        }
-        else 
+        if ($("#sunday_"+newEmployeeCounter).val()  != '')
         {
             totalhours = totalhours+ parseFloat($("#sunday_"+newEmployeeCounter).val());
         }
@@ -747,10 +739,10 @@
 
     function AddRow()
     {
-        var totalemp = $("#TotalEmployees").val();
+        var totalemp = $("#totalNoOfEmployees").val();
         var incemp = parseFloat(totalemp) + 1;
         var dropdownid = "selected_employee_"+incemp;
-        $("#TotalEmployees").val(incemp);
+        $("#totalNoOfEmployees").val(incemp);
         var newEmp = parseFloat($("#NewlyAdded").val());
         newEmp = newEmp + 1;
         $("#NewlyAdded").val(newEmp);
@@ -784,7 +776,6 @@
                 }
             }
         });
-        $("#TotalEmployees").attr("placeholder",incemp);
         $("#dropdownid").attr("id", "selected_employee_"+newEmp);
     }
 

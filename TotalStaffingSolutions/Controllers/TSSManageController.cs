@@ -319,7 +319,15 @@ namespace TotalStaffingSolutions.Controllers
                 if(customer != null)
                     NewTimeSheet.Customer_Id_Generic = customer.Customer_id;
                 NewTimeSheet.Status_id = 1;
-
+                var checkPo = db.Po_Numbers.FirstOrDefault(s => s.Client_Generic_Id == NewTimeSheet.Customer_Id_Generic && s.PoNumber == timesheet.Po_number);
+                if(checkPo == null)
+                {
+                    Po_Numbers newPONo = new Po_Numbers();
+                    newPONo.ClientId = timesheet.Customer_id;
+                    newPONo.Client_Generic_Id = NewTimeSheet.Customer_Id_Generic;
+                    newPONo.PoNumber = timesheet.Po_number;
+                    db.Po_Numbers.Add(newPONo);
+                }
                 db.Timesheets.Add(NewTimeSheet);
                 db.SaveChanges();
 
@@ -365,8 +373,10 @@ namespace TotalStaffingSolutions.Controllers
                 var timesheetId = NewTimeSheet.Id.ToString();
                 return Json(timesheetId, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -498,13 +508,13 @@ namespace TotalStaffingSolutions.Controllers
                 //NewTimeSheet.Customer_id = timesheet.Customer_id;
                 //NewTimeSheet.End_date = timesheet.End_date;
                 //NewTimeSheet.For_internal_employee = timesheet.For_internal_employee;
-                //NewTimeSheet.Note = timesheet.Note;
+                NewTimeSheet.Note = timesheet.Note;
                 //NewTimeSheet.Organization_id = timesheet.Organization_id;
                 //NewTimeSheet.Po_number = timesheet.Po_number;
                 //NewTimeSheet.Sent = timesheet.Sent;
                 NewTimeSheet.Signature = timesheet.Signature;
-                //NewTimeSheet.Total_employees = timesheet.Total_employees;
-                //NewTimeSheet.Total_hours = timesheet.Total_hours;
+                NewTimeSheet.Total_employees = timesheet.Total_employees;
+                NewTimeSheet.Total_hours = timesheet.Total_hours;
                 NewTimeSheet.Updated_at = DateTime.Now;
                 NewTimeSheet.Submit_by_client = true;
                 NewTimeSheet.Sent = true;
@@ -594,17 +604,21 @@ namespace TotalStaffingSolutions.Controllers
                         
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                      
+
+                        infoMessage(ex.Message);
+                        writeErrorLog(ex);
                     }
                 }
                 #endregion
                 //////////////////////////////////////////////////////////////////////////////////////////
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -702,6 +716,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
                 var savedContactConfirmationObj = db.ContactConfirmations.OrderByDescending(s => s.Id).FirstOrDefault(s => s.ContactId == contactStatusObj.ContactId);
                 savedContactConfirmationObj.ConfirmationStatusId = 4;
                 savedContactConfirmationObj.LastUpdate = DateTime.Now;
@@ -864,8 +880,10 @@ namespace TotalStaffingSolutions.Controllers
 
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -921,6 +939,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
                 return Json("Something Went wrong..!", JsonRequestBehavior.AllowGet);
 
             }
@@ -958,6 +978,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
                 return Json("Something Went wrong..!", JsonRequestBehavior.AllowGet);
 
             }
@@ -1270,5 +1292,101 @@ namespace TotalStaffingSolutions.Controllers
             var reason = db.RejectedTimesheets.FirstOrDefault(s => s.TimeSheetId == timesheetId);
             return Json(reason, JsonRequestBehavior.AllowGet);
         }
+
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Dashboard1(DateTime? start_date, DateTime? end_date,int? branch_id, int? client_id) //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
+        {
+            try
+            {
+                var db = new TSS_Sql_Entities();
+                List<Branch> bl = db.Branches.ToList();
+                Branch b = new Branch();
+                b.Id = 0;
+                b.Name = "Select Branch";
+                bl.Add(b);
+                var orderedbranches = bl.OrderBy(s => s.Id);
+                var branchlist = new SelectList(orderedbranches, "Id", "Name");
+                ViewBag.BranchsList = branchlist;
+
+                List<Customer> cl = db.Customers.ToList();
+                Customer c = new Customer();
+                c.Id = 0;
+                c.Name = "Select Client";
+                cl.Add(c);
+                var orderedClients = cl.OrderBy(s => s.Id);
+                var clientlist = new SelectList(orderedClients, "Id", "Name");
+                ViewBag.ClientsList = clientlist;
+                List<Timesheet> timesheets = new List<Timesheet>();
+
+                //ViewBag.RejectedTimeSheets = db.RejectedTimesheets.ToList();
+
+                if (end_date != null && start_date != null && branch_id != null && client_id != null)
+                {
+                    timesheets = db.Timesheets.Where(s => s.End_date >= start_date && s.End_date <= end_date && s.Customer_id == client_id && s.Customer.Branch_id == branch_id).ToList();
+
+                    ViewBag.SelectedBranchId = branch_id;
+                    ViewBag.SelectedClientId = client_id;
+                }
+                else if (start_date != null && end_date != null && client_id != null)
+                {
+                    timesheets = db.Timesheets.Where(s => s.End_date >= start_date && s.End_date <= end_date && s.Customer_id == client_id).ToList();
+
+                    ViewBag.SelectedBranchId = null;
+                    ViewBag.SelectedClientId = client_id;
+                }
+                else if (branch_id != null && end_date != null && start_date != null )
+                {
+                    timesheets = db.Timesheets.Where(s => s.End_date >= start_date && s.End_date <= end_date && s.Customer.Branch_id == branch_id).ToList();
+
+                    ViewBag.SelectedBranchId = branch_id;
+                    ViewBag.SelectedClientId = null;
+                }
+                else if (branch_id != null && client_id != null)
+                {
+                    timesheets = db.Timesheets.Where(s => s.Customer.Branch_id == branch_id && s.Customer_id == client_id).ToList();
+                    ViewBag.SelectedBranchId = branch_id;
+                    ViewBag.SelectedClientId = client_id;
+                }
+                else if (end_date != null && start_date != null)
+                {
+                    timesheets = db.Timesheets.Where(s => s.End_date >= start_date && s.End_date <= end_date).ToList();
+                    ViewBag.SelectedBranchId = null;
+                    ViewBag.SelectedClientId = null;
+                }
+                else if (branch_id != null)
+                {
+                    timesheets = db.Timesheets.Where(s => s.Customer.Branch_id == branch_id).ToList();
+                    ViewBag.SelectedBranchId = branch_id;
+                    ViewBag.SelectedClientId = null;
+                }
+                else if (client_id != null)
+                {
+                    timesheets = db.Timesheets.Where(s => s.Customer_id == client_id).ToList();
+                    ViewBag.SelectedBranchId = null;
+                    ViewBag.SelectedClientId = client_id;
+                }
+                else
+                {
+                    timesheets = db.Timesheets.ToList();
+                    ViewBag.SelectedBranchId = null;
+                    ViewBag.SelectedClientId = null;
+                }
+
+
+
+
+                return View("Dashboard",timesheets);
+            }
+            catch (Exception ex)
+            {
+                infoMessage(ex.Message);
+                writeErrorLog(ex);
+            }
+            var list = new List<Timesheet>();
+
+            return View(list);
+        }
+
     }
 }

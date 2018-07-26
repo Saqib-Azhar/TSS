@@ -199,14 +199,14 @@
                 <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" onclick="UpdateTimeSheet()">Submit</button>
             </div>
             <div class="bottom-text">
-                <input type="text" id="signatures" value="@Model.TimeSheetGeneralDetails.Signature" />
+                <input type="text" id="signatures" value="@Model.TimeSheetGeneralDetails.Signature" style="border-style:dashed; text-align:center" />
                 <h4>Authorized Signature<i></i></h4>
                 <p>Please email to payroll@4tssi.com on Monday's before 10:am</p>
 
             </div>
             <div class="new-comment-section">
-                <label for="male">Comment</label>
-                <input type="text" id="comment">
+                <label>Comment</label>
+                <input type="text" value="@Model.TimeSheetGeneralDetails.Note" id="comment" class="form-control" style="padding:0px 0px 0px 0px!important">
             </div>
         </div>
 
@@ -217,13 +217,14 @@
 
 <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:45%;left:45%;padding:2px;"><img src='~/assets/loading_gif.gif' width="64" height="64" /><br>Loading..</div>
 
+<input type="text" hidden style="display:none" id="totalNoOfEmployees" value="1" />
 
 
 <script>
     $(document).ready(function() {
-        $("#TotalEmployees").attr("placeholder",@counter);
+        //$("#TotalEmployees").attr("placeholder",@counter);
         $("#TotalEmployees").val(@counter);
-
+        $("#totalNoOfEmployees").val(@counter);
         $("#EmployeesTotalHours").attr("placeholder",@HoursCounter);
         $("#EmployeesTotalHours").val(@HoursCounter);
         // updateEntries();
@@ -251,7 +252,7 @@
 
     function updateEntries1()
     {
-        var totalemp = parseFloat($("#TotalEmployees").val());
+        var totalemp = parseFloat($("#totalNoOfEmployees").val());
         var mondays = 0;
         var tuesdays = 0;
         var wednesdays =  0;
@@ -266,6 +267,7 @@
         var fridaysEmpCount =  0;
         var saturdaysEmpCount = 0;
         var sundaysEmpCount =  0;
+        var totalWorkingEmployees = 0;
         for(i = 1; i<= totalemp; i++)
         {
 
@@ -275,42 +277,78 @@
                 mondays = mondays+ parseFloat($("#EmployeeId_"+i+"_Day_1").val());
 
                 mondaysEmpCount = mondaysEmpCount+ 1;
+
+                if(totalWorkingEmployees < mondaysEmpCount)
+                {
+                    totalWorkingEmployees = mondaysEmpCount
+                    
+                }
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_2").val()) > 0)
             {
                 tuesdays = tuesdays+ parseFloat($("#EmployeeId_"+i+"_Day_2").val());
 
                 tuesdaysEmpCount = tuesdaysEmpCount+ 1;
+                if(totalWorkingEmployees < tuesdaysEmpCount)
+                {
+                    totalWorkingEmployees = tuesdaysEmpCount
+                    
+                }
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_3").val()) > 0)
             {
                 wednesdays = wednesdays+ parseFloat($("#EmployeeId_"+i+"_Day_3").val());
 
                 wednesdaysEmpCount = wednesdaysEmpCount+ 1;
+                if(totalWorkingEmployees < wednesdaysEmpCount)
+                {
+                    totalWorkingEmployees = wednesdaysEmpCount
+                    
+                }
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_4").val()) > 0)
             {
                 thursdays  = thursdays+ parseFloat($("#EmployeeId_"+i+"_Day_4").val());
 
                 thursdaysEmpCount  = thursdaysEmpCount+ 1;
+                if(totalWorkingEmployees < thursdaysEmpCount)
+                {
+                    totalWorkingEmployees = thursdaysEmpCount
+                    
+                }
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_5").val()) > 0)
             {
                 fridays = fridays+ parseFloat($("#EmployeeId_"+i+"_Day_5").val());
 
                 fridaysEmpCount = fridaysEmpCount+ 1;
+                if(totalWorkingEmployees < fridaysEmpCount)
+                {
+                    totalWorkingEmployees = fridaysEmpCount
+                    
+                }
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_6").val()) > 0)
             {
                 saturdays = saturdays+ parseFloat($("#EmployeeId_"+i+"_Day_6").val());
 
                 saturdaysEmpCount = saturdaysEmpCount+ 1;
+                if(totalWorkingEmployees < saturdaysEmpCount)
+                {
+                    totalWorkingEmployees = saturdaysEmpCount
+                    
+                }
             }
             if(parseFloat($("#EmployeeId_"+i+"_Day_7").val()) > 0)
             {
                 sundays = sundays+ parseFloat($("#EmployeeId_"+i+"_Day_7").val());
 
                 sundaysEmpCount = sundaysEmpCount+ 1;
+                if(totalWorkingEmployees < sundaysEmpCount)
+                {
+                    totalWorkingEmployees = sundaysEmpCount
+                    
+                }
             }
 
         }
@@ -335,6 +373,8 @@
         $("#FridayTotalEmployees").val(fridaysEmpCount);
         $("#SaturdayTotalEmployees").val(saturdaysEmpCount);
         $("#SundayTotalEmployees").val(sundaysEmpCount);
+
+        $("#TotalEmployees").val(totalWorkingEmployees);
     }
 
 
@@ -361,8 +401,8 @@
             Organization_id : '@Model.TimeSheetGeneralDetails.Organization_id',
             Start_date : '@Model.TimeSheetGeneralDetails.Created_at',
             End_date : '@Model.TimeSheetGeneralDetails.End_date',
-            Total_employees:@Model.TimeSheetGeneralDetails.Total_employees,
-            Total_hours:@Model.TimeSheetGeneralDetails.Total_hours,
+            Total_employees:$("#TotalEmployees").val(),
+            Total_hours:$("#EmployeesTotalHours").val(),
             Submit_by_client:true,
             Uuid:null,
             Signature:$("#signatures").val(),
@@ -433,7 +473,7 @@
         var totalhours = 0;
         for(var counter = 1; counter <= 7; counter++)
         {
-            if ($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val() != '') 
+            if ($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val() != '')
             {
                 var hours = parseFloat($("#EmployeeId_"+employeeCounter+"_Day_"+counter).val());
                 totalhours = totalhours + hours;

@@ -54,6 +54,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                TSSManageController.infoMessage(ex.Message);
+                TSSManageController.writeErrorLog(ex);
                 return RedirectToAction("TokenNotFound");
             }
         }
@@ -208,8 +210,10 @@ namespace TotalStaffingSolutions.Controllers
 
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        TSSManageController.infoMessage(ex.Message);
+                        TSSManageController.writeErrorLog(ex);
 
                     }
                 }
@@ -219,7 +223,9 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                return Json("",JsonRequestBehavior.AllowGet);
+                TSSManageController.infoMessage(ex.Message);
+                TSSManageController.writeErrorLog(ex);
+                return Json("Something went wrong",JsonRequestBehavior.AllowGet);
             }
         }
     }

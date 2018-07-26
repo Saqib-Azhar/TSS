@@ -31,12 +31,10 @@ namespace TotalStaffingSolutions.Controllers
                 case 0:
                     {
                         return View();
-                        break;
                     }
                 case 1:
                     {
                         return RedirectToAction("Dashboard", "TSSManage");
-                        break;
                     }
 
             }
@@ -87,6 +85,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                TSSManageController.infoMessage(ex.Message);
+                TSSManageController.writeErrorLog(ex);
 
                 return false;
             }
@@ -134,6 +134,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                TSSManageController.infoMessage(ex.Message);
+                TSSManageController.writeErrorLog(ex);
 
                 return false;
             }
@@ -219,6 +221,8 @@ namespace TotalStaffingSolutions.Controllers
                             }
                             catch (Exception ex)
                             {
+                                TSSManageController.infoMessage(ex.Message);
+                                TSSManageController.writeErrorLog(ex);
                                 var savedContactConfirmationObj = db.ContactConfirmations.OrderByDescending(s => s.Id).FirstOrDefault(s => s.ContactId == contactStatusObj.ContactId);
                                 savedContactConfirmationObj.ConfirmationStatusId = 4;
                                 savedContactConfirmationObj.LastUpdate = DateTime.Now;
@@ -235,6 +239,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                TSSManageController.infoMessage(ex.Message);
+                TSSManageController.writeErrorLog(ex);
                 return false;
             }
         }
@@ -273,8 +279,12 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                TSSManageController.infoMessage(ex.Message);
+                TSSManageController.writeErrorLog(ex);
                 return false;
             }
         }
+
+
     }
 }
