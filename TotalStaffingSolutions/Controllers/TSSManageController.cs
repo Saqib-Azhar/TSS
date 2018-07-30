@@ -555,18 +555,65 @@ namespace TotalStaffingSolutions.Controllers
                         })
                         {
                             //message.CC.Add("jgallelli@4tssi.com");
-                            ////message.CC.Add("payroll@4tssi.com");
                             smtp.Send(message);
                         }
                         ///
-                        
+
 
                     }
                     catch (Exception ex)
                     {
 
                         ExceptionHandlerController.infoMessage(ex.Message);
-                        ExceptionHandlerController.writeErrorLog(ex);;
+                        ExceptionHandlerController.writeErrorLog(ex); ;
+                    }
+                    /////////////////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////////////////
+                    try
+                    {
+                        var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
+                        var toAddress = new MailAddress("sazhar@viretechnologies.com", admin.Email);
+                        string fromPassword = SenderEmailPassword;
+                        string subject = "Total Staffing Solution: Timesheet Update";
+                        string body = "<b>Hello " + admin.UserName + "!</b><br />Client has submitted the timesheet<br /> <a href='" + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + timesheet.Id +
+                            "'>Timesheet Link</a><br />Week Ending Date: " +timesheet.End_date
+                            + "<br />Total Employees:" +timesheet.Total_employees
+                            + "<br />Total Hours:" + timesheet.Total_hours
+                            + "<br />Thanks for joining and have a great day! <br />Total Staffing Solutions";
+
+
+                        var smtp = new SmtpClient
+                        {
+                            Host = SenderEmailHost,
+                            Port = SenderEmailPort,
+                            EnableSsl = false,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                            Timeout = 20000
+                        };
+                        using (var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            IsBodyHtml = true,
+                            Subject = subject,
+                            Body = body,
+
+
+                        })
+                        {
+                            //message.CC.Add("jgallelli@4tssi.com");
+                            ////message.CC.Add("payroll@4tssi.com");
+                            smtp.Send(message);
+                        }
+                        ///
+
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        ExceptionHandlerController.infoMessage(ex.Message);
+                        ExceptionHandlerController.writeErrorLog(ex); ;
                     }
                 }
                 #endregion
