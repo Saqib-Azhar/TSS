@@ -171,7 +171,8 @@
                     dataType: "json",
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        if (data = "Customer Doesn't Exists")
+              
+                        if (data == "Customer Doesn't Exists")
                         {
                             if(confirm("This email address is not registered, Do you want to send the invitation?"))
                             {
@@ -203,7 +204,8 @@
             dataType: "json",
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                if (data = "Customer Doesn't Exists") {
+
+                if (data == "Customer Doesn't Exists") {
                     if (confirm("This email address is not registered, Do you want to send the invitation?")) {
                         window.location = "/TSSManage/SendConfirmationStatus?Email=" + email + "&Id=" + id;
                     }

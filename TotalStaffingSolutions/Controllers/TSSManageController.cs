@@ -334,7 +334,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -623,7 +623,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -731,7 +731,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
                 var savedContactConfirmationObj = db.ContactConfirmations.OrderByDescending(s => s.Id).FirstOrDefault(s => s.ContactId == contactStatusObj.ContactId);
                 savedContactConfirmationObj.ConfirmationStatusId = 4;
                 savedContactConfirmationObj.LastUpdate = DateTime.Now;
@@ -740,7 +740,15 @@ namespace TotalStaffingSolutions.Controllers
 
             var clientContactObj = db.CustomerContacts.FirstOrDefault(s => s.Id == id);
             var clientObject = db.Customers.FirstOrDefault(s =>s.Customer_id == clientContactObj.Customer_id);
-            return RedirectToAction("ClientDetails", "TSSManage", new { clientObject.Id });
+            var previousURL = System.Web.HttpContext.Current.Request.UrlReferrer;
+            if(previousURL.LocalPath == "/TSSManage/Dashboard")
+            {
+                return RedirectToAction("Dashboard", "TSSManage");
+            }
+            else
+            {
+                return RedirectToAction("ClientDetails", "TSSManage", new { clientObject.Id });
+            }
         }
 
 
@@ -897,7 +905,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -954,7 +962,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
                 return Json("Something Went wrong..!", JsonRequestBehavior.AllowGet);
 
             }
@@ -993,7 +1001,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
                 return Json("Something Went wrong..!", JsonRequestBehavior.AllowGet);
 
             }
@@ -1202,7 +1210,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
             }
             var list = new List<Timesheet>();
 
@@ -1241,7 +1249,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
             }
             var list = new List<Timesheet>();
 
@@ -1283,7 +1291,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
             }
             var list = new List<Timesheet>();
 
@@ -1407,7 +1415,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
             }
             var list = new List<Timesheet>();
 
@@ -1533,7 +1541,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
                 return false;
 
             }
@@ -1671,7 +1679,7 @@ namespace TotalStaffingSolutions.Controllers
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
-                ExceptionHandlerController.writeErrorLog(ex);;
+                ExceptionHandlerController.writeErrorLog(ex);
                 return false;
 
             }
