@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -32,7 +35,7 @@ namespace TotalStaffingSolutions.Controllers
         private static string TSSLiveSiteURL = WebConfigurationManager.AppSettings["TSSLiveSiteURL"];
         // GET: Manage
         [Authorize(Roles = "Admin")]
-        public ActionResult Dashboard() //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
+        public ActionResult Dashboard1() //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
         {
             try
             {
@@ -414,7 +417,7 @@ namespace TotalStaffingSolutions.Controllers
 
             if (User.IsInRole("User"))
             {
-                var contact = db.CustomerContacts.FirstOrDefault(s => s.Id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_id);
+                var contact = db.CustomerContacts.FirstOrDefault(s => s.Customer_id == timeSheetDetailsTuple.TimeSheetGeneralDetails.Customer_Id_Generic);
             
                 string initials = "";
                 contact.Contact_name.Split(' ').ToList().ForEach(i => initials = initials + i[0]);
@@ -576,7 +579,7 @@ namespace TotalStaffingSolutions.Controllers
                         var toAddress = new MailAddress("sazhar@viretechnologies.com", admin.Email);
                         string fromPassword = SenderEmailPassword;
                         string subject = "Total Staffing Solution: Timesheet Update";
-                        string body = "<b>Hello " + admin.UserName + "!</b><br />Client has submitted the timesheet<br /> <a href='" + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + timesheet.Id + "'>Timesheet Link</a><br />";
+                        string body = "<b>Hello " + admin.UserName + "!</b><br />Client has submitted the timesheet<br /> <a href='" + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + timesheet.Id + "'>Timesheet Link</a><br />Thanks for joining and have a great day! <br />Total Staffing Solutions";
 
                         var smtp = new SmtpClient
                         {
@@ -597,7 +600,7 @@ namespace TotalStaffingSolutions.Controllers
                         })
                         {
                             //message.CC.Add("jgallelli@4tssi.com");
-                            //message.CC.Add("payroll@4tssi.com");
+                            ////message.CC.Add("payroll@4tssi.com");
                             smtp.Send(message);
                         }
                         ///
@@ -659,6 +662,15 @@ namespace TotalStaffingSolutions.Controllers
             return RedirectToAction("AllEmployees", "TSSManage");
         }
 
+        public ActionResult SendConfirmationStatus(string email, int Id)
+        {
+            var db = new TSS_Sql_Entities();
+            var emailId = db.CustomerContacts.FirstOrDefault(s => s.Email_id == email);
+            var response = SendTimeSheetLink(Id, email, 1);
+            return RedirectToAction("SendAccountEmail", "TSSManage",new { id = emailId.Id});
+        }
+
+
 
         [Authorize(Roles = "Admin")]
         public ActionResult SendAccountEmail(int id)
@@ -704,7 +716,7 @@ namespace TotalStaffingSolutions.Controllers
                 })
                 {
                     //message.CC.Add("jgallelli@4tssi.com");
-                    //message.CC.Add("payroll@4tssi.com");
+
                     smtp.Send(message);
                 }
                 ///
@@ -888,7 +900,7 @@ namespace TotalStaffingSolutions.Controllers
             }
         }
 
-        public JsonResult SendTimeSheetLink(int id, string email)
+        public JsonResult SendTimeSheetLink(int id, string email, int checkUser = 0)
         {
             var db = new TSS_Sql_Entities();
             var timesheet = db.Timesheets.Find(id);
@@ -896,7 +908,7 @@ namespace TotalStaffingSolutions.Controllers
             timesheet.Status_id = 2;
             db.SaveChanges();
             var user = db.AspNetUsers.FirstOrDefault(s => s.Email == email);
-            if(user == null)
+            if(user == null && checkUser == 0)
             {
                 return Json("Customer Doesn't Exists", JsonRequestBehavior.AllowGet);
             }
@@ -904,12 +916,12 @@ namespace TotalStaffingSolutions.Controllers
             try
             {
                 var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
-                var toAddress = new MailAddress("sazhar@viretechnologies.com", user.UserName);
+                var toAddress = new MailAddress("sazhar@viretechnologies.com", email);
                 string fromPassword = SenderEmailPassword;
                 string subject = "Total Staffing Solution: New Timesheet";
                 DateTime saturday = DateTime.Now.AddDays(6 - Convert.ToDouble(DateTime.Now.DayOfWeek));
                 string dateString = String.Format("{0:MM/dd/yyyy}", saturday);
-                string body = "<b>Hello "+user.Email + "!</b><br />Below you'll find the link to your timesheets for the upcoming week. Please enter the hours worked for the employees listed and return to us by " + dateString + ".<br /><br /><a href='"
+                string body = "<b>Hello "+ email + "!</b><br />Below you'll find the link to your timesheets for the upcoming week. Please enter the hours worked for the employees listed and return to us by " + dateString + ".<br /><br /><a href='"
                     + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + id + "'>Timesheet Link</a> <br />Thanks for joining and have a great day! <br />Total Staffing Solutions";
                 
                 var smtp = new SmtpClient
@@ -930,7 +942,7 @@ namespace TotalStaffingSolutions.Controllers
                 })
                 {
                     //message.CC.Add("jgallelli@4tssi.com");
-                    //message.CC.Add("payroll@4tssi.com");
+                    ////message.CC.Add("payroll@4tssi.com");
                     smtp.Send(message);
                 }
 
@@ -1009,8 +1021,8 @@ namespace TotalStaffingSolutions.Controllers
                 grid.DataSource = from d in timeSheetDetailsTuple.TimeSheetSummary
                                   select new
                                   {
-                                      Timeslip_ID_ = "",
-                                      Job_Order_Number_ = "",
+                                      Timeslip_ID = "",
+                                      Job_Order_Number = "",
                                       Customer_ID = d.Timesheet.Customer_Id_Generic,
                                       Customer_Name = d.Timesheet.Customer.Name,
                                       Site_Code = "",
@@ -1024,48 +1036,48 @@ namespace TotalStaffingSolutions.Controllers
                                       Regular_Pay_Rate = d.Rate,
                                       Regular_Bill_hours = "",
                                       Regular_Bill_Rate = "",
-                                      Overtime_Pay_hours_ = "",
+                                      Overtime_Pay_hours = "",
                                       Overtime_Pay_Rate = "",
-                                      Overtime_Bill_hours_ = "",
-                                      Overtime_Bill_Rate_ = "",
+                                      Overtime_Bill_hours = "",
+                                      Overtime_Bill_Rate = "",
                                       Double_Time_Pay_hours = "",
-                                      Double_Time_Pay_Rate_ = "",
+                                      Double_Time_Pay_Rate = "",
                                       Double_Time_Bill_hours = "",
-                                      Double_Time_Bill_Rate_ = "",
+                                      Double_Time_Bill_Rate = "",
                                       Comp_Code = "",
                                       Sales_Tax_Code = "",
                                       PO_Number = pono,
-                                      Release_ = "",
-                                      Project_ = "",
-                                      Department_Code_ = "",
-                                      Office_Code_ = "",
+                                      Release = "",
+                                      Project = "",
+                                      Department_Code = "",
+                                      Office_Code = "",
                                       Location_Code = "",
                                       Saleman_1_Code = "",
                                       Salesman_2_Code = "",
                                       Pay_Frequency = "",
-                                      Number_of_Days_ = "",
+                                      Number_of_Days = "",
                                       Pay_hold = "",
                                       Bill_hold = "",
-                                      Separate_Check_ = "",
+                                      Separate_Check = "",
                                       Misc_Pay = "",
-                                      Amount_1_ = "",
+                                      Amount_1 = "",
                                       Misc_Bill_1 = "",
-                                      Misc_Pay_Amount_2_ = "",
-                                      Misc_Bill_2_ = "",
-                                      Misc_Pay_Amount_3_ = "",
+                                      Misc_Pay_Amount_2 = "",
+                                      Misc_Bill_2 = "",
+                                      Misc_Pay_Amount_3 = "",
                                       Misc_Bill_3 = "",
-                                      Misc_Pay_Amount_4_ = "",
-                                      Misc_Bill_4_ = "",
-                                      Misc_Pay_Amount_5_ = "",
-                                      Misc_Bill_5_ = "",
+                                      Misc_Pay_Amount_4 = "",
+                                      Misc_Bill_4 = "",
+                                      Misc_Pay_Amount_5 = "",
+                                      Misc_Bill_5 = "",
                                       Misc_Pay_Amount_6 = "",
                                       Misc_Bill_6 = "",
                                       Misc_Pay_Amount_7 = "",
-                                      Misc_Bill_7_ = "",
-                                      Misc_Pay_Amount_8_ = "",
-                                      Misc_Bill_8_ = "",
+                                      Misc_Bill_7 = "",
+                                      Misc_Pay_Amount_8 = "",
+                                      Misc_Bill_8 = "",
                                       Misc_Pay_Amount_9 = "",
-                                      Misc_Bill_9_ = "",
+                                      Misc_Bill_9 = "",
                                       Permanent_TimeSlip = "",
                                       Expires_On = "",
 
@@ -1074,7 +1086,7 @@ namespace TotalStaffingSolutions.Controllers
                 grid.DataBind();
 
                 Response.ClearContent();
-                Response.AddHeader("content-disposition", "attachment; filename=Exported_Diners.xls");
+                Response.AddHeader("content-disposition", "attachment; filename=TimeSheet.xls");
                 Response.ContentType = "application/excel";
                 StringWriter sw = new StringWriter();
                 HtmlTextWriter htw = new HtmlTextWriter(sw);
@@ -1281,9 +1293,18 @@ namespace TotalStaffingSolutions.Controllers
         {
             var db = new TSS_Sql_Entities();
             var timesheet = db.Timesheets.FirstOrDefault(s => s.Id == timesheetId);
-            var availableUsers = db.AspNetUsers.Where(s => s.Customer_id == timesheet.Customer_Id_Generic).ToList();
-            var availableEmails = availableUsers.Select(s => s.Email).ToList();
-            return Json(availableEmails,JsonRequestBehavior.AllowGet);
+            //var availableUsers = db.AspNetUsers.Where(s => s.Customer_id == timesheet.Customer_Id_Generic).ToList();
+           // var availableEmails = availableUsers.Select(s => s.Email).ToList();
+
+            var availableAddresses = db.CustomerContacts.Where(s => s.Customer_id == timesheet.Customer_Id_Generic).ToList();
+            var availableEmails = availableAddresses.Select(s => s.Email_id).ToList();
+
+            if (availableEmails.Count < 1)
+            {
+                availableEmails.Add("No Email Available");
+            }
+            return Json(availableEmails, JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult GetRejectionReason(int timesheetId)
@@ -1295,10 +1316,13 @@ namespace TotalStaffingSolutions.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Dashboard1(DateTime? start_date, DateTime? end_date,int? branch_id, int? client_id) //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
+        public ActionResult Dashboard(DateTime? start_date, DateTime? end_date,int? branch_id, int? client_id) //IMPORTANT UPDATE ALL FOLLOWING METHODS (Dashboard, TimeSheetsByBranch, TimeSheetsByClient, Timesheetsbyperiod)
         {
             try
             {
+                branch_id = (branch_id == 0)  ? null  : branch_id;
+                client_id = (client_id == 0)  ? null : client_id;
+
                 var db = new TSS_Sql_Entities();
                 List<Branch> bl = db.Branches.ToList();
                 Branch b = new Branch();
@@ -1387,6 +1411,266 @@ namespace TotalStaffingSolutions.Controllers
 
             return View(list);
         }
+
+
+        public bool ExportInExcel(string ids)
+        {
+            try
+            {
+
+                var deserialized = Regex.Split(ids, ",");
+
+                var grid = new GridView();
+                var db = new TSS_Sql_Entities();
+                List<Timesheet_summaries> summariesList = new List<Timesheet_summaries>();
+                TimeSheetTuple timeSheetDetailsTuple = new TimeSheetTuple();
+                foreach (var item in deserialized)
+                {
+                    if(item == "")
+                    continue;
+                    var id = Convert.ToInt32(item);
+                    timeSheetDetailsTuple.TimeSheetGeneralDetails = db.Timesheets.Find(id);
+                    timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
+                    foreach(var summary in timeSheetDetailsTuple.TimeSheetSummary)
+                    {
+                        summariesList.Add(summary);
+                    }
+
+                    var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
+                    timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
+                }
+                    var pono = timeSheetDetailsTuple.TimeSheetGeneralDetails.Po_number;
+
+
+                    grid.DataSource = from d in summariesList
+                                      select new
+                                      {
+                                          Timeslip_ID = d.Timesheet_id,
+                                          Job_Order_Number = "",
+                                          Customer_ID = d.Timesheet.Customer_Id_Generic,
+                                          Customer_Name = d.Timesheet.Customer.Name,
+                                          Site_Code = "",
+                                          Employee_ID = d.Employee_id,
+                                          Employee_Last_Name = d.Employee.Last_name,
+                                          Rate_Code = d.Rate,
+                                          Work_Date = "",
+                                          Batch_Date = d.Timesheet.End_date,
+                                          hour_Type = "",
+                                          Regular_Pay_hours = d.Total_hours,
+                                          Regular_Pay_Rate = d.Rate,
+                                          Regular_Bill_hours = "",
+                                          Regular_Bill_Rate = "",
+                                          Overtime_Pay_hours = "",
+                                          Overtime_Pay_Rate = "",
+                                          Overtime_Bill_hours = "",
+                                          Overtime_Bill_Rate = "",
+                                          Double_Time_Pay_hours = "",
+                                          Double_Time_Pay_Rate = "",
+                                          Double_Time_Bill_hours = "",
+                                          Double_Time_Bill_Rate = "",
+                                          Comp_Code = "",
+                                          Sales_Tax_Code = "",
+                                          PO_Number = pono,
+                                          Release = "",
+                                          Project = "",
+                                          Department_Code = "",
+                                          Office_Code = "",
+                                          Location_Code = "",
+                                          Saleman_1_Code = "",
+                                          Salesman_2_Code = "",
+                                          Pay_Frequency = "",
+                                          Number_of_Days = "",
+                                          Pay_hold = "",
+                                          Bill_hold = "",
+                                          Separate_Check = "",
+                                          Misc_Pay = "",
+                                          Amount_1 = "",
+                                          Misc_Bill_1 = "",
+                                          Misc_Pay_Amount_2 = "",
+                                          Misc_Bill_2 = "",
+                                          Misc_Pay_Amount_3 = "",
+                                          Misc_Bill_3 = "",
+                                          Misc_Pay_Amount_4 = "",
+                                          Misc_Bill_4 = "",
+                                          Misc_Pay_Amount_5 = "",
+                                          Misc_Bill_5 = "",
+                                          Misc_Pay_Amount_6 = "",
+                                          Misc_Bill_6 = "",
+                                          Misc_Pay_Amount_7 = "",
+                                          Misc_Bill_7 = "",
+                                          Misc_Pay_Amount_8 = "",
+                                          Misc_Bill_8 = "",
+                                          Misc_Pay_Amount_9 = "",
+                                          Misc_Bill_9 = "",
+                                          Permanent_TimeSlip = "",
+                                          Expires_On = "",
+
+                                      };
+
+                grid.DataBind();
+                
+
+
+                Response.ClearContent();
+                Response.AddHeader("content-disposition", "attachment; filename=TimeSheet.xls");
+                Response.ContentType = "application/excel";
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                grid.RenderControl(htw);
+
+                Response.Write(sw.ToString());
+
+                Response.End();
+
+
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+            }
+        }
+        
+
+
+        public bool ExportInPDF(string ids)
+        {
+            try
+            {
+
+                var deserialized = Regex.Split(ids, ",");
+
+                var grid = new GridView();
+                var db = new TSS_Sql_Entities();
+                List<Timesheet_summaries> summariesList = new List<Timesheet_summaries>();
+                TimeSheetTuple timeSheetDetailsTuple = new TimeSheetTuple();
+                foreach (var item in deserialized)
+                {
+                    if (item == "")
+                        continue;
+                    var id = Convert.ToInt32(item);
+                    timeSheetDetailsTuple.TimeSheetGeneralDetails = db.Timesheets.Find(id);
+                    timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
+                    foreach (var summary in timeSheetDetailsTuple.TimeSheetSummary)
+                    {
+                        summariesList.Add(summary);
+                    }
+
+                    var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
+                    timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
+                }
+                var pono = timeSheetDetailsTuple.TimeSheetGeneralDetails.Po_number;
+
+
+                grid.DataSource = from d in summariesList
+                                  select new
+                                  {
+                                      Timeslip_ID = d.Timesheet_id,
+                                      Job_Order_Number = "",
+                                      Customer_ID = d.Timesheet.Customer_Id_Generic,
+                                      Customer_Name = d.Timesheet.Customer.Name,
+                                      Site_Code = "",
+                                      Employee_ID = d.Employee_id,
+                                      Employee_Last_Name = d.Employee.Last_name,
+                                      Rate_Code = d.Rate,
+                                      Work_Date = "",
+                                      Batch_Date = d.Timesheet.End_date,
+                                      hour_Type = "",
+                                      Regular_Pay_hours = d.Total_hours,
+                                      Regular_Pay_Rate = d.Rate,
+                                      Regular_Bill_hours = "",
+                                      Regular_Bill_Rate = "",
+                                      Overtime_Pay_hours = "",
+                                      Overtime_Pay_Rate = "",
+                                      Overtime_Bill_hours = "",
+                                      Overtime_Bill_Rate = "",
+                                      Double_Time_Pay_hours = "",
+                                      Double_Time_Pay_Rate = "",
+                                      Double_Time_Bill_hours = "",
+                                      Double_Time_Bill_Rate = "",
+                                      Comp_Code = "",
+                                      Sales_Tax_Code = "",
+                                      PO_Number = pono,
+                                      Release = "",
+                                      Project = "",
+                                      Department_Code = "",
+                                      Office_Code = "",
+                                      Location_Code = "",
+                                      Saleman_1_Code = "",
+                                      Salesman_2_Code = "",
+                                      Pay_Frequency = "",
+                                      Number_of_Days = "",
+                                      Pay_hold = "",
+                                      Bill_hold = "",
+                                      Separate_Check = "",
+                                      Misc_Pay = "",
+                                      Amount_1 = "",
+                                      Misc_Bill_1 = "",
+                                      Misc_Pay_Amount_2 = "",
+                                      Misc_Bill_2 = "",
+                                      Misc_Pay_Amount_3 = "",
+                                      Misc_Bill_3 = "",
+                                      Misc_Pay_Amount_4 = "",
+                                      Misc_Bill_4 = "",
+                                      Misc_Pay_Amount_5 = "",
+                                      Misc_Bill_5 = "",
+                                      Misc_Pay_Amount_6 = "",
+                                      Misc_Bill_6 = "",
+                                      Misc_Pay_Amount_7 = "",
+                                      Misc_Bill_7 = "",
+                                      Misc_Pay_Amount_8 = "",
+                                      Misc_Bill_8 = "",
+                                      Misc_Pay_Amount_9 = "",
+                                      Misc_Bill_9 = "",
+                                      Permanent_TimeSlip = "",
+                                      Expires_On = "",
+
+                                  };
+
+                grid.DataBind();
+
+                
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                grid.RenderControl(htw);
+
+                var mem = new MemoryStream();
+
+                Document document = new Document(PageSize.LETTER, 50, 50, 50, 50);
+                PdfWriter.GetInstance(document, mem);
+
+                document.Open();
+
+                iTextSharp.text.html.simpleparser.HTMLWorker hw = new iTextSharp.text.html.simpleparser.HTMLWorker(document);
+                hw.Parse(new StringReader(sw.ToString()));
+                document.Close();
+
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + DateTime.Now+".pdf");
+
+                Response.BinaryWrite(mem.ToArray());
+                Response.End();
+                Response.Flush();
+                Response.Clear();
+
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+            }
+        }
+
 
     }
 }

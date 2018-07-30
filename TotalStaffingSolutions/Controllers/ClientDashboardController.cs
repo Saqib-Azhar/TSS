@@ -110,7 +110,7 @@ namespace TotalStaffingSolutions.Controllers
             var db = new TSS_Sql_Entities();
             var userId = User.Identity.GetUserId();
             var userObj = db.AspNetUsers.Find(userId);
-            var TimeSheets = db.Timesheets.Where(s => s.Customer_Id_Generic == userObj.Customer_id).ToList();
+            var TimeSheets = db.Timesheets.Where(s => s.Customer_Id_Generic == userObj.Customer_id && s.Status_id != 1).ToList();
 
             return View(TimeSheets);
         }

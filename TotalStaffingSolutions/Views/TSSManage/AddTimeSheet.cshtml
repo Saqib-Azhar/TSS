@@ -161,7 +161,8 @@
             </div>
             <div class="new-comment-section">
                 <label for="male">Comment</label>
-                <input type="text" id="comment" class="form-control">
+                <textarea value="" id="comment" class="form-control" style="padding:0px 0px 0px 0px!important"></textarea>
+
             </div>
         </div>
         <!-- /.box-content -->
@@ -435,7 +436,18 @@
         $("#EmployeesTotalHours").val(totalHoursAllEmp);
 
         $("#EmployeesTotalHours").attr("placeholder",totalHoursAllEmp);
-        $("#TotalEmployees").val(TotalWorkingEmployees);
+        //$("#TotalEmployees").val(TotalWorkingEmployees);
+        var tWorkingEmp =0;
+        for(var a = 1; a <= totalemp; a++)
+        {
+            var tot = $("#totalHours_"+a).val();
+            if(tot > 0)
+            {
+                tWorkingEmp = tWorkingEmp + 1;
+            }
+        }
+
+        $("#TotalEmployees").val(tWorkingEmp);
 
     }
 

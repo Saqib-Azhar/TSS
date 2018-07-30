@@ -270,4 +270,5 @@ C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\bin\zh\Hangfire.Core.re
 C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\bin\zh-TW\Hangfire.Core.resources.dll
 C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.dll
 C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.pdb
-C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.csprojResolveAssemblyReference.cache
+C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\bin\itextsharp.dll
+C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\bin\itextsharp.xml

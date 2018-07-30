@@ -91,9 +91,9 @@
     <div class="row small-spacing">
         <div class="col-xs-12">
             <div class="box-content">
-                <div id="myModal" class="modal">
+                <div id="myModal" class="modal" style="top:0!important">
                     <div class="modal-content">
-                        <span class="close">&times;</span>
+                        <button class="close" onclick="hideModal()">&times;</button>
                         <table class="table-responsive-lg table-hover table-responsive table-striped">
                             <thead>
                                 <tr style="height:50px!important">
@@ -345,8 +345,14 @@
                                 foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td><a href="/TSSManage/TimeSheetDetails/@item.Id">#@item.Id</a></td>
-                                        <td>@item.End_date</td>
+                                        <td>
+                                            <a href="/TSSManage/TimeSheetDetails/@item.Id">#@item.Id</a>
+                                            @if (item.Note != null)
+                                            {
+                                                <b style="color:red">!</b>
+                                            }
+                                        </td>
+                                        <td>@Convert.ToDateTime(item.End_date).ToString("dd/MMM/yyyy")</td>
                                         <td>
                                             @if (item.TimeSheetStatu.Id == 3)
                                             {
@@ -363,12 +369,12 @@
                                         </td>
                                         <td>@item.Total_employees</td>
                                         <td>
-                                            <a href="/TSSManage/EditTimeSheet/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-edit"></a>
-                                            <a href="/TSSManage/TimeSheetDetails/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-eye"></a>
-                                            <a href="/TSSManage/ExportTimesheetInExcel/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-download"></a>
-                                            <button type="button" onclick="CopyTimesheet(@item.Id)" class="btn btn-primary btn-xs waves-effect waves-light fa fa-clone"></button>
-                                            <button type="button" onclick="DeleteTimesheetLink(@item.Id)" class="btn btn-danger btn-xs waves-effect waves-light fa fa-trash"></button>
-                                            <button type="button" onclick="GetClientEmails(@item.Id,@item.TimeSheetStatu.Id)" class="btn btn-success btn-xs waves-effect waves-light">Send Email</button>
+                                            <a href="/TSSManage/EditTimeSheet/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-edit" data-toggle="tooltip" title="Edit Timesheet"></a>
+                                            <a href="/TSSManage/TimeSheetDetails/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-eye" data-toggle="tooltip" title="View Timesheet"></a>
+                                            <a href="/TSSManage/ExportTimesheetInExcel/@item.Id" class="btn btn-primary btn-xs waves-effect waves-light fa fa-download" data-toggle="tooltip" title="Download Timesheet"></a>
+                                            <button type="button" onclick="CopyTimesheet(@item.Id)" class="btn btn-primary btn-xs waves-effect waves-light fa fa-clone" data-toggle="tooltip" title="Copy Timesheet"></button>
+                                            <button type="button" onclick="DeleteTimesheetLink(@item.Id)" class="btn btn-danger btn-xs waves-effect waves-light fa fa-trash" data-toggle="tooltip" title="Delete Timesheet"></button>
+                                            <button type="button" onclick="GetClientEmails(@item.Id,@item.TimeSheetStatu.Id)" class="btn btn-success btn-xs waves-effect waves-light" data-toggle="tooltip" title="Send Link">Send Email</button>
                                             @*<button type="button" onclick="copyLink(@item.Id)" class="btn btn-success btn-xs waves-effect waves-light">Copy Link</button>*@
                                         </td>
                                     </tr>
@@ -413,7 +419,7 @@ btn.onclick = function() {
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+function hideModal() {
     modal.style.display = "none";
 }
 
@@ -427,7 +433,7 @@ window.onclick = function(event) {
 
 <script>
    
-    function SendTimesheetLink(id, email, timesheetStatus) {
+    @*function SendTimesheetLink(id, email, timesheetStatus) {
         if (timesheetStatus == 3) {
             if (window.confirm("This timesheet is already submitted, \nDo you want still want to Send link?")) {
                 $('#emailsList').modal('toggle');
@@ -468,8 +474,63 @@ window.onclick = function(event) {
 
 
         }
-    }
+    }*@
+    function SendTimesheetLink(id, email, timesheetStatus) {
+        if (timesheetStatus == 3) {
+            if (window.confirm("This timesheet is already submitted, \nDo you want still want to Send link?")) {
+                $('#emailsList').modal('toggle');
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify({ id: id, email: email, checkUser: 0 }),
+                    url: '@Url.Action("SendTimeSheetLink", "TSSManage")',
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        if (data = "Customer Doesn't Exists") {
+                            if (confirm("This email address is not registered, Do you want to send the invitation?")) {
+                                window.location = "/TSSManage/SendAccountEmail?Email=" + email + "&Id=" + id;
+                            }
+                        }
+                        else {
+                            alert(data);
+                        }
+                    },
+                    error: function (req, status, errorObj) {
+                        alert(errorObj.toString());
+                    }
+                });
+            }
+            else {
+                $('#emailsList').modal('toggle');
 
+            }
+        }
+        else {
+            $('#emailsList').modal('toggle');
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify({ id: id, email: email, checkUser: 0 }),
+                url: '@Url.Action("SendTimeSheetLink", "TSSManage")',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data = "Customer Doesn't Exists") {
+                        if (confirm("This email address is not registered, Do you want to send the invitation?")) {
+                            window.location = "/TSSManage/SendConfirmationStatus?Email=" + email + "&Id=" + id;
+                        }
+                    }
+                    else {
+                        alert(data);
+                    }
+                },
+                error: function (req, status, errorObj) {
+                    alert(errorObj.toString());
+                }
+            });
+
+
+        }
+    }
 
     function DeleteTimesheetLink(id)
     {
@@ -543,6 +604,7 @@ window.onclick = function(event) {
         $("button").click(function () {
             $("#txt").load("demo_ajax_load.asp");
         });
+        $('[data-toggle="tooltip"]').tooltip();
     });
 
     function RejectionReason(timesheetId) {
@@ -564,13 +626,14 @@ window.onclick = function(event) {
 
                 var screenTop = $(document).scrollTop();
                 $('.modal').css('top', screenTop + 50);
+                $('#myModal').css('top', 0);
             },
             error: function (req, status, errorObj) {
                 alert(errorObj.toString());
             }
         });
     }
-    function GetClientEmails(timesheetId, timesheetStatus) {
+    @*function GetClientEmails(timesheetId, timesheetStatus) {
 
         $.ajax({
             type: 'POST',
@@ -587,6 +650,39 @@ window.onclick = function(event) {
                 $('.modal-backdrop').remove();
                 var screenTop = $(document).scrollTop();
                 $('.modal').css('top', screenTop + 50);
+                $('#myModal').css('top', 0);
+            },
+            error: function (req, status, errorObj) {
+                alert(errorObj.toString());
+            }
+        });
+    }*@
+
+    function GetClientEmails(timesheetId, timesheetStatus) {
+
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({ timesheetId: timesheetId }),
+            url: '@Url.Action("GetClientEmails", "TSSManage")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#emailsList").modal("show");
+                var html = "";
+                $.each(data, function (i, item) {
+                    var email = JSON.stringify(item);
+                    console.log(item);
+                    if (item != null && item != "") {
+                        html = html + "<div class='row'><div class='col-md-6'>" + item + "</div><div class='col-md-6'><button onclick='SendTimesheetLink(" + timesheetId + "," + email + "," + timesheetStatus + ")' class='btn btn-default form-control'>Send Email</button></div></div><br/>";
+                    }
+                    else if (item == "No Email Available") {
+                        html = html + "<div class='row'><div class='col-md-6' style='color:red'>" + item + "</div><div class='col-md-6'></div></div>";
+                    }
+                });
+                $("#contentBody").html(html);
+                $('.modal-backdrop').remove();
+                var screenTop = $(document).scrollTop();
+                $('.modal').css('top', screenTop + 150);
             },
             error: function (req, status, errorObj) {
                 alert(errorObj.toString());

@@ -4,7 +4,7 @@
 }
 <script src="~/assets/scripts/jquery.min.js"></script>
 <div class="modal fadee" id="ShowRejectionReason" role="dialog">
-    <div class="modal-dialog" style="top: 189px;">
+    <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="modal fadee" id="RejectionReasonModal" role="dialog">
-    <div class="modal-dialog" style="top: 189px;">
+    <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -72,7 +72,7 @@
                                 <th><input type="checkbox" id="rememberme"></th>
                                 <td><a href="/TSSManage/TimeSheetDetails/@item.Id">@item.Customer.Name</a></td>
                                 <td><a href="/TSSManage/TimeSheetDetails/@item.Id">#@item.Id</a></td>
-                                <td>@item.End_date</td>
+                                <td>@Convert.ToDateTime(item.End_date).ToString("dd/MMM/yyyy")</td>
                                 <td>
                                     @if (item.TimeSheetStatu.Id ==3)
                                     {
@@ -80,7 +80,7 @@
                                     }
                                     else if (item.TimeSheetStatu.Id == 4)
                                     {
-                                        <span class="notice notice-danger" onclick="RejectionReason(@item.Id)">@item.TimeSheetStatu.Status</span>
+                                        <span class="notice notice-danger" style="cursor:pointer" onclick="RejectionReason(@item.Id)">@item.TimeSheetStatu.Status</span>
                                     }
                                     else
                                     {
@@ -88,11 +88,11 @@
                                     }</td>
                                 <td>@item.Total_employees</td>
                                 <td>
-                                    <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                    <a class="btn btn-xs btn-primary" href="/TSSManage/TimeSheetDetails/@item.Id" data-toggle="tooltip" title="Open Timesheet"><span class="glyphicon glyphicon-eye-open"></span></a>
 
                                     @if (item.TimeSheetStatu.Id == 2)
                                     {
-                                        <button class="btn btn-xs btn-danger" onclick="ShowModal(@item.Id)"><span class="glyphicon glyphicon-floppy-remove"></span></button>
+                                        <button class="btn btn-xs btn-danger" onclick="ShowModal(@item.Id)" data-toggle="tooltip" title="Reject Timesheet"><span class="glyphicon glyphicon-floppy-remove"></span></button>
                                     }
                                 </td>
                             </tr>
@@ -126,6 +126,8 @@
         $("button").click(function () {
             $("#txt").load("demo_ajax_load.asp");
         });
+        $('[data-toggle="tooltip"]').tooltip();
+
     });
 
 
@@ -134,6 +136,8 @@
         $("#RejectedTimeSheetId").val(id);
         $("#RejectionReasonModal").modal("show");
         $('.modal-backdrop').remove();
+        var screenTop = $(document).scrollTop();
+        $('.modal').css('top', screenTop + 150);
     }
 
     function RejectTimeSheet()
@@ -175,6 +179,8 @@
                 $("#rejectionContentBody").html("<div class='row'><div class='col-md-12'>" + data.RejectionReason + "</div><div class='col-md-6'></div></div>");
             
                 $('.modal-backdrop').remove();
+                var screenTop = $(document).scrollTop();
+                $('.modal').css('top', screenTop + 150);
             },
             error: function (req, status, errorObj) {
                 alert(errorObj.toString());
