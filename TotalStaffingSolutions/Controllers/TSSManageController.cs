@@ -67,59 +67,14 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+               ExceptionHandlerController.infoMessage(ex.Message);
+               ExceptionHandlerController.writeErrorLog(ex);
             }
             var list = new List<Timesheet>();
 
             return View(list);
         }
-
-
-
-
-        public static void infoMessage(string _message)
-        {
-            StreamWriter sw = null;
-            try
-            {
-                sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\LogFile.txt", true);
-                sw.WriteLine(DateTime.Now.ToString() + " " + _message);
-                sw.Flush();
-                sw.Close();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        public static void writeErrorLog(Exception ex)
-        {
-            StreamWriter sw = null;
-            try
-            {
-                sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\LogFile.txt", true);
-                sw.WriteLine(DateTime.Now.ToString() + " " + ex.Source.ToString().Trim() + " " + ex.Message.ToString().Trim());
-                sw.Flush();
-                sw.Close();
-            }
-            catch (Exception exp)
-            {
-
-                throw exp;
-            }
-        }
-
-
-
-
-
-
-
-
-
-
+        
         [Authorize(Roles = "Admin")]
         public ActionResult Branches()
         {
@@ -164,7 +119,7 @@ namespace TotalStaffingSolutions.Controllers
                 return RedirectToAction("Branches", "TSSManage");
             }
         }
-
+        
         [Authorize(Roles = "Admin")]
         public ActionResult EditExistingBranch(Branch branch)
         {
@@ -378,8 +333,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -610,8 +565,8 @@ namespace TotalStaffingSolutions.Controllers
                     catch (Exception ex)
                     {
 
-                        infoMessage(ex.Message);
-                        writeErrorLog(ex);
+                        ExceptionHandlerController.infoMessage(ex.Message);
+                        ExceptionHandlerController.writeErrorLog(ex);;
                     }
                 }
                 #endregion
@@ -620,8 +575,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -728,8 +683,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
                 var savedContactConfirmationObj = db.ContactConfirmations.OrderByDescending(s => s.Id).FirstOrDefault(s => s.ContactId == contactStatusObj.ContactId);
                 savedContactConfirmationObj.ConfirmationStatusId = 4;
                 savedContactConfirmationObj.LastUpdate = DateTime.Now;
@@ -894,8 +849,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
                 return Json("failure", JsonRequestBehavior.AllowGet);
             }
         }
@@ -951,8 +906,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
                 return Json("Something Went wrong..!", JsonRequestBehavior.AllowGet);
 
             }
@@ -990,8 +945,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
                 return Json("Something Went wrong..!", JsonRequestBehavior.AllowGet);
 
             }
@@ -1199,8 +1154,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
             }
             var list = new List<Timesheet>();
 
@@ -1238,8 +1193,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
             }
             var list = new List<Timesheet>();
 
@@ -1280,8 +1235,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
             }
             var list = new List<Timesheet>();
 
@@ -1404,8 +1359,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
-                infoMessage(ex.Message);
-                writeErrorLog(ex);
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
             }
             var list = new List<Timesheet>();
 
@@ -1530,6 +1485,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
                 return false;
 
             }
@@ -1666,6 +1623,8 @@ namespace TotalStaffingSolutions.Controllers
             }
             catch (Exception ex)
             {
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);;
                 return false;
 
             }

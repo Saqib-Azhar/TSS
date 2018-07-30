@@ -235,6 +235,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientDashboardController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\ExceptionHandlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TSSManageController.cs" />
@@ -1941,6 +1942,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ProfileImages\" />
+    <Folder Include="Views\ExceptionHandler\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
