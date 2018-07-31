@@ -1599,138 +1599,183 @@ namespace TotalStaffingSolutions.Controllers
         }
         protected PdfPTable Add_Content_To_PDF(PdfPTable tableLayout, string ids)
         {
-            var db = new TSS_Sql_Entities();
-            var deserialized = Regex.Split(ids, ",");
-
-            float[] headers = { 10, 10, 5, 5, 7, 7, 7, 7, 7, 7, 7, 7, 10 }; //Header Widths  
-            tableLayout.SetWidths(headers); //Set the pdf headers  
-            tableLayout.WidthPercentage = 100; //Set the PDF File witdh percentage  
-            tableLayout.HeaderRows = 1;
-            //Add Title to the PDF file at the top  
-            int tsid = Convert.ToInt32(deserialized[1]);
-            var TimesheetSummaries = db.Timesheet_summaries.Where(t=>t.Timesheet_id == tsid).ToList();
-            string CustomerDetails = TimesheetSummaries[0].Timesheet.Customer.Name + "-" + TimesheetSummaries[0].Timesheet.Customer.Id;
-            if (TimesheetSummaries[0].Timesheet.Customer.Address1 != "")
+            try
             {
-                CustomerDetails = CustomerDetails +
-                "\n" + TimesheetSummaries[0].Timesheet.Customer.Address1;
+                var db = new TSS_Sql_Entities();
+                var deserialized = Regex.Split(ids, ",");
+
+                float[] headers = { 10, 10, 5, 5, 7, 7, 7, 7, 7, 7, 7, 7, 10 }; //Header Widths  
+                tableLayout.SetWidths(headers); //Set the pdf headers  
+                tableLayout.WidthPercentage = 100; //Set the PDF File witdh percentage  
+                tableLayout.HeaderRows = 1;
+                //Add Title to the PDF file at the top  
+                int tsid = Convert.ToInt32(deserialized[1]);
+                var TimesheetSummaries = db.Timesheet_summaries.Where(t => t.Timesheet_id == tsid).ToList();
+                string CustomerDetails = TimesheetSummaries[0].Timesheet.Customer.Name + "-" + TimesheetSummaries[0].Timesheet.Customer.Id;
+                if (TimesheetSummaries[0].Timesheet.Customer.Address1 != "")
+                {
+                    CustomerDetails = CustomerDetails +
+                    "\n" + TimesheetSummaries[0].Timesheet.Customer.Address1;
+                }
+                if (TimesheetSummaries[0].Timesheet.Customer.Address2 != "")
+                {
+                    CustomerDetails = CustomerDetails + "\n" +
+                    TimesheetSummaries[0].Timesheet.Customer.Address2;
+
+
+                }
+                if (TimesheetSummaries[0].Timesheet.Customer.PhoneNumber != "")
+                {
+                    CustomerDetails = CustomerDetails + "\n" +
+                    TimesheetSummaries[0].Timesheet.Customer.PhoneNumber;
+
+                }
+                if (TimesheetSummaries[0].Timesheet.End_date != null)
+                {
+                    CustomerDetails = CustomerDetails + "\nWeek Ending:" +
+                    TimesheetSummaries[0].Timesheet.End_date.ToString();
+
+                }
+
+                tableLayout.AddCell(new PdfPCell(new Phrase("Total Staffing Solutions", new Font(Font.FontFamily.TIMES_ROMAN, 16, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+                {
+                    Colspan = 6,
+                    Border = 0,
+                    PaddingBottom = 5,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                });
+                tableLayout.AddCell(new PdfPCell(new Phrase(CustomerDetails, new Font(Font.FontFamily.TIMES_ROMAN, 12, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+                {
+                    Colspan = 7,
+                    Border = 0,
+                    PaddingBottom = 5,
+                    HorizontalAlignment = Element.ALIGN_MIDDLE
+                });
+
+
+                ////Add header  
+                AddCellToHeader(tableLayout, "Last Name");
+                AddCellToHeader(tableLayout, "First Name");
+                AddCellToHeader(tableLayout, "Emp#");
+                AddCellToHeader(tableLayout, "RT");
+                AddCellToHeader(tableLayout, "Mon");
+                AddCellToHeader(tableLayout, "Tue");
+                AddCellToHeader(tableLayout, "Wed");
+                AddCellToHeader(tableLayout, "Thurs");
+                AddCellToHeader(tableLayout, "Fri");
+                AddCellToHeader(tableLayout, "Sat");
+                AddCellToHeader(tableLayout, "Sun");
+                AddCellToHeader(tableLayout, "Total");
+                AddCellToHeader(tableLayout, "Rate Performance");
+
+                ////Add body  
+
+                foreach (var ts in TimesheetSummaries)
+                {
+                    AddCellToBody(tableLayout, ts.Employee.Last_name);
+                    AddCellToBody(tableLayout, ts.Employee.First_name);
+                    AddCellToBody(tableLayout, ts.Employee_id.ToString());
+                    AddCellToBody(tableLayout, ts.Rate);
+                    AddCellToBody(tableLayout, "7");
+                    AddCellToBody(tableLayout, "3");
+                    AddCellToBody(tableLayout, "2");
+                    AddCellToBody(tableLayout, "4");
+                    AddCellToBody(tableLayout, "6");
+                    AddCellToBody(tableLayout, "5");
+                    AddCellToBody(tableLayout, "7");
+                    AddCellToBody(tableLayout, ts.Total_hours.ToString());
+                    AddCellToBody(tableLayout, ts.Rating_by_client.ToString());
+
+                }
+                AddCellToFooter(tableLayout, "Rate Performance", tsid);
+                return tableLayout;
             }
-            if (TimesheetSummaries[0].Timesheet.Customer.Address2 != "")
+            catch (Exception ex)
             {
-                CustomerDetails = CustomerDetails + "\n" +
-                TimesheetSummaries[0].Timesheet.Customer.Address2;
 
-
-            }
-            if (TimesheetSummaries[0].Timesheet.Customer.PhoneNumber != "")
-            {
-                CustomerDetails = CustomerDetails + "\n" +
-                TimesheetSummaries[0].Timesheet.Customer.PhoneNumber;
-
-            }
-            if (TimesheetSummaries[0].Timesheet.End_date != null)
-            {
-                CustomerDetails = CustomerDetails + "\nWeek Ending:" +
-                TimesheetSummaries[0].Timesheet.End_date.ToString();
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);
+                return tableLayout;
 
             }
 
-            tableLayout.AddCell(new PdfPCell(new Phrase("Total Staffing Solutions", new Font(Font.FontFamily.TIMES_ROMAN, 16, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
-            {
-                Colspan = 6,
-                Border = 0,
-                PaddingBottom = 5,
-                HorizontalAlignment = Element.ALIGN_CENTER
-            });
-            tableLayout.AddCell(new PdfPCell(new Phrase(CustomerDetails, new Font(Font.FontFamily.TIMES_ROMAN, 12, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
-            {
-                Colspan = 7,
-                Border = 0,
-                PaddingBottom = 5,
-                HorizontalAlignment = Element.ALIGN_MIDDLE
-            });
-
-
-            ////Add header  
-            AddCellToHeader(tableLayout, "Last Name");
-            AddCellToHeader(tableLayout, "First Name");
-            AddCellToHeader(tableLayout, "Emp#");
-            AddCellToHeader(tableLayout, "RT");
-            AddCellToHeader(tableLayout, "Mon");
-            AddCellToHeader(tableLayout, "Tue");
-            AddCellToHeader(tableLayout, "Wed");
-            AddCellToHeader(tableLayout, "Thurs");
-            AddCellToHeader(tableLayout, "Fri");
-            AddCellToHeader(tableLayout, "Sat");
-            AddCellToHeader(tableLayout, "Sun");
-            AddCellToHeader(tableLayout, "Total");
-            AddCellToHeader(tableLayout, "Rate Performance");
-
-            ////Add body  
-
-            foreach (var ts in TimesheetSummaries)
-            {
-                AddCellToBody(tableLayout, ts.Employee.Last_name);
-                AddCellToBody(tableLayout, ts.Employee.First_name);
-                AddCellToBody(tableLayout, ts.Employee_id.ToString());
-                AddCellToBody(tableLayout, ts.Rate);
-                AddCellToBody(tableLayout, "7");
-                AddCellToBody(tableLayout, "3");
-                AddCellToBody(tableLayout, "2");
-                AddCellToBody(tableLayout, "4");
-                AddCellToBody(tableLayout, "6");
-                AddCellToBody(tableLayout, "5");
-                AddCellToBody(tableLayout, "7");
-                AddCellToBody(tableLayout, ts.Total_hours.ToString());
-                AddCellToBody(tableLayout, ts.Rating_by_client.ToString());
-
-            }
-            AddCellToFooter(tableLayout, "Rate Performance",tsid);
-            return tableLayout;
         }
         // Method to add single cell to the Header  
         private static void AddCellToHeader(PdfPTable tableLayout, string cellText)
         {
-
-            tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.TIMES_ROMAN, 10, 1, iTextSharp.text.BaseColor.BLACK)))
+            try
             {
-                HorizontalAlignment = Element.ALIGN_CENTER,
-                Padding = 1,
-                BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
-                
-            });
+
+                tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.TIMES_ROMAN, 10, 1, iTextSharp.text.BaseColor.BLACK)))
+                {
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    Padding = 1,
+                    BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+
+                });
+            }
+            catch (Exception ex)
+            {
+
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);
+                throw;
+            }
+
         }
         // Method to add single cell to the Footer  
         private static void AddCellToFooter(PdfPTable tableLayout, string cellText,int tsid)
         {
-            var db = new TSS_Sql_Entities();
-            var ts = db.Timesheets.FirstOrDefault(s => s.Id == tsid);
-         
-            tableLayout.AddCell(new PdfPCell(new Phrase("Authorize Signature: " + ts.Signature, new Font(Font.FontFamily.TIMES_ROMAN, 16, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+            try
             {
-                Colspan = 13,
-                Border = 0,
-                Padding = 5,
-                HorizontalAlignment = Element.ALIGN_CENTER
-            });
-            tableLayout.AddCell(new PdfPCell(new Phrase("Please e-mail to payroll@4tssi.com on Monday’s before 10:00am ", new Font(Font.FontFamily.TIMES_ROMAN, 12, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+                var db = new TSS_Sql_Entities();
+                var ts = db.Timesheets.FirstOrDefault(s => s.Id == tsid);
+
+                tableLayout.AddCell(new PdfPCell(new Phrase("Authorize Signature: " + ts.Signature, new Font(Font.FontFamily.TIMES_ROMAN, 16, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+                {
+                    Colspan = 13,
+                    Border = 0,
+                    Padding = 5,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                });
+                tableLayout.AddCell(new PdfPCell(new Phrase("Please e-mail to payroll@4tssi.com on Monday’s before 10:00am ", new Font(Font.FontFamily.TIMES_ROMAN, 12, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+                {
+                    Colspan = 13,
+                    Border = 0,
+                    Padding = 5,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                });
+            }
+            catch (Exception ex)
             {
-                Colspan = 13,
-                Border = 0,
-                Padding = 5,
-                HorizontalAlignment = Element.ALIGN_CENTER
-            });
+
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);
+                throw;
+            }
+           
         }
 
         // Method to add single cell to the body  
         private static void AddCellToBody(PdfPTable tableLayout, string cellText)
         {
-            tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.HELVETICA, 8, 1, iTextSharp.text.BaseColor.BLACK)))
+            try
             {
-                HorizontalAlignment = Element.ALIGN_CENTER,
-                Padding = 3,
-                BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
-            });
+                tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.HELVETICA, 8, 1, iTextSharp.text.BaseColor.BLACK)))
+                {
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    Padding = 3,
+                    BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+                });
+            }
+            catch (Exception ex)
+            {
+
+                ExceptionHandlerController.infoMessage(ex.Message);
+                ExceptionHandlerController.writeErrorLog(ex);
+                throw;
+            }
+           
         }
 
     }
