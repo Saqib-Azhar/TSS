@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
@@ -1549,142 +1550,188 @@ namespace TotalStaffingSolutions.Controllers
         
 
 
-        public bool ExportInPDF(string ids)
+        public FileResult ExportInPDF(string ids)
         {
             try
             {
+                MemoryStream workStream = new MemoryStream();
+                StringBuilder status = new StringBuilder("");
+                DateTime dTime = DateTime.Now;
+                //file name to be created   
+                string strPDFFileName = string.Format("SamplePdf" + dTime.ToString("yyyyMMdd") + "-" + ".pdf");
+                Document doc = new Document();
+                doc.SetMargins(0, 0, 0, 0);
+                //Create PDF Table with 5 columns  
+                PdfPTable tableLayout = new PdfPTable(13);
+                doc.SetMargins(0, 0, 0, 0);
+                //Create PDF Table  
 
-                var deserialized = Regex.Split(ids, ",");
-
-                var grid = new GridView();
-                var db = new TSS_Sql_Entities();
-                List<Timesheet_summaries> summariesList = new List<Timesheet_summaries>();
-                TimeSheetTuple timeSheetDetailsTuple = new TimeSheetTuple();
-                foreach (var item in deserialized)
-                {
-                    if (item == "")
-                        continue;
-                    var id = Convert.ToInt32(item);
-                    timeSheetDetailsTuple.TimeSheetGeneralDetails = db.Timesheets.Find(id);
-                    timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
-                    foreach (var summary in timeSheetDetailsTuple.TimeSheetSummary)
-                    {
-                        summariesList.Add(summary);
-                    }
-
-                    var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
-                    timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
-                }
-                var pono = timeSheetDetailsTuple.TimeSheetGeneralDetails.Po_number;
+                //file will created in this path  
+                string strAttachment = Server.MapPath("~/Downloadss/" + strPDFFileName);
 
 
-                grid.DataSource = from d in summariesList
-                                  select new
-                                  {
-                                      Timeslip_ID = d.Timesheet_id,
-                                      Job_Order_Number = "",
-                                      Customer_ID = d.Timesheet.Customer_Id_Generic,
-                                      Customer_Name = d.Timesheet.Customer.Name,
-                                      Site_Code = "",
-                                      Employee_ID = d.Employee_id,
-                                      Employee_Last_Name = d.Employee.Last_name,
-                                      Rate_Code = d.Rate,
-                                      Work_Date = "",
-                                      Batch_Date = d.Timesheet.End_date,
-                                      hour_Type = "",
-                                      Regular_Pay_hours = d.Total_hours,
-                                      Regular_Pay_Rate = d.Rate,
-                                      Regular_Bill_hours = "",
-                                      Regular_Bill_Rate = "",
-                                      Overtime_Pay_hours = "",
-                                      Overtime_Pay_Rate = "",
-                                      Overtime_Bill_hours = "",
-                                      Overtime_Bill_Rate = "",
-                                      Double_Time_Pay_hours = "",
-                                      Double_Time_Pay_Rate = "",
-                                      Double_Time_Bill_hours = "",
-                                      Double_Time_Bill_Rate = "",
-                                      Comp_Code = "",
-                                      Sales_Tax_Code = "",
-                                      PO_Number = pono,
-                                      Release = "",
-                                      Project = "",
-                                      Department_Code = "",
-                                      Office_Code = "",
-                                      Location_Code = "",
-                                      Saleman_1_Code = "",
-                                      Salesman_2_Code = "",
-                                      Pay_Frequency = "",
-                                      Number_of_Days = "",
-                                      Pay_hold = "",
-                                      Bill_hold = "",
-                                      Separate_Check = "",
-                                      Misc_Pay = "",
-                                      Amount_1 = "",
-                                      Misc_Bill_1 = "",
-                                      Misc_Pay_Amount_2 = "",
-                                      Misc_Bill_2 = "",
-                                      Misc_Pay_Amount_3 = "",
-                                      Misc_Bill_3 = "",
-                                      Misc_Pay_Amount_4 = "",
-                                      Misc_Bill_4 = "",
-                                      Misc_Pay_Amount_5 = "",
-                                      Misc_Bill_5 = "",
-                                      Misc_Pay_Amount_6 = "",
-                                      Misc_Bill_6 = "",
-                                      Misc_Pay_Amount_7 = "",
-                                      Misc_Bill_7 = "",
-                                      Misc_Pay_Amount_8 = "",
-                                      Misc_Bill_8 = "",
-                                      Misc_Pay_Amount_9 = "",
-                                      Misc_Bill_9 = "",
-                                      Permanent_TimeSlip = "",
-                                      Expires_On = "",
+                PdfWriter.GetInstance(doc, workStream).CloseStream = false;
+                doc.Open();
 
-                                  };
+                //Add Content to PDF   
+                doc.Add(Add_Content_To_PDF(tableLayout, ids));
 
-                grid.DataBind();
+                // Closing the document  
+                doc.Close();
 
-                
-                StringWriter sw = new StringWriter();
-                HtmlTextWriter htw = new HtmlTextWriter(sw);
-
-                grid.RenderControl(htw);
-
-                var mem = new MemoryStream();
-
-                Document document = new Document(PageSize.LETTER, 50, 50, 50, 50);
-                PdfWriter.GetInstance(document, mem);
-
-                document.Open();
-
-                iTextSharp.text.html.simpleparser.HTMLWorker hw = new iTextSharp.text.html.simpleparser.HTMLWorker(document);
-                hw.Parse(new StringReader(sw.ToString()));
-                document.Close();
-
-                Response.ClearContent();
-                Response.ClearHeaders();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=" + DateTime.Now+".pdf");
-
-                Response.BinaryWrite(mem.ToArray());
-                Response.End();
-                Response.Flush();
-                Response.Clear();
+                byte[] byteInfo = workStream.ToArray();
+                workStream.Write(byteInfo, 0, byteInfo.Length);
+                workStream.Position = 0;
 
 
-                return true;
+                return File(workStream, "application/pdf", strPDFFileName);
+
+                //return true;
 
             }
             catch (Exception ex)
             {
                 ExceptionHandlerController.infoMessage(ex.Message);
                 ExceptionHandlerController.writeErrorLog(ex);
-                return false;
-
+                // return false;
+                return File("application/pdf", "a");
             }
         }
+        protected PdfPTable Add_Content_To_PDF(PdfPTable tableLayout, string ids)
+        {
+            var db = new TSS_Sql_Entities();
+            var deserialized = Regex.Split(ids, ",");
 
+            float[] headers = { 10, 10, 5, 5, 7, 7, 7, 7, 7, 7, 7, 7, 10 }; //Header Widths  
+            tableLayout.SetWidths(headers); //Set the pdf headers  
+            tableLayout.WidthPercentage = 100; //Set the PDF File witdh percentage  
+            tableLayout.HeaderRows = 1;
+            //Add Title to the PDF file at the top  
+            int tsid = Convert.ToInt32(deserialized[1]);
+            var TimesheetSummaries = db.Timesheet_summaries.Where(t=>t.Timesheet_id == tsid).ToList();
+            string CustomerDetails = TimesheetSummaries[0].Timesheet.Customer.Name + "-" + TimesheetSummaries[0].Timesheet.Customer.Id;
+            if (TimesheetSummaries[0].Timesheet.Customer.Address1 != "")
+            {
+                CustomerDetails = CustomerDetails +
+                "\n" + TimesheetSummaries[0].Timesheet.Customer.Address1;
+            }
+            if (TimesheetSummaries[0].Timesheet.Customer.Address2 != "")
+            {
+                CustomerDetails = CustomerDetails + "\n" +
+                TimesheetSummaries[0].Timesheet.Customer.Address2;
+
+
+            }
+            if (TimesheetSummaries[0].Timesheet.Customer.PhoneNumber != "")
+            {
+                CustomerDetails = CustomerDetails + "\n" +
+                TimesheetSummaries[0].Timesheet.Customer.PhoneNumber;
+
+            }
+            if (TimesheetSummaries[0].Timesheet.End_date != null)
+            {
+                CustomerDetails = CustomerDetails + "\nWeek Ending:" +
+                TimesheetSummaries[0].Timesheet.End_date.ToString();
+
+            }
+
+            tableLayout.AddCell(new PdfPCell(new Phrase("Total Staffing Solutions", new Font(Font.FontFamily.TIMES_ROMAN, 16, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+            {
+                Colspan = 6,
+                Border = 0,
+                PaddingBottom = 5,
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            tableLayout.AddCell(new PdfPCell(new Phrase(CustomerDetails, new Font(Font.FontFamily.TIMES_ROMAN, 12, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+            {
+                Colspan = 7,
+                Border = 0,
+                PaddingBottom = 5,
+                HorizontalAlignment = Element.ALIGN_MIDDLE
+            });
+
+
+            ////Add header  
+            AddCellToHeader(tableLayout, "Last Name");
+            AddCellToHeader(tableLayout, "First Name");
+            AddCellToHeader(tableLayout, "Emp#");
+            AddCellToHeader(tableLayout, "RT");
+            AddCellToHeader(tableLayout, "Mon");
+            AddCellToHeader(tableLayout, "Tue");
+            AddCellToHeader(tableLayout, "Wed");
+            AddCellToHeader(tableLayout, "Thurs");
+            AddCellToHeader(tableLayout, "Fri");
+            AddCellToHeader(tableLayout, "Sat");
+            AddCellToHeader(tableLayout, "Sun");
+            AddCellToHeader(tableLayout, "Total");
+            AddCellToHeader(tableLayout, "Rate Performance");
+
+            ////Add body  
+
+            foreach (var ts in TimesheetSummaries)
+            {
+                AddCellToBody(tableLayout, ts.Employee.Last_name);
+                AddCellToBody(tableLayout, ts.Employee.First_name);
+                AddCellToBody(tableLayout, ts.Employee_id.ToString());
+                AddCellToBody(tableLayout, ts.Rate);
+                AddCellToBody(tableLayout, "7");
+                AddCellToBody(tableLayout, "3");
+                AddCellToBody(tableLayout, "2");
+                AddCellToBody(tableLayout, "4");
+                AddCellToBody(tableLayout, "6");
+                AddCellToBody(tableLayout, "5");
+                AddCellToBody(tableLayout, "7");
+                AddCellToBody(tableLayout, ts.Total_hours.ToString());
+                AddCellToBody(tableLayout, ts.Rating_by_client.ToString());
+
+            }
+            AddCellToFooter(tableLayout, "Rate Performance",tsid);
+            return tableLayout;
+        }
+        // Method to add single cell to the Header  
+        private static void AddCellToHeader(PdfPTable tableLayout, string cellText)
+        {
+
+            tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.TIMES_ROMAN, 10, 1, iTextSharp.text.BaseColor.BLACK)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                Padding = 1,
+                BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+                
+            });
+        }
+        // Method to add single cell to the Footer  
+        private static void AddCellToFooter(PdfPTable tableLayout, string cellText,int tsid)
+        {
+            var db = new TSS_Sql_Entities();
+            var ts = db.Timesheets.FirstOrDefault(s => s.Id == tsid);
+         
+            tableLayout.AddCell(new PdfPCell(new Phrase("Authorize Signature: " + ts.Signature, new Font(Font.FontFamily.TIMES_ROMAN, 16, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+            {
+                Colspan = 13,
+                Border = 0,
+                Padding = 5,
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            tableLayout.AddCell(new PdfPCell(new Phrase("Please e-mail to payroll@4tssi.com on Monday’s before 10:00am ", new Font(Font.FontFamily.TIMES_ROMAN, 12, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
+            {
+                Colspan = 13,
+                Border = 0,
+                Padding = 5,
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+        }
+
+        // Method to add single cell to the body  
+        private static void AddCellToBody(PdfPTable tableLayout, string cellText)
+        {
+            tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.HELVETICA, 8, 1, iTextSharp.text.BaseColor.BLACK)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                Padding = 3,
+                BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+            });
+        }
 
     }
 }

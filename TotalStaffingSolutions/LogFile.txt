@@ -14,3 +14,21 @@
 26-Jul-18 11:14:00 AM TotalStaffingSolutions Object reference not set to an instance of an object.
 26-Jul-18 1:21:10 PM Object reference not set to an instance of an object.
 26-Jul-18 1:21:10 PM TotalStaffingSolutions Object reference not set to an instance of an object.
+31-Jul-18 12:32:01 PM Input string was not in a correct format.
+31-Jul-18 12:32:01 PM mscorlib Input string was not in a correct format.
+31-Jul-18 12:32:38 PM Object reference not set to an instance of an object.
+31-Jul-18 12:32:38 PM TotalStaffingSolutions Object reference not set to an instance of an object.
+31-Jul-18 12:36:48 PM Wrong number of columns.
+31-Jul-18 12:36:48 PM itextsharp Wrong number of columns.
+31-Jul-18 12:37:48 PM Wrong number of columns.
+31-Jul-18 12:37:48 PM itextsharp Wrong number of columns.
+31-Jul-18 1:09:22 PM Object reference not set to an instance of an object.
+31-Jul-18 1:09:22 PM EntityFramework Object reference not set to an instance of an object.
+31-Jul-18 1:19:52 PM Object reference not set to an instance of an object.
+31-Jul-18 1:19:52 PM TotalStaffingSolutions Object reference not set to an instance of an object.
+31-Jul-18 1:27:46 PM Object reference not set to an instance of an object.
+31-Jul-18 1:27:46 PM TotalStaffingSolutions Object reference not set to an instance of an object.
+31-Jul-18 1:36:23 PM Object reference not set to an instance of an object.
+31-Jul-18 1:36:23 PM TotalStaffingSolutions Object reference not set to an instance of an object.
+31-Jul-18 1:41:17 PM The underlying provider failed on Open.
+31-Jul-18 1:41:17 PM EntityFramework The underlying provider failed on Open.
