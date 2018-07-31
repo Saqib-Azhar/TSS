@@ -1558,12 +1558,12 @@ namespace TotalStaffingSolutions.Controllers
                 StringBuilder status = new StringBuilder("");
                 DateTime dTime = DateTime.Now;
                 //file name to be created   
-                string strPDFFileName = string.Format("SamplePdf" + dTime.ToString("yyyyMMdd") + "-" + ".pdf");
+                string strPDFFileName = string.Format("TSSTimeSheet" + dTime.ToString("yyyyMMdd") + "-" + ".pdf");
                 Document doc = new Document();
-                doc.SetMargins(0, 0, 0, 0);
+                doc.SetMargins(10, 10, 10, 10);
                 //Create PDF Table with 5 columns  
                 PdfPTable tableLayout = new PdfPTable(13);
-                doc.SetMargins(0, 0, 0, 0);
+                doc.SetMargins(10, 10, 10, 10);
                 //Create PDF Table  
 
                 //file will created in this path  
@@ -1604,7 +1604,7 @@ namespace TotalStaffingSolutions.Controllers
                 var db = new TSS_Sql_Entities();
                 var deserialized = Regex.Split(ids, ",");
 
-                float[] headers = { 10, 10, 5, 5, 7, 7, 7, 7, 7, 7, 7, 7, 10 }; //Header Widths  
+                float[] headers = { 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10 }; //Header Widths  
                 tableLayout.SetWidths(headers); //Set the pdf headers  
                 tableLayout.WidthPercentage = 100; //Set the PDF File witdh percentage  
                 tableLayout.HeaderRows = 1;
@@ -1634,8 +1634,18 @@ namespace TotalStaffingSolutions.Controllers
                 {
                     CustomerDetails = CustomerDetails + "\nWeek Ending:" +
                     TimesheetSummaries[0].Timesheet.End_date.ToString();
-
                 }
+                CustomerDetails = CustomerDetails + "\n\n";
+
+                tableLayout.AddCell(new PdfPCell(new Phrase("\n\n", new Font(Font.FontFamily.TIMES_ROMAN, 10, 1, iTextSharp.text.BaseColor.BLACK)))
+                {
+                    Colspan = 13,
+                    Border = 0,
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    Padding = 1,
+                    BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+
+                });
 
                 tableLayout.AddCell(new PdfPCell(new Phrase("Total Staffing Solutions", new Font(Font.FontFamily.TIMES_ROMAN, 16, 2, new iTextSharp.text.BaseColor(0, 0, 0))))
                 {
@@ -1650,6 +1660,18 @@ namespace TotalStaffingSolutions.Controllers
                     Border = 0,
                     PaddingBottom = 5,
                     HorizontalAlignment = Element.ALIGN_MIDDLE
+                });
+
+
+
+                tableLayout.AddCell(new PdfPCell(new Phrase("__________________________________________________________________________________________________________________\n\n", new Font(Font.FontFamily.TIMES_ROMAN, 10, 1, iTextSharp.text.BaseColor.BLACK)))
+                {
+                    Colspan = 13,
+                    Border = 0,
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    Padding = 1,
+                    BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+
                 });
 
 
@@ -1669,24 +1691,66 @@ namespace TotalStaffingSolutions.Controllers
                 AddCellToHeader(tableLayout, "Rate Performance");
 
                 ////Add body  
-
+                bool b = false;
                 foreach (var ts in TimesheetSummaries)
                 {
-                    AddCellToBody(tableLayout, ts.Employee.Last_name);
-                    AddCellToBody(tableLayout, ts.Employee.First_name);
-                    AddCellToBody(tableLayout, ts.Employee_id.ToString());
-                    AddCellToBody(tableLayout, ts.Rate);
-                    AddCellToBody(tableLayout, "7");
-                    AddCellToBody(tableLayout, "3");
-                    AddCellToBody(tableLayout, "2");
-                    AddCellToBody(tableLayout, "4");
-                    AddCellToBody(tableLayout, "6");
-                    AddCellToBody(tableLayout, "5");
-                    AddCellToBody(tableLayout, "7");
-                    AddCellToBody(tableLayout, ts.Total_hours.ToString());
-                    AddCellToBody(tableLayout, ts.Rating_by_client.ToString());
 
+
+                    AddCellToBody(tableLayout, ts.Employee.Last_name, b);
+                    AddCellToBody(tableLayout, ts.Employee.First_name, b);
+                    AddCellToBody(tableLayout, ts.Employee_id.ToString(), b);
+                    AddCellToBody(tableLayout, ts.Rate, b);
+                    AddCellToBody(tableLayout, "7", b);
+                    AddCellToBody(tableLayout, "3", b);
+                    AddCellToBody(tableLayout, "2", b);
+                    AddCellToBody(tableLayout, "4", b);
+                    AddCellToBody(tableLayout, "6", b);
+                    AddCellToBody(tableLayout, "5", b);
+                    AddCellToBody(tableLayout, "7", b);
+                    AddCellToBody(tableLayout, ts.Total_hours.ToString(), b);
+                    AddCellToBody(tableLayout, ts.Rating_by_client.ToString(), b);
+                    b = !b;
                 }
+
+                tableLayout.AddCell(new PdfPCell(new Phrase("Total Hours", new Font(Font.FontFamily.HELVETICA, 8, 1, iTextSharp.text.BaseColor.BLACK)))
+                {
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    Padding = 3,
+                    Colspan = 4,
+                    BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+            });
+
+                AddCellToBody(tableLayout, "7", false);
+                AddCellToBody(tableLayout, "3", false);
+                AddCellToBody(tableLayout, "2", false);
+                //AddCellToBody(tableLayout, "4", false);
+                AddCellToBody(tableLayout, "6", false);
+                AddCellToBody(tableLayout, "5", false);
+                AddCellToBody(tableLayout, "7", false);
+                AddCellToBody(tableLayout, "33", false);
+                AddCellToBody(tableLayout, "33", false);
+                //AddCellToBody(tableLayout, "33", b);
+                AddCellToBody(tableLayout, "", false);
+                //AddCellToFooter(tableLayout, "Rate Performance", tsid);
+
+                tableLayout.AddCell(new PdfPCell(new Phrase("No of People", new Font(Font.FontFamily.HELVETICA, 8, 1, iTextSharp.text.BaseColor.BLACK)))
+                {
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    Colspan = 4,
+                    Padding = 3,
+                    BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+            });
+
+                //AddCellToBody(tableLayout, "7", false);
+                AddCellToBody(tableLayout, "3", false);
+                AddCellToBody(tableLayout, "2", false);
+                AddCellToBody(tableLayout, "4", false);
+                AddCellToBody(tableLayout, "6", false);
+                AddCellToBody(tableLayout, "5", false);
+                AddCellToBody(tableLayout, "7", false);
+                AddCellToBody(tableLayout, "33", false);
+                AddCellToBody(tableLayout, "33", false);
+                AddCellToBody(tableLayout, "", false);
                 AddCellToFooter(tableLayout, "Rate Performance", tsid);
                 return tableLayout;
             }
@@ -1757,15 +1821,17 @@ namespace TotalStaffingSolutions.Controllers
         }
 
         // Method to add single cell to the body  
-        private static void AddCellToBody(PdfPTable tableLayout, string cellText)
+        private static void AddCellToBody(PdfPTable tableLayout, string cellText, bool color)
         {
             try
             {
+                var rowColor = (color) ? new iTextSharp.text.BaseColor(227, 232, 239) : new iTextSharp.text.BaseColor(255, 255, 255);
+
                 tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.HELVETICA, 8, 1, iTextSharp.text.BaseColor.BLACK)))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     Padding = 3,
-                    BackgroundColor = new iTextSharp.text.BaseColor(255, 255, 255)
+                    BackgroundColor = rowColor
                 });
             }
             catch (Exception ex)
