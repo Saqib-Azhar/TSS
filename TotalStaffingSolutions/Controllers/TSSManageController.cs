@@ -566,7 +566,7 @@ namespace TotalStaffingSolutions.Controllers
                     {
 
                         ExceptionHandlerController.infoMessage(ex.Message);
-                        ExceptionHandlerController.writeErrorLog(ex); ;
+                        ExceptionHandlerController.writeErrorLog(ex);
                     }
                     /////////////////////////////////////////////////////////////////////////////////////////
                     /////////////////////////////////////////////////////////////////////////////////////////
@@ -614,7 +614,7 @@ namespace TotalStaffingSolutions.Controllers
                     {
 
                         ExceptionHandlerController.infoMessage(ex.Message);
-                        ExceptionHandlerController.writeErrorLog(ex); ;
+                        ExceptionHandlerController.writeErrorLog(ex);
                     }
                 }
                 #endregion
