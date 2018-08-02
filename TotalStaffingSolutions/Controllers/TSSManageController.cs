@@ -1135,7 +1135,8 @@ namespace TotalStaffingSolutions.Controllers
                 timeSheetDetailsTuple.TimeSheetSummary = db.Timesheet_summaries.Where(s => s.Timesheet_id == id).ToList();
                 var timeSheetDetailsList = db.Timesheet_details.Where(x => x.Timesheet_id == id).ToList();
                 timeSheetDetailsTuple.TimeSheetDetails = timeSheetDetailsList;
-
+                timeSheetDetailsTuple.TimeSheetGeneralDetails.Signature = "";
+                timeSheetDetailsTuple.TimeSheetGeneralDetails.Note = "";
                 AddTimeSheetDetails(timeSheetDetailsTuple.TimeSheetGeneralDetails, timeSheetDetailsTuple.TimeSheetSummary, timeSheetDetailsTuple.TimeSheetDetails);
 
 

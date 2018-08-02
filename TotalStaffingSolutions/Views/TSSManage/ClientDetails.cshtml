@@ -347,7 +347,7 @@
                                     <tr>
                                         <td>
                                             <a href="/TSSManage/TimeSheetDetails/@item.Id">#@item.Id</a>
-                                            @if (item.Note != null)
+                                            @if (item.Note != null && item.Note != "")
                                             {
                                                 <b style="color:red">!</b>
                                             }

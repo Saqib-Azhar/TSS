@@ -101,7 +101,7 @@
                                     <th><input type="checkbox" name="selectItem" value="@item.Id"></th>
                                     <td><a href="/TSSManage/ClientDetails/@item.Customer_id">@item.Customer.Name</a></td>
                                     <td><a href="/TSSManage/TimeSheetDetails/@item.Id">#@item.Id</a>
-                                        @if (item.Note != null)
+                                        @if (item.Note != null && item.Note != "")
                                         {
                                             <b style="color:red" data-toggle="tooltip" title="With Note">!</b>
                                         }</td>
