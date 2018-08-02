@@ -403,7 +403,7 @@
         }
         if (!window.confirm("Are you sure you want to submit this timesheet?")) {
             return false;
-        }
+        }debugger;
         var timesheet = {
             Id: '@Model.TimeSheetGeneralDetails.Id',
             Customer_id:'@Model.TimeSheetGeneralDetails.Id',
@@ -423,7 +423,7 @@
             For_internal_employee:false
         }
 
-        var totalemp = @Model.TimeSheetGeneralDetails.Total_employees;
+        var totalemp = $("#totalNoOfEmployees").val();
         var timeSheet_summary = [];
         var timeSheet_DetailsList = [];
 

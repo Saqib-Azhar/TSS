@@ -805,7 +805,7 @@ namespace TotalStaffingSolutions.Controllers
                 //NewTimeSheet.Sent = timesheet.Sent;
                 NewTimeSheet.Signature = timesheet.Signature;
                 if (timeSheet_summary_NewEntries != null)
-                    NewTimeSheet.Total_employees = timeSheet_summary_NewEntries.Count + timeSheet_summary.Count;
+                    NewTimeSheet.Total_employees =  timeSheet_summary == null ? timeSheet_summary_NewEntries.Count : timeSheet_summary_NewEntries.Count + timeSheet_summary.Count;
                 else
                     NewTimeSheet.Total_employees = timeSheet_summary.Count;
                 //NewTimeSheet.Total_hours = timesheet.Total_hours;
@@ -822,40 +822,47 @@ namespace TotalStaffingSolutions.Controllers
 
                 //var timesheetObj = db.Timesheets.FirstOrDefault(s => s.Created_at == timesheet.Created_at && s.Customer_id == timesheet.Customer_id);
                 //var timesheetObj = db.Timesheets.OrderByDescending(s => s.Created_at).FirstOrDefault(s => s.Customer_id == timesheet.Customer_id);
-
-                foreach (var item in timeSheet_summary)
+                if(timeSheet_summary != null)
                 {
-                    //item.Created_at = DateTime.Now;
-                    var NewTimeSheetSummary = db.Timesheet_summaries.FirstOrDefault(s => s.Id == item.Id);
-                    //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
-                    NewTimeSheetSummary.Employee_id = item.Employee_id;
-                    NewTimeSheetSummary.Enitial = item.Enitial;
-                    //NewTimeSheetSummary.Timesheet_id = timesheetObj.Id;
-                    NewTimeSheetSummary.Rate = item.Rate;
-                    NewTimeSheetSummary.Total_hours = item.Total_hours;
-                    //NewTimeSheetSummary.Created_at = item.Created_at;
-                    NewTimeSheetSummary.Updated_at = DateTime.Now;
-                    NewTimeSheetSummary.Rating_by_client = item.Rating_by_client;
-                    //NewTimeSheetSummary.Updated_at = timeSheet_summary.Updated_at;
+                    foreach (var item in timeSheet_summary)
+                    {
+                        //item.Created_at = DateTime.Now;
+                        var NewTimeSheetSummary = db.Timesheet_summaries.FirstOrDefault(s => s.Id == item.Id);
+                        //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
+                        NewTimeSheetSummary.Employee_id = item.Employee_id;
+                        NewTimeSheetSummary.Enitial = item.Enitial;
+                        //NewTimeSheetSummary.Timesheet_id = timesheetObj.Id;
+                        NewTimeSheetSummary.Rate = item.Rate;
+                        NewTimeSheetSummary.Total_hours = item.Total_hours;
+                        //NewTimeSheetSummary.Created_at = item.Created_at;
+                        NewTimeSheetSummary.Updated_at = DateTime.Now;
+                        NewTimeSheetSummary.Rating_by_client = item.Rating_by_client;
+                        //NewTimeSheetSummary.Updated_at = timeSheet_summary.Updated_at;
 
-                    //db.Timesheet_summaries.Add(NewTimeSheetSummary);
-                    db.SaveChanges();
+                        //db.Timesheet_summaries.Add(NewTimeSheetSummary);
+                        db.SaveChanges();
+                    }
+
                 }
 
-                foreach (var item in timeSheet_DetailsList)
+                if(timeSheet_DetailsList != null)
                 {
-                    //item.Created_at = DateTime.Now;
+                    foreach (var item in timeSheet_DetailsList)
+                    {
+                        //item.Created_at = DateTime.Now;
 
-                    var NewTimeSheetDetailsObj = db.Timesheet_details.FirstOrDefault(s => s.Id == item.Id);
-                    //NewTimeSheetDetailsObj.Created_at = item.Created_at;
-                    NewTimeSheetDetailsObj.Updated_at = item.Created_at;
-                    //NewTimeSheetDetailsObj.Day = item.Day;
-                    NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
-                    NewTimeSheetDetailsObj.Hours = item.Hours;
-                    //NewTimeSheetDetailsObj.Timesheet_id = timesheetObj.Id;
-                    //db.Timesheet_details.Add(NewTimeSheetDetailsObj);
-                    db.SaveChanges();
+                        var NewTimeSheetDetailsObj = db.Timesheet_details.FirstOrDefault(s => s.Id == item.Id);
+                        //NewTimeSheetDetailsObj.Created_at = item.Created_at;
+                        NewTimeSheetDetailsObj.Updated_at = item.Created_at;
+                        //NewTimeSheetDetailsObj.Day = item.Day;
+                        NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
+                        NewTimeSheetDetailsObj.Hours = item.Hours;
+                        //NewTimeSheetDetailsObj.Timesheet_id = timesheetObj.Id;
+                        //db.Timesheet_details.Add(NewTimeSheetDetailsObj);
+                        db.SaveChanges();
+                    }
                 }
+               
 
                 if (timeSheet_summary_NewEntries != null)
                 {
@@ -1555,35 +1562,44 @@ namespace TotalStaffingSolutions.Controllers
         {
             try
             {
+
+                var deserialized = Regex.Split(ids, ",");
+                var grid = new GridView();
+                var db = new TSS_Sql_Entities();
                 MemoryStream workStream = new MemoryStream();
                 StringBuilder status = new StringBuilder("");
                 DateTime dTime = DateTime.Now;
                 //file name to be created   
                 string strPDFFileName = string.Format("TSSTimeSheet" + dTime.ToString("yyyyMMdd") + "-" + ".pdf");
-                Document doc = new Document();
-                doc.SetMargins(10, 10, 10, 10);
-                //Create PDF Table with 5 columns  
-                PdfPTable tableLayout = new PdfPTable(13);
-                doc.SetMargins(10, 10, 10, 10);
-                //Create PDF Table  
+                foreach (var item in deserialized)
+                {
+                    if (item == "")
+                        continue;
+                    
+                    Document doc = new Document();
+                    doc.SetMargins(10, 10, 10, 10);
+                    //Create PDF Table with 5 columns  
+                    PdfPTable tableLayout = new PdfPTable(13);
+                    doc.SetMargins(10, 10, 10, 10);
+                    //Create PDF Table  
 
-                //file will created in this path  
-                string strAttachment = Server.MapPath("~/Downloadss/" + strPDFFileName);
+                    //file will created in this path  
+                    string strAttachment = Server.MapPath("~/Downloadss/" + strPDFFileName);
 
 
-                PdfWriter.GetInstance(doc, workStream).CloseStream = false;
-                doc.Open();
+                    PdfWriter.GetInstance(doc, workStream).CloseStream = false;
+                    doc.Open();
 
-                //Add Content to PDF   
-                doc.Add(Add_Content_To_PDF(tableLayout, ids));
+                    //Add Content to PDF   
+                    doc.Add(Add_Content_To_PDF(tableLayout, item));
 
-                // Closing the document  
-                doc.Close();
+                    // Closing the document  
+                    doc.Close();
 
-                byte[] byteInfo = workStream.ToArray();
-                workStream.Write(byteInfo, 0, byteInfo.Length);
-                workStream.Position = 0;
-
+                    byte[] byteInfo = workStream.ToArray();
+                    workStream.Write(byteInfo, 0, byteInfo.Length);
+                    workStream.Position = 0;
+                }
 
                 return File(workStream, "application/pdf", strPDFFileName);
 
@@ -1598,19 +1614,18 @@ namespace TotalStaffingSolutions.Controllers
                 return File("application/pdf", "a");
             }
         }
-        protected PdfPTable Add_Content_To_PDF(PdfPTable tableLayout, string ids)
+        protected PdfPTable Add_Content_To_PDF(PdfPTable tableLayout, string deserialized)
         {
             try
             {
                 var db = new TSS_Sql_Entities();
-                var deserialized = Regex.Split(ids, ",");
 
                 float[] headers = { 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10 }; //Header Widths  
                 tableLayout.SetWidths(headers); //Set the pdf headers  
                 tableLayout.WidthPercentage = 100; //Set the PDF File witdh percentage  
                 tableLayout.HeaderRows = 1;
                 //Add Title to the PDF file at the top  
-                int tsid = Convert.ToInt32(deserialized[1]);
+                int tsid = Convert.ToInt32(deserialized);
                 var TimesheetSummaries = db.Timesheet_summaries.Where(t => t.Timesheet_id == tsid).ToList();
                 string CustomerDetails = TimesheetSummaries[0].Timesheet.Customer.Name + "-" + TimesheetSummaries[0].Timesheet.Customer.Id;
                 if (TimesheetSummaries[0].Timesheet.Customer.Address1 != "")
