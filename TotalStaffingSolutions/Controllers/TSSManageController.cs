@@ -805,7 +805,7 @@ namespace TotalStaffingSolutions.Controllers
                 //NewTimeSheet.Sent = timesheet.Sent;
                 NewTimeSheet.Signature = timesheet.Signature;
                 if (timeSheet_summary_NewEntries != null)
-                    NewTimeSheet.Total_employees = timeSheet_summary_NewEntries.Count + timeSheet_summary.Count;
+                    NewTimeSheet.Total_employees =  timeSheet_summary == null ? timeSheet_summary_NewEntries.Count : timeSheet_summary_NewEntries.Count + timeSheet_summary.Count;
                 else
                     NewTimeSheet.Total_employees = timeSheet_summary.Count;
                 //NewTimeSheet.Total_hours = timesheet.Total_hours;
@@ -822,40 +822,47 @@ namespace TotalStaffingSolutions.Controllers
 
                 //var timesheetObj = db.Timesheets.FirstOrDefault(s => s.Created_at == timesheet.Created_at && s.Customer_id == timesheet.Customer_id);
                 //var timesheetObj = db.Timesheets.OrderByDescending(s => s.Created_at).FirstOrDefault(s => s.Customer_id == timesheet.Customer_id);
-
-                foreach (var item in timeSheet_summary)
+                if(timeSheet_summary != null)
                 {
-                    //item.Created_at = DateTime.Now;
-                    var NewTimeSheetSummary = db.Timesheet_summaries.FirstOrDefault(s => s.Id == item.Id);
-                    //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
-                    NewTimeSheetSummary.Employee_id = item.Employee_id;
-                    NewTimeSheetSummary.Enitial = item.Enitial;
-                    //NewTimeSheetSummary.Timesheet_id = timesheetObj.Id;
-                    NewTimeSheetSummary.Rate = item.Rate;
-                    NewTimeSheetSummary.Total_hours = item.Total_hours;
-                    //NewTimeSheetSummary.Created_at = item.Created_at;
-                    NewTimeSheetSummary.Updated_at = DateTime.Now;
-                    NewTimeSheetSummary.Rating_by_client = item.Rating_by_client;
-                    //NewTimeSheetSummary.Updated_at = timeSheet_summary.Updated_at;
+                    foreach (var item in timeSheet_summary)
+                    {
+                        //item.Created_at = DateTime.Now;
+                        var NewTimeSheetSummary = db.Timesheet_summaries.FirstOrDefault(s => s.Id == item.Id);
+                        //NewTimeSheetSummary.Created_at = timeSheet_summary.Created_at;
+                        NewTimeSheetSummary.Employee_id = item.Employee_id;
+                        NewTimeSheetSummary.Enitial = item.Enitial;
+                        //NewTimeSheetSummary.Timesheet_id = timesheetObj.Id;
+                        NewTimeSheetSummary.Rate = item.Rate;
+                        NewTimeSheetSummary.Total_hours = item.Total_hours;
+                        //NewTimeSheetSummary.Created_at = item.Created_at;
+                        NewTimeSheetSummary.Updated_at = DateTime.Now;
+                        NewTimeSheetSummary.Rating_by_client = item.Rating_by_client;
+                        //NewTimeSheetSummary.Updated_at = timeSheet_summary.Updated_at;
 
-                    //db.Timesheet_summaries.Add(NewTimeSheetSummary);
-                    db.SaveChanges();
+                        //db.Timesheet_summaries.Add(NewTimeSheetSummary);
+                        db.SaveChanges();
+                    }
+
                 }
 
-                foreach (var item in timeSheet_DetailsList)
+                if(timeSheet_DetailsList != null)
                 {
-                    //item.Created_at = DateTime.Now;
+                    foreach (var item in timeSheet_DetailsList)
+                    {
+                        //item.Created_at = DateTime.Now;
 
-                    var NewTimeSheetDetailsObj = db.Timesheet_details.FirstOrDefault(s => s.Id == item.Id);
-                    //NewTimeSheetDetailsObj.Created_at = item.Created_at;
-                    NewTimeSheetDetailsObj.Updated_at = item.Created_at;
-                    //NewTimeSheetDetailsObj.Day = item.Day;
-                    NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
-                    NewTimeSheetDetailsObj.Hours = item.Hours;
-                    //NewTimeSheetDetailsObj.Timesheet_id = timesheetObj.Id;
-                    //db.Timesheet_details.Add(NewTimeSheetDetailsObj);
-                    db.SaveChanges();
+                        var NewTimeSheetDetailsObj = db.Timesheet_details.FirstOrDefault(s => s.Id == item.Id);
+                        //NewTimeSheetDetailsObj.Created_at = item.Created_at;
+                        NewTimeSheetDetailsObj.Updated_at = item.Created_at;
+                        //NewTimeSheetDetailsObj.Day = item.Day;
+                        NewTimeSheetDetailsObj.Employee_id = item.Employee_id;
+                        NewTimeSheetDetailsObj.Hours = item.Hours;
+                        //NewTimeSheetDetailsObj.Timesheet_id = timesheetObj.Id;
+                        //db.Timesheet_details.Add(NewTimeSheetDetailsObj);
+                        db.SaveChanges();
+                    }
                 }
+               
 
                 if (timeSheet_summary_NewEntries != null)
                 {

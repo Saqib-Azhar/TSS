@@ -272,4 +272,3 @@ C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\obj\Debug\TotalStaffing
 C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.pdb
 C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\bin\itextsharp.dll
 C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\bin\itextsharp.xml
-C:\Users\sazhar\Desktop\TSSGitHub\TotalStaffingSolutions\obj\Debug\TotalStaffingSolutions.csprojResolveAssemblyReference.cache
