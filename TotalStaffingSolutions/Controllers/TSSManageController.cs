@@ -529,6 +529,7 @@ namespace TotalStaffingSolutions.Controllers
                 {
                     var AdminId = NewTimeSheet.Created_By;
                     var admin = db.AspNetUsers.FirstOrDefault(s => s.Id == AdminId);
+                    var user = db.AspNetUsers.Find(User.Identity.GetUserId());
                     try
                     {
                         var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
@@ -574,10 +575,10 @@ namespace TotalStaffingSolutions.Controllers
                     try
                     {
                         var fromAddress = new MailAddress(SenderEmailId, "Total Staffing Solution");
-                        var toAddress = new MailAddress("sazhar@viretechnologies.com", admin.Email);
+                        var toAddress = new MailAddress("sazhar@viretechnologies.com", user.Email);
                         string fromPassword = SenderEmailPassword;
                         string subject = "Total Staffing Solution: Timesheet Update";
-                        string body = "<b>Hello " + admin.UserName + "!</b><br />Client has submitted the timesheet<br /> <a href='" + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + timesheet.Id +
+                        string body = "<b>Hello " + user.UserName + "!</b><br />Following timesheet has been submitted<br /> <a href='" + TSSLiveSiteURL + "/TSSManage/TimeSheetDetails/" + timesheet.Id +
                             "'>Timesheet Link</a><br />Week Ending Date: " +timesheet.End_date
                             + "<br />Total Employees:" +timesheet.Total_employees
                             + "<br />Total Hours:" + timesheet.Total_hours

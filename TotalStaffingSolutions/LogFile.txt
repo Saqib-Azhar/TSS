@@ -8,3 +8,5 @@
 02-Aug-18 2:15:21 PM mscorlib Non-static field requires a target.
 02-Aug-18 4:09:40 PM Object reference not set to an instance of an object.
 02-Aug-18 4:09:40 PM TotalStaffingSolutions Object reference not set to an instance of an object.
+07-Aug-18 11:07:25 AM Object reference not set to an instance of an object.
+07-Aug-18 11:07:26 AM TotalStaffingSolutions Object reference not set to an instance of an object.
